@@ -8,6 +8,14 @@ import { listPositions, listCredentials, type CareerRecord } from "@/lib/entries
 import { skills } from "@/lib/skills";
 import { organisations } from "@/lib/contact";
 import { SiteHeader } from "@/components/site-header";
+import { JsonLd } from "@/components/json-ld";
+import { languageAlternates } from "@/lib/site";
+import {
+  breadcrumbSchema,
+  collectionSchema,
+  graph,
+  personSchema,
+} from "@/lib/schema";
 
 export const revalidate = 3600;
 
@@ -22,9 +30,7 @@ export async function generateMetadata(
     description: t("metaDescription"),
     alternates: {
       canonical: `/${locale}/about`,
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `/${l}/about`]),
-      ),
+      languages: languageAlternates("/about"),
     },
   };
 }
@@ -70,6 +76,20 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
 
   return (
     <main className="px-(--spacing-gutter) py-(--spacing-gutter)">
+      {/* The career page repeats the person in full. It is the page most
+          likely to be the one a search engine lands on for the name, and the
+          only one whose content is the biography itself. */}
+      <JsonLd
+        data={graph([
+          personSchema(locale),
+          collectionSchema(locale, "/about", t("title"), t("metaDescription")),
+          breadcrumbSchema(locale, [
+            { name: site("name"), path: "" },
+            { name: t("title"), path: "/about" },
+          ]),
+        ])}
+      />
+
       <SiteHeader locale={locale} />
 
       <section className="pt-(--spacing-section) pb-16">

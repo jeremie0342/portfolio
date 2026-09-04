@@ -52,6 +52,33 @@ The site is served at `http://localhost:3000/en` and
 | `npm run db:migrate` | Create and apply a migration |
 | `npm run db:studio` | Browse the database |
 
+## Search
+
+`NEXT_PUBLIC_SITE_URL` **must be set at build time in production**. Canonical
+URLs, language alternates, the sitemap and the share images are all absolute,
+and without it every one of them points at `http://localhost:3000`. It is the
+single setting that can silently ruin the indexing of the whole site.
+
+What is in place:
+
+- Every page prerendered as static HTML, in both languages.
+- Canonical URLs and reciprocal `hreflang` alternates including `x-default`.
+- `sitemap.xml` generated from the database, with per-URL language alternates
+  and a `lastModified` taken from the entry itself.
+- `robots.txt` pointing at the sitemap.
+- JSON-LD on every page: `Person`, `WebSite`, `ProfilePage`, `CollectionPage`,
+  `SoftwareSourceCode` or `CreativeWork` per entry, and `BreadcrumbList`. The
+  nodes cross-reference each other by id, so one graph per page resolves in a
+  single pass.
+- Share images rendered at build time in the site's own typefaces, generic per
+  language and specific per archive entry.
+
+The `Person` node is the part that matters most. The same person is searched
+for as Jérémie, Zardonis, ZITTI and Flemart, and nothing tells a search engine
+those are one person unless `alternateName` says so. `sameAs` then anchors the
+claim to profiles the engine already knows, which is what turns a page about a
+name into a page about a person.
+
 ## Content model
 
 Everything that changes over time lives in the database, never in the code.

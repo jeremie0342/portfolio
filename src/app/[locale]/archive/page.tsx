@@ -5,6 +5,9 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { listArchive } from "@/lib/entries";
 import { SiteHeader } from "@/components/site-header";
+import { JsonLd } from "@/components/json-ld";
+import { languageAlternates } from "@/lib/site";
+import { breadcrumbSchema, collectionSchema, graph } from "@/lib/schema";
 import { EntryRow } from "@/components/entry-row";
 
 export const revalidate = 3600;
@@ -20,9 +23,7 @@ export async function generateMetadata(
     description: t("metaDescription"),
     alternates: {
       canonical: `/${locale}/archive`,
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `/${l}/archive`]),
-      ),
+      languages: languageAlternates("/archive"),
     },
   };
 }
@@ -52,6 +53,16 @@ export default async function Archive({
 
   return (
     <main className="px-(--spacing-gutter) py-(--spacing-gutter)">
+      <JsonLd
+        data={graph([
+          collectionSchema(locale, "/archive", t("title"), t("metaDescription")),
+          breadcrumbSchema(locale, [
+            { name: site("name"), path: "" },
+            { name: t("title"), path: "/archive" },
+          ]),
+        ])}
+      />
+
       <SiteHeader locale={locale} />
 
       <section className="pt-(--spacing-section) pb-16">

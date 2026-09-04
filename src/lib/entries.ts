@@ -244,6 +244,19 @@ export const listCredentials = cache(
   },
 );
 
+/** Slugs with the dates and weighting a sitemap needs. */
+export const listSitemapEntries = cache(
+  async (): Promise<
+    { slug: string; updatedAt: Date; featured: boolean }[]
+  > => {
+    return db.entry.findMany({
+      where: { ...published, kind: archiveKinds },
+      select: { slug: true, updatedAt: true, featured: true },
+      orderBy: { number: "asc" },
+    });
+  },
+);
+
 export const archiveSize = cache(async (): Promise<number> => {
   return db.entry.count({ where: { ...published, kind: archiveKinds } });
 });

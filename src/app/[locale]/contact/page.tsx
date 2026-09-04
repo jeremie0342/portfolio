@@ -5,6 +5,9 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { contact, profiles, organisations } from "@/lib/contact";
 import { SiteHeader } from "@/components/site-header";
+import { JsonLd } from "@/components/json-ld";
+import { languageAlternates } from "@/lib/site";
+import { breadcrumbSchema, graph, personSchema } from "@/lib/schema";
 
 export const revalidate = 3600;
 
@@ -19,9 +22,7 @@ export async function generateMetadata(
     description: t("metaDescription"),
     alternates: {
       canonical: `/${locale}/contact`,
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `/${l}/contact`]),
-      ),
+      languages: languageAlternates("/contact"),
     },
   };
 }
@@ -70,6 +71,16 @@ export default async function Contact({
 
   return (
     <main className="px-(--spacing-gutter) py-(--spacing-gutter)">
+      <JsonLd
+        data={graph([
+          personSchema(locale),
+          breadcrumbSchema(locale, [
+            { name: site("name"), path: "" },
+            { name: t("title"), path: "/contact" },
+          ]),
+        ])}
+      />
+
       <SiteHeader locale={locale} />
 
       <section className="pt-(--spacing-section) pb-16">

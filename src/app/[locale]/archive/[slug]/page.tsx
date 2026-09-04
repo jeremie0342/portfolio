@@ -7,6 +7,9 @@ import { routing } from "@/i18n/routing";
 import { getEntry, listSlugs, type ArchiveEntry } from "@/lib/entries";
 import { displayWorn } from "@/lib/fonts";
 import { SiteHeader } from "@/components/site-header";
+import { JsonLd } from "@/components/json-ld";
+import { languageAlternates } from "@/lib/site";
+import { breadcrumbSchema, entrySchema, graph } from "@/lib/schema";
 
 export const revalidate = 3600;
 
@@ -38,9 +41,16 @@ export async function generateMetadata(
     description: entry.summary ?? undefined,
     alternates: {
       canonical: `/${locale}/archive/${slug}`,
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `/${l}/archive/${slug}`]),
-      ),
+      languages: languageAlternates(`/archive/${slug}`),
+    },
+    openGraph: {
+      type: "article",
+      url: `/${locale}/archive/${slug}`,
+      title: entry.title,
+      description: entry.summary ?? undefined,
+      publishedTime: entry.startedOn?.toISOString(),
+      modifiedTime: entry.endedOn?.toISOString(),
+      tags: entry.stack,
     },
   };
 }
@@ -113,6 +123,20 @@ export default async function EntryPage({
 
   return (
     <main className="px-(--spacing-gutter) py-(--spacing-gutter)">
+      {/* The entry itself, attributed to the person declared on the front
+          page by id rather than repeated here, plus the trail that led to
+          it. */}
+      <JsonLd
+        data={graph([
+          entrySchema(locale, entry),
+          breadcrumbSchema(locale, [
+            { name: site("name"), path: "" },
+            { name: archive("title"), path: "/archive" },
+            { name: entry.title, path: `/archive/${entry.slug}` },
+          ]),
+        ])}
+      />
+
       <SiteHeader locale={locale} />
 
       <section className={`${worn ? displayWorn.variable : ""} ${openingShell}`}>

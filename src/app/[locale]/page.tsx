@@ -8,6 +8,13 @@ import { contributions } from "@/lib/evidence";
 import { readActivity } from "@/lib/github";
 import { SiteHeader } from "@/components/site-header";
 import { EntryRow } from "@/components/entry-row";
+import { JsonLd } from "@/components/json-ld";
+import {
+  graph,
+  personSchema,
+  profilePageSchema,
+  websiteSchema,
+} from "@/lib/schema";
 import { Stamp } from "@/components/stamp";
 import { Marker } from "@/components/marker";
 import { WordCycle } from "@/components/word-cycle";
@@ -49,6 +56,16 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
   return (
     <main className="px-(--spacing-gutter) py-(--spacing-gutter)">
+      {/* The front page carries the person and the site itself. Every other
+          page references these two nodes by id rather than restating them. */}
+      <JsonLd
+        data={graph([
+          personSchema(locale),
+          websiteSchema(locale),
+          profilePageSchema(locale, t("metaTitle")),
+        ])}
+      />
+
       <SiteHeader locale={locale} />
 
       <section className="pt-(--spacing-hero) pb-(--spacing-section)">

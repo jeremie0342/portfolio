@@ -7,7 +7,7 @@ import { fontVariables } from "@/lib/fonts";
 import { wearVariables } from "@/lib/wear-fonts";
 import { archiveSize } from "@/lib/entries";
 import { Loader } from "@/components/loader";
-import { siteName, siteUrl } from "@/lib/site";
+import { languageAlternates, siteName, siteUrl } from "@/lib/site";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -20,27 +20,57 @@ export async function generateMetadata(
   const { locale } = await props.params;
   const t = await getTranslations({ locale, namespace: "home" });
 
+  const person = "Zardonis Jérémie ZITTI";
+
   return {
     metadataBase: new URL(siteUrl),
     title: { default: t("metaTitle"), template: `%s, ${siteName}` },
     description: t("metaDescription"),
+    applicationName: siteName,
+    authors: [{ name: person, url: siteUrl }],
+    creator: person,
+    publisher: person,
     /*
-     * Alternates are declared at the root so every page inherits the full
-     * set of languages without having to restate it.
+     * Alternates are declared at the root so every page inherits the full set
+     * of languages without having to restate it.
      */
     alternates: {
       canonical: `/${locale}`,
-      languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}`])),
+      languages: languageAlternates(""),
     },
     openGraph: {
-      type: "website",
+      type: "profile",
       siteName,
-      locale,
+      locale: locale === "fr" ? "fr_FR" : "en_US",
+      alternateLocale: locale === "fr" ? "en_US" : "fr_FR",
       url: `${siteUrl}/${locale}`,
       title: t("metaTitle"),
       description: t("metaDescription"),
+      firstName: "Jérémie",
+      lastName: "ZITTI",
+      username: "jeremie0342",
     },
-    robots: { index: true, follow: true },
+    twitter: {
+      card: "summary_large_image",
+      title: t("metaTitle"),
+      description: t("metaDescription"),
+      creator: "@jeremy0342",
+    },
+    /* Spelled out rather than left to the default. The default is already
+       index and follow, but the large preview and the unlimited snippet are
+       not, and a page whose value is its text should let a search engine quote
+       as much of it as it wants. */
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
   };
 }
 

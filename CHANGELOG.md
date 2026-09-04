@@ -37,6 +37,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   and an entry page that carries the pieces it contains.
 - Language switch that keeps the reader on the same entry rather than
   returning them to the front page.
+- Search work: a database driven sitemap with per-URL language alternates, a
+  robots file, reciprocal hreflang including x-default, and JSON-LD on every
+  page tying four spellings of one name to the profiles that corroborate it.
+- Share images rendered at build time in the site's own typefaces, generic per
+  language and specific per archive entry.
 - Display sizes and section rhythm answer to viewport height as well as width,
   through min(). A short laptop screen shrinks the type instead of pushing the
   layout below the fold, so the wide arrangement holds down to the point where
