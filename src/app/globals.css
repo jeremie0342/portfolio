@@ -480,11 +480,22 @@
     display: inline-flex;
   }
 
+  /* overflow rather than clip-path, and the difference is not cosmetic.
+     clip-path hides the pixels but leaves the strip in the document's
+     scrollable area: eleven cycles of digits at display size is some eight
+     thousand pixels of invisible band hanging below the block, which the page
+     dutifully made room to scroll through. `clip` removes it from the
+     scrollable overflow without creating a scroll container.
+
+     The baseline shift that `overflow` causes on an inline element does not
+     matter here: the slot is a flex item, and the odometer is the only content
+     of its cell. The word reel in the headline sits inside a sentence and
+     keeps clip-path for exactly that reason. */
   .odometer-slot {
     display: block;
     width: var(--digit-width);
     height: var(--digit-height);
-    clip-path: inset(0);
+    overflow: clip;
   }
 
   .odometer-strip {
