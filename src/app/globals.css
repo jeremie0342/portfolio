@@ -457,6 +457,24 @@
   }
 
   /* ----------------------------------------------------------
+     The portrait
+     ----------------------------------------------------------
+     Held as an archive plate rather than as a profile picture:
+     monochrome by default, its colour returning under the
+     pointer. The subject would rather not be carried by a face,
+     and this is the reading of that: present, restrained, and
+     available to anyone who looks twice.
+     ---------------------------------------------------------- */
+  .portrait {
+    filter: grayscale(1) contrast(1.06);
+    transition: filter 600ms ease-out;
+  }
+
+  .portrait:hover {
+    filter: none;
+  }
+
+  /* ----------------------------------------------------------
      The odometer
      ----------------------------------------------------------
      A figure whose digits arrive on reels.

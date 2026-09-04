@@ -1,3 +1,4 @@
+import portrait from "@/images/portrait.jpg";
 import { contact, profiles } from "./contact";
 import { siteUrl } from "./site";
 import type { Locale } from "@/i18n/routing";
@@ -47,6 +48,10 @@ export function personSchema(locale: Locale) {
         ? "Ingénieur produit et développeur full-stack basé à Cotonou, au Bénin. Architecture, backend, front, infrastructure et direction produit."
         : "Product engineer and full-stack developer based in Cotonou, Benin. Architecture, backend, frontend, infrastructure and product direction.",
     url: `${siteUrl}/${locale}`,
+    /* The build hashed path, made absolute. A search engine resolving a person
+       wants a picture of them, and pointing at the one the page actually shows
+       keeps the two from disagreeing. */
+    image: `${siteUrl}${portrait.src}`,
     email: `mailto:${contact.email}`,
     telephone: contact.phone,
     address: {

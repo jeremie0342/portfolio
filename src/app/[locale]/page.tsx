@@ -5,7 +5,9 @@ import {
 } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import portrait from "@/images/portrait.jpg";
 import { routing } from "@/i18n/routing";
 import { listSelected, listPositions, listCredentials } from "@/lib/entries";
 import { readActivity, readYearTotals } from "@/lib/github";
@@ -295,60 +297,77 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
             </Link>
           </div>
 
-          {/* Read from the archive rather than restated, so these cannot
-              disagree with the career page. */}
-          <dl className="shrink-0 lg:w-72">
-            {current.length > 0 ? (
-              <div className="border-t border-rule py-5">
-                <dt className="t-meta text-accent">{t("who.facts.now")}</dt>
-                {current.map((position) => (
-                  <dd key={position.slug} className="t-register mt-2">
-                    {position.title}
-                    <span className="text-content-muted">
-                      {" / "}
-                      {position.organization}
-                    </span>
-                  </dd>
-                ))}
-              </div>
-            ) : null}
+          <div className="shrink-0 lg:w-72">
+            {/* Placed with the facts rather than beside the headline. A face
+                at the top of a page is an argument from presence; here it is
+                one record among the others. */}
+            <Image
+              src={portrait}
+              alt={t("who.portrait")}
+              sizes="(min-width: 1024px) 18rem, 100vw"
+              placeholder="blur"
+              className="portrait mb-10 aspect-4/5 w-full object-cover object-top"
+            />
 
-            <div className="border-t border-rule py-5">
-              <dt className="t-meta text-accent">{t("who.facts.building")}</dt>
-              <dd className="t-register mt-2">Skilluv</dd>
-            </div>
+            {/* Read from the archive rather than restated, so these cannot
+                disagree with the career page. */}
+            <dl>
+              {current.length > 0 ? (
+                <div className="border-t border-rule py-5">
+                  <dt className="t-meta text-accent">{t("who.facts.now")}</dt>
+                  {current.map((position) => (
+                    <dd key={position.slug} className="t-register mt-2">
+                      {position.title}
+                      <span className="text-content-muted">
+                        {" / "}
+                        {position.organization}
+                      </span>
+                    </dd>
+                  ))}
+                </div>
+              ) : null}
 
-            <div className="border-t border-rule py-5">
-              <dt className="t-meta text-accent">
-                {t("who.facts.availability")}
-              </dt>
-              <dd className="t-register mt-2">
-                {t("who.facts.availabilityValue")}
-              </dd>
-            </div>
-
-            <div className="border-t border-rule py-5">
-              <dt className="t-meta text-accent">{t("who.facts.languages")}</dt>
-              <dd className="t-register mt-2">
-                {t("who.facts.languagesValue")}
-              </dd>
-            </div>
-
-            {latestDegree ? (
               <div className="border-t border-rule py-5">
                 <dt className="t-meta text-accent">
-                  {t("who.facts.education")}
+                  {t("who.facts.building")}
+                </dt>
+                <dd className="t-register mt-2">Skilluv</dd>
+              </div>
+
+              <div className="border-t border-rule py-5">
+                <dt className="t-meta text-accent">
+                  {t("who.facts.availability")}
                 </dt>
                 <dd className="t-register mt-2">
-                  {latestDegree.title}
-                  <span className="text-content-muted">
-                    {" / "}
-                    {latestDegree.endedOn?.getUTCFullYear()}
-                  </span>
+                  {t("who.facts.availabilityValue")}
                 </dd>
               </div>
-            ) : null}
-          </dl>
+
+              <div className="border-t border-rule py-5">
+                <dt className="t-meta text-accent">
+                  {t("who.facts.languages")}
+                </dt>
+                <dd className="t-register mt-2">
+                  {t("who.facts.languagesValue")}
+                </dd>
+              </div>
+
+              {latestDegree ? (
+                <div className="border-t border-rule py-5">
+                  <dt className="t-meta text-accent">
+                    {t("who.facts.education")}
+                  </dt>
+                  <dd className="t-register mt-2">
+                    {latestDegree.title}
+                    <span className="text-content-muted">
+                      {" / "}
+                      {latestDegree.endedOn?.getUTCFullYear()}
+                    </span>
+                  </dd>
+                </div>
+              ) : null}
+            </dl>
+          </div>
         </div>
       </section>
 

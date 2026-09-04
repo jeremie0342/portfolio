@@ -82,7 +82,7 @@
     "who": {
       "label": "Who",
       "lead": "I design and build production systems, from the architecture through to running them.",
-      "body": "What I do rarely fits one box. Within the same year: a multi-tenant ERP running the operations of several companies, a civic platform delivered inside a window that would not move, a mobile application built to work without a network, and a learning platform I carry on my own.\n\nI work on both sides at once. The same day can go from an event bus to a typographic scale, and I do not consider those two jobs. A visual hierarchy and a data model describe the same product in two different places. When they are decided separately, it shows.\n\nWhat interests me starts where a product decision and a technical decision turn out to be the same decision: the moment you have to weigh what will be right for the user against what will still hold in three years, with neither side available to hand to somebody else.",
+      "body": "What draws me is design and solving complex problems: the point where a system has too many pieces to hold in one head, and someone has to find the division that makes it readable again.\n\nSo what I do rarely fits one box. Within the same year: a multi-tenant ERP running the operations of several companies, a civic platform delivered inside a window that would not move, a mobile application built to work without a network, and a learning platform I carry on my own.\n\nI work on both sides at once. The same day can go from an event bus to a typographic scale, and I do not consider those two jobs. A visual hierarchy and a data model describe the same product in two different places. When they are decided separately, it shows.\n\nI am looking for a position, and I stay open to collaborations and to contract work. What I turn down: a product nobody will be able to say worked or not, work with no access to the people using it, and a scope that widens while the date stays where it was.\n\nOutside of it I write, I read a great deal, I play the piano and I train. I build worlds and I play chess, which accounts for two of the entries in this archive.",
       "facts": {
         "now": "Today",
         "building": "Building",
@@ -92,7 +92,8 @@
         "languagesValue": "French, English",
         "education": "Education"
       },
-      "more": "Read the full career"
+      "more": "Read the full career",
+      "portrait": "Portrait of Zardonis Jeremie ZITTI"
     }
   },
   "archive": {

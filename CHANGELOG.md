@@ -79,6 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   meta type, tilted, in gold. Gold rather than crimson because a control's
   boundary needs 3:1 to be perceivable and crimson measures 2.8:1 against the
   dark ground.
+- A section of its own for the person, with a portrait held as an archive
+  plate: monochrome by default, its colour returning under the pointer.
 - A career page and a contact page, both linked from a summary on the front.
 - Positions, organisations and credentials seeded from the curriculum vitae,
   and the professional work itself added to the archive: a multi-tenant SaaS
