@@ -56,33 +56,39 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
           {t("statement")}
         </h1>
 
-        <div className="measure mt-12">
-          {t("intro")
-            .split("\n\n")
-            .map((paragraph) => (
-              <p key={paragraph.slice(0, 40)} className="text-body-l mt-5">
-                {paragraph}
-              </p>
-            ))}
-        </div>
+        {/* The marks sit in the margin beside the text, where a stamp lands on
+            a document, rather than underneath it where a button would. Below
+            the large breakpoint they fall back under the paragraph, since a
+            stamp squeezed into a phone column stops reading as a stamp. */}
+        <div className="mt-12 flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
+          <div className="measure">
+            {t("intro")
+              .split("\n\n")
+              .map((paragraph) => (
+                <p key={paragraph.slice(0, 40)} className="text-body-l mt-5">
+                  {paragraph}
+                </p>
+              ))}
+          </div>
 
-        {/* The two marks lean opposite ways by different amounts, so they read
-            as two impressions made by hand at different moments rather than as
-            a pair of buttons that happen to be rotated. */}
-        <div className="mt-14 flex flex-wrap items-start gap-x-10 gap-y-8">
-          <Stamp
-            href="/contact"
-            label={t("stamps.contact.label")}
-            note={t("stamps.contact.note")}
-            angle="-2.5deg"
-            solid
-          />
-          <Stamp
-            href="/about"
-            label={t("stamps.about.label")}
-            note={t("stamps.about.note")}
-            angle="1.75deg"
-          />
+          {/* The two lean opposite ways by different amounts, so they read as
+              two impressions made by hand at different moments rather than as
+              a pair of buttons that happen to be rotated. */}
+          <div className="flex shrink-0 flex-wrap items-start gap-x-8 gap-y-8 lg:pt-3">
+            <Stamp
+              href="/contact"
+              label={t("stamps.contact.label")}
+              note={t("stamps.contact.note")}
+              angle="-2.5deg"
+              solid
+            />
+            <Stamp
+              href="/about"
+              label={t("stamps.about.label")}
+              note={t("stamps.about.note")}
+              angle="1.75deg"
+            />
+          </div>
         </div>
       </section>
 
