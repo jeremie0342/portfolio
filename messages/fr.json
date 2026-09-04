@@ -55,6 +55,16 @@
       "label": "Travailler ensemble",
       "body": "Ouvert aux postes full-stack et ingénierie logicielle en télétravail, et au travail produit là où la décision technique et la décision produit n'en font qu'une.",
       "more": "Me contacter"
+    },
+    "stamps": {
+      "contact": {
+        "label": "Contact",
+        "note": "Disponible"
+      },
+      "about": {
+        "label": "Parcours",
+        "note": "Carrière et CV"
+      }
     }
   },
   "archive": {

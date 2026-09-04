@@ -68,6 +68,9 @@
   /* ---------- Rhythm ---------- */
   --spacing-gutter: clamp(1.25rem, 0.5rem + 3vw, 4rem);
   --spacing-section: clamp(5rem, 3rem + 10vw, 12rem);
+  /* The opening of the front page sits higher than a section break: the name
+     should be visible without scrolling on a laptop. */
+  --spacing-hero: clamp(2.5rem, 1.5rem + 4vw, 5rem);
 
   --opening-fade: 500ms;
 }
@@ -249,6 +252,81 @@
     font-size: var(--text-label);
     letter-spacing: 0.08em;
     text-transform: uppercase;
+  }
+
+  /* The byline sits between punctuation and register: a name is not a label
+     and not a sentence either, so it takes the meta face one step up. */
+  .t-byline {
+    font-family: var(--font-meta);
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ----------------------------------------------------------
+     Stamps
+     ----------------------------------------------------------
+     The call to action as an archive mark rather than a button.
+     A double rule, uppercase meta type, and a slight tilt, the
+     way a stamp lands on a document: never quite square.
+
+     Gold rather than crimson. A control's boundary needs 3:1 to
+     be perceivable and crimson measures 2.8:1 against the dark
+     ground, so it would fail as an outline before it failed as
+     text. Gold holds at 7.6:1 in both themes.
+
+     The tilt is a static transform rather than an animation, so
+     it survives reduced motion; only the press on hover is
+     motion, and the global rule already removes that.
+     ---------------------------------------------------------- */
+  .stamp {
+    display: inline-grid;
+    justify-items: center;
+    gap: 0.35rem;
+    padding: 0.85rem 1.6rem;
+    border: 1px solid currentColor;
+    /* The second rule is drawn with an outline rather than a second element:
+       one box, two lines, and the inset keeps them from touching. */
+    outline: 1px solid currentColor;
+    outline-offset: 3px;
+    color: var(--color-accent);
+    transform: rotate(var(--stamp-angle, -2.5deg));
+    transition:
+      transform 180ms ease-out,
+      background-color 180ms ease-out,
+      color 180ms ease-out;
+  }
+
+  .stamp:hover,
+  .stamp:focus-visible {
+    /* Pressed: it straightens and settles, the way a stamp does under the
+       hand rather than sliding sideways. */
+    transform: rotate(0deg) scale(0.98);
+  }
+
+  .stamp-solid {
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+  }
+
+  .stamp-solid:hover,
+  .stamp-solid:focus-visible {
+    background-color: var(--color-content);
+  }
+
+  .stamp-label {
+    font-family: var(--font-meta);
+    font-size: 0.875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .stamp-note {
+    font-family: var(--font-meta);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.75;
   }
 
   /* Sligoil holds between 11 and 13px, uppercase. This is archive

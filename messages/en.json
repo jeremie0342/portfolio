@@ -55,6 +55,16 @@
       "label": "Work together",
       "body": "Open to remote full-stack and software engineering roles, and to product work where the technical decision and the product decision are the same decision.",
       "more": "Get in touch"
+    },
+    "stamps": {
+      "contact": {
+        "label": "Contact",
+        "note": "Open to work"
+      },
+      "about": {
+        "label": "About",
+        "note": "Career and CV"
+      }
     }
   },
   "archive": {

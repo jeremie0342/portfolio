@@ -43,6 +43,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   once per session, waits on the fonts rather than on a fixed delay, hides
   nothing from crawlers or screen readers, and never appears for anyone asking
   for reduced motion.
+- Stamps as calls to action on the front page: a double ruled mark, uppercase
+  meta type, tilted, in gold. Gold rather than crimson because a control's
+  boundary needs 3:1 to be perceivable and crimson measures 2.8:1 against the
+  dark ground.
 - A career page and a contact page, both linked from a summary on the front.
 - Positions, organisations and credentials seeded from the curriculum vitae,
   and the professional work itself added to the archive: a multi-tenant SaaS

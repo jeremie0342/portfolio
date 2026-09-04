@@ -77,6 +77,12 @@ Archive punctuation: numbers, dates, tags, field labels, chapter markers.
 This is not text. **It is the only place gold appears systematically**;
 everywhere else gold is an exception.
 
+### Byline, 14 px, uppercase
+
+The name above the front page statement, and stamp labels. A name is neither a
+label nor a sentence, so it takes the meta face one step above punctuation
+without reaching the register voice.
+
 ### Register, 15 px, lowercase
 
 The one place the meta face carries actual sentences, and it is deliberately

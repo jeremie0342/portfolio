@@ -8,6 +8,7 @@ import { contributions } from "@/lib/evidence";
 import { readActivity } from "@/lib/github";
 import { SiteHeader } from "@/components/site-header";
 import { EntryRow } from "@/components/entry-row";
+import { Stamp } from "@/components/stamp";
 
 /**
  * The front page.
@@ -48,8 +49,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
     <main className="px-(--spacing-gutter) py-(--spacing-gutter)">
       <SiteHeader locale={locale} />
 
-      <section className="py-(--spacing-section)">
-        <p className="t-meta text-accent">{site("person")}</p>
+      <section className="pt-(--spacing-hero) pb-(--spacing-section)">
+        <p className="t-byline text-accent">{site("person")}</p>
 
         <h1 className="t-display text-display-xl measure-lead mt-8 text-balance">
           {t("statement")}
@@ -63,6 +64,25 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
                 {paragraph}
               </p>
             ))}
+        </div>
+
+        {/* The two marks lean opposite ways by different amounts, so they read
+            as two impressions made by hand at different moments rather than as
+            a pair of buttons that happen to be rotated. */}
+        <div className="mt-14 flex flex-wrap items-start gap-x-10 gap-y-8">
+          <Stamp
+            href="/contact"
+            label={t("stamps.contact.label")}
+            note={t("stamps.contact.note")}
+            angle="-2.5deg"
+            solid
+          />
+          <Stamp
+            href="/about"
+            label={t("stamps.about.label")}
+            note={t("stamps.about.note")}
+            angle="1.75deg"
+          />
         </div>
       </section>
 
