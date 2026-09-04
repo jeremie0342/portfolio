@@ -413,4 +413,14 @@
   .measure-lead {
     max-width: 55ch;
   }
+
+  /* A deliberate exception to the 68 character rule, for the front page
+     description alone. Past that width the eye starts losing the beginning of
+     the next line at the end of a paragraph, which is why the rule exists;
+     three short paragraphs under a headline are the one place the cost is
+     small enough to accept in exchange for the column filling its side of the
+     page. It does not extend to entry bodies or to the career page. */
+  .measure-wide {
+    max-width: 78ch;
+  }
 }

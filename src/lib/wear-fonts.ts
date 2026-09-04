@@ -5,7 +5,7 @@ import localFont from "next/font/local";
  *
  * Redaction ships each degree of print wear as its own family, so animating
  * from a coarse halftone to a sharp letter means loading several files rather
- * than interpolating an axis. Each of these is subset to the seven glyphs of
+ * than interpolating an axis. Each of these is subset to the eight glyphs of
  * the wordmark, which brings the whole sequence to about four kilobytes:
  * cheaper than a small logo image, and it is the typeface doing the work
  * rather than a picture of it.
@@ -24,7 +24,7 @@ import localFont from "next/font/local";
  */
 
 const wear100 = localFont({
-  src: "../fonts/wear/Redaction100-Flemart.woff2",
+  src: "../fonts/wear/Redaction100-Zardonis.woff2",
   variable: "--font-wear-100",
   weight: "400",
   style: "normal",
@@ -33,7 +33,7 @@ const wear100 = localFont({
 });
 
 const wear70 = localFont({
-  src: "../fonts/wear/Redaction70-Flemart.woff2",
+  src: "../fonts/wear/Redaction70-Zardonis.woff2",
   variable: "--font-wear-70",
   weight: "400",
   style: "normal",
@@ -42,7 +42,7 @@ const wear70 = localFont({
 });
 
 const wear50 = localFont({
-  src: "../fonts/wear/Redaction50-Flemart.woff2",
+  src: "../fonts/wear/Redaction50-Zardonis.woff2",
   variable: "--font-wear-50",
   weight: "400",
   style: "normal",
@@ -51,7 +51,7 @@ const wear50 = localFont({
 });
 
 const wear35 = localFont({
-  src: "../fonts/wear/Redaction35-Flemart.woff2",
+  src: "../fonts/wear/Redaction35-Zardonis.woff2",
   variable: "--font-wear-35",
   weight: "400",
   style: "normal",
@@ -60,7 +60,7 @@ const wear35 = localFont({
 });
 
 const wear20 = localFont({
-  src: "../fonts/wear/Redaction20-Flemart.woff2",
+  src: "../fonts/wear/Redaction20-Zardonis.woff2",
   variable: "--font-wear-20",
   weight: "400",
   style: "normal",

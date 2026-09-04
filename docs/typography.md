@@ -31,7 +31,7 @@ database, not a layout choice.
 **The one exception is the opening.** The loader animates a single word through
 100, 70, 50, 35, 20 and then 10, which is the whole point of it: a document
 coming into focus, performed by the typeface rather than by an effect laid over
-it. Those five files are subset to the seven glyphs of the wordmark and weigh
+it. Those five files are subset to the eight glyphs of the wordmark and weigh
 4.4 KB together, so the exception costs less than the rule would suggest. It
 does not extend to typesetting: no page sets text in a third degree.
 
@@ -143,7 +143,7 @@ Redaction10-Italic.woff2                 not in the global bundle
 Redaction50-Regular.woff2       32.2 KB  route scoped, never preloaded
 Author-Variable.woff2           36.2 KB  preloaded
 SligoilMicro-Regular.woff2      41.4 KB  preloaded
-wear/Redaction{100,70,50,35,20}  4.4 KB  preloaded, subset to FLEMART
+wear/Redaction{100,70,50,35,20}  4.4 KB  preloaded, subset to ZARDONIS
 ```
 
 Preloaded total: **205.6 KB**, against a budget of 250 KB.
@@ -162,6 +162,7 @@ so subsetting is required. Budget: **under 250 KB** of type per page.
 - Redaction below 32 px, in uppercase, in bold, or worn in crimson.
 - Sligoil above 15 px, or in uppercase once a line becomes a sentence.
 - The register voice outside the archive.
+- The wide measure anywhere but the front page description.
 - More than two Author weights visible in one screen.
 - A third degree of wear in typeset text. The opening is the exception, and it
   sets one word.

@@ -106,7 +106,7 @@ export function Loader({ count }: { count: number }) {
       role="presentation"
     >
       <p className="opening-mark" style={{ fontFamily: wearSequence[step] }}>
-        FLEMART
+        ZARDONIS
       </p>
 
       <p className="opening-count t-meta">

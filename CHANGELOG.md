@@ -37,6 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   and an entry page that carries the pieces it contains.
 - Language switch that keeps the reader on the same entry rather than
   returning them to the front page.
+- The wordmark is ZARDONIS rather than the handle, in the masthead, the opening
+  and the metadata.
 - An opening sequence: the wordmark resolves through five degrees of Redaction
   print wear while an accession counter runs up to the size of the archive. The
   five degrees are subset to seven glyphs and weigh 4.4 KB together. It plays
