@@ -28,6 +28,13 @@ Moving from 10 to 50 has to **mean** something, namely age or depth in the
 archive, and never serve as decorative variation. It is a column in the
 database, not a layout choice.
 
+**The one exception is the opening.** The loader animates a single word through
+100, 70, 50, 35, 20 and then 10, which is the whole point of it: a document
+coming into focus, performed by the typeface rather than by an effect laid over
+it. Those five files are subset to the seven glyphs of the wordmark and weigh
+4.4 KB together, so the exception costs less than the rule would suggest. It
+does not extend to typesetting: no page sets text in a third degree.
+
 ### Size floor
 
 The halftone closes up as the size drops, and a high degree becomes a grey
@@ -125,12 +132,15 @@ gold.
 ## Loading
 
 ```
-Redaction10-Regular.woff2      preloaded, font-display: optional
-Redaction10-Italic.woff2       not in the global bundle
-Redaction50-Regular.woff2      route scoped, never preloaded
-Author-Variable.woff2          preloaded
-SligoilMicro-Regular.woff2     preloaded
+Redaction10-Regular.woff2      123.6 KB  preloaded, font-display: optional
+Redaction10-Italic.woff2                 not in the global bundle
+Redaction50-Regular.woff2       32.2 KB  route scoped, never preloaded
+Author-Variable.woff2           36.2 KB  preloaded
+SligoilMicro-Regular.woff2      41.4 KB  preloaded
+wear/Redaction{100,70,50,35,20}  4.4 KB  preloaded, subset to FLEMART
 ```
+
+Preloaded total: **205.6 KB**, against a budget of 250 KB.
 
 The default display face uses `optional` rather than `swap` because it renders
 the largest text on the page and is therefore almost always the LCP element.
@@ -147,4 +157,5 @@ so subsetting is required. Budget: **under 250 KB** of type per page.
 - Sligoil above 15 px, or in uppercase once a line becomes a sentence.
 - The register voice outside the archive.
 - More than two Author weights visible in one screen.
-- A third degree of wear.
+- A third degree of wear in typeset text. The opening is the exception, and it
+  sets one word.

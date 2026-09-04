@@ -37,6 +37,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   and an entry page that carries the pieces it contains.
 - Language switch that keeps the reader on the same entry rather than
   returning them to the front page.
+- An opening sequence: the wordmark resolves through five degrees of Redaction
+  print wear while an accession counter runs up to the size of the archive. The
+  five degrees are subset to seven glyphs and weigh 4.4 KB together. It plays
+  once per session, waits on the fonts rather than on a fixed delay, hides
+  nothing from crawlers or screen readers, and never appears for anyone asking
+  for reduced motion.
 - A career page and a contact page, both linked from a summary on the front.
 - Positions, organisations and credentials seeded from the curriculum vitae,
   and the professional work itself added to the archive: a multi-tenant SaaS

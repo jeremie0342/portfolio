@@ -68,6 +68,8 @@
   /* ---------- Rhythm ---------- */
   --spacing-gutter: clamp(1.25rem, 0.5rem + 3vw, 4rem);
   --spacing-section: clamp(5rem, 3rem + 10vw, 12rem);
+
+  --opening-fade: 500ms;
 }
 
 /* ============================================================
@@ -272,6 +274,61 @@
     font-size: var(--text-register);
     line-height: 1.6;
     letter-spacing: 0.005em;
+  }
+
+  /* ----------------------------------------------------------
+     The opening
+     ----------------------------------------------------------
+     A full-bleed layer over a page that is already rendered
+     underneath. Nothing here gates the content: this only covers
+     it, briefly, and removes itself.
+
+     Reduced motion is answered in CSS rather than in the
+     component, so there is no first frame where the layer appears
+     before a script decides it should not have.
+     ---------------------------------------------------------- */
+  .opening {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1.5rem;
+    background-color: var(--color-surface);
+    transition: opacity var(--opening-fade) ease-out;
+  }
+
+  .opening[data-resolved="true"] {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* The grid display would otherwise win over the hidden attribute, which is
+     how the component removes the layer for a session that has already seen
+     it. */
+  .opening[hidden] {
+    display: none;
+  }
+
+  .opening-mark {
+    /* The family is set from the component, one degree of wear per step.
+       Tracking opens at the coarse end so the halftone has room to read as
+       texture rather than as a smudge. */
+    font-size: clamp(2.75rem, 1.5rem + 6vw, 6rem);
+    line-height: 1;
+    letter-spacing: 0.06em;
+    color: var(--color-content);
+  }
+
+  .opening-count {
+    color: var(--color-accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .opening {
+      display: none;
+    }
   }
 
   /* Measure does as much as the typeface choice to make this read like a

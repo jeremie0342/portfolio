@@ -4,6 +4,9 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { fontVariables } from "@/lib/fonts";
+import { wearVariables } from "@/lib/wear-fonts";
+import { archiveSize } from "@/lib/entries";
+import { Loader } from "@/components/loader";
 import { siteName, siteUrl } from "@/lib/site";
 import "../globals.css";
 
@@ -64,16 +67,19 @@ export default async function LocaleLayout({
    */
   setRequestLocale(locale);
 
+  const count = await archiveSize();
+
   return (
     <html
       lang={locale}
-      className={`${fontVariables} h-full`}
+      className={`${fontVariables} ${wearVariables} h-full`}
       suppressHydrationWarning
     >
       {/* Browser extensions routinely add attributes to the body before React
           loads, which React then reports as a hydration mismatch it cannot
           patch. The warning is about the extension rather than this markup. */}
       <body className="min-h-full" suppressHydrationWarning>
+        <Loader count={count} />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>
