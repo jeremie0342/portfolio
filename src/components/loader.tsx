@@ -1,45 +1,44 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { wearSequence } from "@/lib/wear-fonts";
 
 /**
  * The opening.
  *
- * The wordmark arrives at the coarsest degree of Redaction's print wear and
- * resolves through five steps into the face the rest of the site is set in,
- * while the accession counter runs up to the size of the archive. A document
- * coming into focus, performed by the typeface's own system rather than by an
- * effect laid over it.
+ * Three movements, and the order carries the idea.
  *
- * The duration is an art direction decision, not a progress indicator. The
- * pages behind it are static and arrive in a fraction of the time this takes,
- * so the sequence is held deliberately: about two seconds of wear resolving,
- * then a short hold on the sharp wordmark before it lifts. Calling it a loader
- * would be a polite fiction; it is a title card.
+ * First the wordmark wears. It starts in the face the pages are set in and
+ * runs towards degree 100, which is not a degradation but an arrival: degree
+ * 100 is the face of the logo, so by the last frame the mark has already
+ * become the thing that lives in the masthead.
  *
- * It plays on every full page load. Client-side navigation does not retrigger
- * it, since the layer lives in the root layout and Next keeps that mounted
- * across routes.
+ * Then it travels. Measured against the real logo and moved onto it, shrinking
+ * as it goes. Nothing morphs, because nothing needs to: the two are the same
+ * word in the same face at two sizes, so a transform is the entire animation.
  *
- * It hides nothing. The page is rendered behind it in full, so a crawler and a
- * screen reader both read a complete document, and the layer is out of the
- * accessibility tree. Anyone asking for reduced motion never sees it, and that
- * is answered in CSS so there is no frame where it appears first.
+ * Then the page arrives around it, section by section, as if the light came up
+ * after the writing had settled.
+ *
+ * It hides nothing. The document is rendered underneath in full, so a crawler
+ * and a screen reader read a complete page whatever the animation is doing,
+ * and the layer is out of the accessibility tree. Reduced motion is answered
+ * entirely in CSS, including the part that holds the page back, so someone who
+ * asks for it sees the finished page immediately and no script has to know.
  */
 
-const STEP_MS = 240;
-const HOLD_MS = 700;
-const SEQUENCE_MS = STEP_MS * wearSequence.length;
-const TOTAL_MS = SEQUENCE_MS + HOLD_MS;
-/* How long the fonts are given beyond the sequence itself. A slow network
-   shortens what follows rather than extending the wait. */
+const STEP_MS = 190;
+const RESOLVE_MS = STEP_MS * wearSequence.length;
+const HOLD_MS = 320;
+const TRAVEL_MS = 760;
+/* How long the fonts are given beyond the sequence. A slow network shortens
+   what follows rather than extending the wait. */
 const CEILING_MS = 3000;
-const FADE_MS = 500;
 
-/* Ease out cubic. The count decelerates into its final value instead of
-   stopping dead, which is the difference between a number arriving and a
-   number simply ceasing to change. */
+type Phase = "resolving" | "travelling" | "done";
+
+/* Ease out cubic, so the count decelerates into its final value instead of
+   stopping dead. */
 function eased(t: number) {
   return 1 - Math.pow(1 - t, 3);
 }
@@ -47,8 +46,19 @@ function eased(t: number) {
 export function Loader({ count }: { count: number }) {
   const [step, setStep] = useState(0);
   const [reached, setReached] = useState(0);
-  const [resolved, setResolved] = useState(false);
-  const [removed, setRemoved] = useState(false);
+  const [phase, setPhase] = useState<Phase>("resolving");
+
+  const mark = useRef<HTMLParagraphElement>(null);
+
+  /*
+   * The root carries the phase so CSS can hold the page back and release it,
+   * without the loader having to know anything about the pages. Set before
+   * paint, and only from here: with no script the attribute is absent and the
+   * document is simply visible, which is the behaviour a crawler gets.
+   */
+  useLayoutEffect(() => {
+    document.documentElement.dataset.opening = "playing";
+  }, []);
 
   useEffect(() => {
     const started = performance.now();
@@ -59,9 +69,9 @@ export function Loader({ count }: { count: number }) {
 
     /* The counter runs on its own clock rather than on the wear steps: six
        jumps for twenty entries reads as a stutter, and the number is the part
-       a reader actually watches. */
+       a reader watches. */
     let frame = requestAnimationFrame(function tick(now) {
-      const progress = Math.min(1, (now - started) / SEQUENCE_MS);
+      const progress = Math.min(1, (now - started) / RESOLVE_MS);
       setReached(Math.round(count * eased(progress)));
 
       if (progress < 1) {
@@ -74,44 +84,80 @@ export function Loader({ count }: { count: number }) {
       new Promise((resolve) => setTimeout(resolve, CEILING_MS)),
     ]);
 
-    let fade: ReturnType<typeof setTimeout>;
-    let strip: ReturnType<typeof setTimeout>;
+    let travel: ReturnType<typeof setTimeout>;
+    let land: ReturnType<typeof setTimeout>;
 
     void ready.then(() => {
-      const remaining = Math.max(0, TOTAL_MS - (performance.now() - started));
+      const remaining = Math.max(
+        0,
+        RESOLVE_MS + HOLD_MS - (performance.now() - started),
+      );
 
-      fade = setTimeout(() => {
-        setResolved(true);
-        strip = setTimeout(() => setRemoved(true), FADE_MS);
+      travel = setTimeout(() => {
+        /* Measured at the moment of departure rather than on mount: the
+           masthead has had the whole sequence to settle, and reading the box
+           now is what makes the landing exact instead of approximately
+           right. */
+        const target = document.querySelector<HTMLElement>("[data-logo]");
+        const node = mark.current;
+
+        if (target && node) {
+          const from = node.getBoundingClientRect();
+          const to = target.getBoundingClientRect();
+          const scale = to.width / from.width;
+
+          node.style.transform = [
+            `translate(${to.left + to.width / 2 - (from.left + from.width / 2)}px,`,
+            `${to.top + to.height / 2 - (from.top + from.height / 2)}px)`,
+            `scale(${scale})`,
+          ].join(" ");
+        }
+
+        setPhase("travelling");
+        land = setTimeout(() => setPhase("done"), TRAVEL_MS);
       }, remaining);
     });
 
     return () => {
       clearInterval(ticking);
       cancelAnimationFrame(frame);
-      clearTimeout(fade);
-      clearTimeout(strip);
+      clearTimeout(travel);
+      clearTimeout(land);
     };
   }, [count]);
 
-  if (removed) {
+  useEffect(() => {
+    if (phase === "done") {
+      document.documentElement.dataset.opening = "done";
+    }
+  }, [phase]);
+
+  if (phase === "done") {
     return null;
   }
 
   return (
     <div
       className="opening"
-      data-resolved={resolved ? "true" : "false"}
+      data-phase={phase}
       aria-hidden="true"
       role="presentation"
     >
-      <p className="opening-mark" style={{ fontFamily: wearSequence[step] }}>
-        ZARDONIS
-      </p>
+      <div className="opening-ground" />
 
-      <p className="opening-count t-meta">
-        {new Date().getUTCFullYear()} / {String(reached).padStart(3, "0")}
-      </p>
+      <div className="opening-stage">
+        <p
+          ref={mark}
+          className="opening-mark"
+          style={{ fontFamily: wearSequence[step] }}
+        >
+          ZARDONIS
+        </p>
+
+        <p className="opening-count t-meta">
+          {new Date().getUTCFullYear()} / {String(reached).padStart(3, "0")}
+        </p>
+      </div>
     </div>
   );
 }

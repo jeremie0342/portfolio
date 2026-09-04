@@ -42,12 +42,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   and the first frame of the opening are the same object.
 - A site icon cut from the typeface itself: the Z of Redaction 100, extracted
   as an outline so the file carries no font dependency.
-- An opening sequence: the wordmark resolves through five degrees of Redaction
-  print wear while an accession counter runs up to the size of the archive. The
-  five degrees are subset to seven glyphs and weigh 4.4 KB together. It plays
-  once per session, waits on the fonts rather than on a fixed delay, hides
-  nothing from crawlers or screen readers, and never appears for anyone asking
-  for reduced motion.
+- An opening in three movements. The wordmark wears from the reading face
+  towards degree 100, which is the face of the logo, so the last frame of the
+  sequence is already the mark itself. It then travels onto the real masthead,
+  measured and scaled rather than morphed. The page arrives around it section by
+  section. The five wear degrees are subset to eight glyphs and weigh 4.6 KB
+  together. It waits on the fonts rather than on a fixed delay, hides nothing
+  from crawlers or screen readers, and everything that holds the page back sits
+  inside a reduced motion query so no script decides that.
 - Stamps as calls to action on the front page: a double ruled mark, uppercase
   meta type, tilted, in gold. Gold rather than crimson because a control's
   boundary needs 3:1 to be perceivable and crimson measures 2.8:1 against the

@@ -77,15 +77,21 @@ export const wearVariables = [
 ].join(" ");
 
 /**
- * The sequence, coarsest first. The last step is the ordinary display face,
- * already loaded for the page itself, so arriving at it is literally the
- * document settling into the type the rest of the site is set in.
+ * The sequence, sharpest first.
+ *
+ * It runs towards wear rather than away from it, and the direction is the
+ * whole argument. The first step is the ordinary display face the pages are
+ * set in, and the last is degree 100, which is the face of the wordmark
+ * itself. The sequence therefore does not resolve into legibility, it resolves
+ * into the logo: by the final frame the mark is already the thing in the
+ * masthead, and the travel that follows is a change of scale rather than a
+ * change of identity.
  */
 export const wearSequence = [
-  "var(--font-wear-100)",
-  "var(--font-wear-70)",
-  "var(--font-wear-50)",
-  "var(--font-wear-35)",
-  "var(--font-wear-20)",
   "var(--font-redaction-10)",
+  "var(--font-wear-20)",
+  "var(--font-wear-35)",
+  "var(--font-wear-50)",
+  "var(--font-wear-70)",
+  "var(--font-wear-100)",
 ] as const;

@@ -21,7 +21,11 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
     <header className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b border-rule pb-4">
       {/* Uppercase because the wear subsets carry only those eight glyphs:
           the sequence sets one word and pays for nothing else. */}
-      <Link href="/" className="logo hover:text-accent transition-colors">
+      <Link
+        href="/"
+        data-logo
+        className="logo hover:text-accent transition-colors"
+      >
         {site("name").toUpperCase()}
       </Link>
 
