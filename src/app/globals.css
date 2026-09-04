@@ -470,9 +470,10 @@
      itself changes, which it now does: these are read from
      GitHub.
 
-     Clipped with clip-path for the same reason as the word reel:
-     overflow on an inline element moves the baseline to the
-     bottom of the box.
+     The columns are clipped with overflow rather than clip-path,
+     for a reason spelled out on the slot below: these strips are
+     long enough that leaving them in the page's scrollable area
+     is visible from the footer.
      ---------------------------------------------------------- */
   .odometer {
     --digit-width: 0.6em;
