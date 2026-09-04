@@ -59,10 +59,10 @@
     "tagline": "Une archive de ce que je construis, dirige et imagine",
     "decisions": {
       "label": "Comment je travaille",
-      "intro": "Six étapes, dans cet ordre. Elles ne changent ni avec le domaine ni avec la stack.",
+      "intro": "Six étapes, du premier cadrage jusqu’à l’exploitation. Elles s’adaptent à votre produit, quels que soient son domaine et sa taille.",
       "one": {
         "title": "Je commence par le problème et par qui l’a",
-        "body": "À qui ça manque, ce que la situation actuelle leur coûte, et à quoi on saura que c’est réglé. Le succès s’écrit comme une variation mesurable, pas comme une liste de fonctionnalités. J’y ajoute ce qu’on ne fera pas : c’est la moitié du cadrage, et celle qu’on regrette d’avoir laissée implicite."
+        "body": "J’identifie qui a le problème, ce qu’il lui coûte aujourd’hui, et le chiffre qui dira qu’il est réglé. Je note aussi ce qui restera hors du périmètre. Ce cadrage écrit sert d’arbitre pour la suite : chaque demande qui arrive en cours de route se mesure à lui, au lieu de relancer un débat."
       },
       "two": {
         "title": "Je trie les contraintes en négociables et non négociables",

@@ -59,10 +59,10 @@
     "tagline": "An archive of things I build, shape and imagine",
     "decisions": {
       "label": "How I work",
-      "intro": "Six steps, in this order. They change with neither the domain nor the stack.",
+      "intro": "Six steps, from the first framing through to running it. They adapt to your product, whatever its domain and its size.",
       "one": {
         "title": "I start from the problem and who has it",
-        "body": "Who is missing it, what the current situation costs them, and how we will know it is solved. Success is written as a measurable change, not as a list of features. I add what we will not do: that is half the framing, and the half people regret leaving implicit."
+        "body": "I identify who has the problem, what it costs them today, and the number that will say it is solved. I also note what stays out of scope. That written framing then acts as the arbiter: every request arriving mid-project is measured against it instead of reopening a debate."
       },
       "two": {
         "title": "I sort constraints into negotiable and non-negotiable",
