@@ -94,6 +94,20 @@ model Entry {
   coverId String?
   cover   Media?  @relation(fields: [coverId], references: [id], onDelete: SetNull)
 
+  /// Entries nest one level deep in practice: a body of work such as a
+  /// platform holds the services, starters and governance repositories that
+  /// make it up. The relation is self referential rather than a fixed depth,
+  /// so nothing in the schema forbids going further, but the views only ever
+  /// render a parent and its children.
+  parentId String?
+  parent   Entry?  @relation("EntryTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children Entry[] @relation("EntryTree")
+
+  /// Position of a child inside its parent. Children are curated in a chosen
+  /// order rather than sorted by date, since the order of reading a body of
+  /// work is an editorial decision.
+  rank Int @default(0)
+
   translations EntryTranslation[]
   tags         EntryTag[]
   gallery      EntryMedia[]
@@ -108,6 +122,7 @@ model Entry {
 
   @@index([status, kind, number])
   @@index([status, featured])
+  @@index([parentId, rank])
 }
 
 /// Translatable text sits in its own table rather than in a per-locale JSON

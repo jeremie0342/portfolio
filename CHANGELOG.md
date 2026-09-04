@@ -25,9 +25,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Seed drawn from real public repositories: Skilluv and its four services,
   the community governance repositories, the fourteen starters, the chess
   coach, and TrackMyWeight. Private work is seeded as a draft.
-- Colour rules encoded in the entry component rather than restated per entry:
-  a violet accent turns the section into a violet field instead of colouring
-  the text, since violet cannot reach a readable contrast as ink.
+- Colour rules encoded in the components rather than restated per entry: a
+  violet accent turns the section into a violet field instead of colouring the
+  text, since violet cannot reach a readable contrast as ink.
+- Entries nest. A body of work holds the services, starters and governance
+  repositories that compose it, and the index lists only the top level.
+- Three routes: a front page that introduces the person, the archive index,
+  and an entry page that carries the pieces it contains.
+- Language switch that keeps the reader on the same entry rather than
+  returning them to the front page.
 
 ### Notes
 
