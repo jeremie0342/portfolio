@@ -103,7 +103,7 @@ moment a line becomes a sentence.
 --text-display-xl: clamp(4rem, 1.5rem + 8vw, 8rem);
 --text-display-l:  clamp(2.75rem, 1.5rem + 4.5vw, 4.5rem);
 --text-display-m:  clamp(2rem, 1.5rem + 2vw, 2.75rem);
---text-body-l:     clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+--text-body-l:     clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
 --text-body:       1.0625rem;
 --text-register:   0.9375rem;
 --text-label:      0.875rem;
