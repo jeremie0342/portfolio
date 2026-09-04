@@ -486,6 +486,13 @@
     transition: width var(--reel-ms, 460ms) cubic-bezier(0.4, 0, 0.1, 1);
   }
 
+  /* While the window is being dragged the width is re-measured every frame.
+     Easing towards each of those values would lag a whole transition behind
+     the pointer. */
+  .reel[data-resizing] {
+    transition: none;
+  }
+
   .reel-ruler {
     position: absolute;
     top: 0;

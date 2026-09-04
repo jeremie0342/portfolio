@@ -74,6 +74,7 @@ export function WordCycle({ words }: { words: string[] }) {
   const [widths, setWidths] = useState<number[] | null>(null);
   const [settled, setSettled] = useState(false);
 
+  const reel = useRef<HTMLSpanElement>(null);
   const ruler = useRef<HTMLSpanElement>(null);
 
   /* The reel position is tracked in a ref as well as in state. A state
@@ -94,34 +95,66 @@ export function WordCycle({ words }: { words: string[] }) {
     [words.length],
   );
 
+  const measure = useCallback(() => {
+    const node = ruler.current;
+
+    if (!node) {
+      return;
+    }
+
+    const measured = words.map((word) => {
+      node.textContent = word;
+      return node.getBoundingClientRect().width;
+    });
+
+    node.textContent = "";
+    setWidths(measured);
+  }, [words]);
+
   /* Measured after the fonts settle: a width taken while the fallback is still
      showing would size the box for the wrong typeface. */
   useLayoutEffect(() => {
-    let cancelled = false;
-
-    function measure() {
-      const node = ruler.current;
-
-      if (cancelled || !node) {
-        return;
-      }
-
-      const measured = words.map((word) => {
-        node.textContent = word;
-        return node.getBoundingClientRect().width;
-      });
-
-      node.textContent = "";
-      setWidths(measured);
-    }
-
     measure();
     void document.fonts.ready.then(measure);
+  }, [measure]);
+
+  /*
+   * Measured again whenever the viewport changes.
+   *
+   * The display scale answers to both viewport axes, so a resize changes the
+   * font size under a width that was recorded in pixels. Left alone the box
+   * keeps the size it had at load and the word either overflows it or floats
+   * inside it, which only a reload appeared to fix.
+   *
+   * The measurement is deferred to the next frame so a drag reads once per
+   * frame rather than once per event, and the width transition is suspended
+   * while the drag lasts: the transition exists to ease one word into the
+   * width of another, not to chase a window edge.
+   */
+  useEffect(() => {
+    let frame = 0;
+    let settle: ReturnType<typeof setTimeout>;
+
+    function onResize() {
+      reel.current?.setAttribute("data-resizing", "true");
+
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(measure);
+
+      clearTimeout(settle);
+      settle = setTimeout(() => {
+        reel.current?.removeAttribute("data-resizing");
+      }, 180);
+    }
+
+    window.addEventListener("resize", onResize);
 
     return () => {
-      cancelled = true;
+      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(frame);
+      clearTimeout(settle);
     };
-  }, [words]);
+  }, [measure]);
 
   /* The spin. */
   useEffect(() => {
@@ -192,6 +225,7 @@ export function WordCycle({ words }: { words: string[] }) {
 
   return (
     <span
+      ref={reel}
       className="reel"
       style={
         {
