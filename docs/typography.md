@@ -109,15 +109,23 @@ moment a line becomes a sentence.
 ## Scale
 
 ```css
---text-display-xl: clamp(4rem, 1.5rem + 8vw, 8rem);
---text-display-l:  clamp(2.75rem, 1.5rem + 4.5vw, 4.5rem);
---text-display-m:  clamp(2rem, 1.5rem + 2vw, 2.75rem);
+--text-display-xl: clamp(2.75rem, min(7.5vw, 13vh), 8rem);
+--text-display-l:  clamp(2.25rem, min(4.4vw, 7.5vh), 4.5rem);
+--text-display-m:  clamp(1.75rem, min(2.4vw, 4vh), 2.75rem);
 --text-body-l:     clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
 --text-body:       1.0625rem;
 --text-register:   0.9375rem;
 --text-label:      0.875rem;
 --text-meta:       0.75rem;
 ```
+
+Display sizes answer to both axes through `min()`. A laptop at 1440 by 900 is
+wide enough to hold a viewport width scale near its maximum and short enough
+that the result pushes everything below the fold, so the smaller of the two
+terms wins and the type shrinks on a low screen without reaching for a
+breakpoint. The wide arrangement therefore survives down to the point where
+stacking is genuinely the right answer. On a phone the width term always wins
+and the vertical term costs nothing.
 
 Display line height is **0.95**. That tightness is what produces the compact
 typographic block of a magazine cover.

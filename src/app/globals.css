@@ -36,15 +36,24 @@
   --font-meta: var(--font-sligoil), ui-monospace, SFMono-Regular, Consolas, monospace;
 
   /* ---------- Scale ---------- */
-  --text-display-xl: clamp(4rem, 1.5rem + 8vw, 8rem);
+  /* Display sizes answer to both axes through min(). A laptop at 1440 by 900
+     is wide enough to keep a viewport width scale near its maximum while being
+     short enough that the result pushes everything below the fold. Taking the
+     smaller of the two lets the type shrink on a low screen without ever
+     reaching for a breakpoint, so the arrangement of the wide layout survives
+     down to the point where stacking is genuinely the right answer.
+
+     On a phone the width term always wins, so the vertical term costs nothing
+     there. */
+  --text-display-xl: clamp(2.75rem, min(7.5vw, 13vh), 8rem);
   --text-display-xl--line-height: 0.95;
   --text-display-xl--letter-spacing: -0.015em;
 
-  --text-display-l: clamp(2.75rem, 1.5rem + 4.5vw, 4.5rem);
+  --text-display-l: clamp(2.25rem, min(4.4vw, 7.5vh), 4.5rem);
   --text-display-l--line-height: 0.98;
   --text-display-l--letter-spacing: -0.01em;
 
-  --text-display-m: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+  --text-display-m: clamp(1.75rem, min(2.4vw, 4vh), 2.75rem);
   --text-display-m--line-height: 1.1;
 
   --text-body-l: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
@@ -67,10 +76,12 @@
 
   /* ---------- Rhythm ---------- */
   --spacing-gutter: clamp(1.25rem, 0.5rem + 3vw, 4rem);
-  --spacing-section: clamp(5rem, 3rem + 10vw, 12rem);
+  /* Rhythm follows the same rule as the type. A section break measured only in
+     viewport width eats a short screen alive. */
+  --spacing-section: clamp(4rem, min(9vw, 13vh), 12rem);
   /* The opening of the front page sits higher than a section break: the name
      should be visible without scrolling on a laptop. */
-  --spacing-hero: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+  --spacing-hero: clamp(1.75rem, min(4vw, 5vh), 5rem);
 
   --opening-travel: 760ms;
 }
@@ -297,7 +308,10 @@
     display: inline-grid;
     justify-items: center;
     gap: 0.5rem;
-    padding: 1.25rem 2.5rem;
+    /* Fluid rather than fixed, so the pair keeps its place beside the text on a
+       narrower laptop instead of forcing the row to wrap. */
+    padding: clamp(0.9rem, 0.55rem + 0.9vw, 1.25rem)
+      clamp(1.5rem, 0.8rem + 1.9vw, 2.5rem);
     border: 1px solid currentColor;
     /* The second rule is drawn with an outline rather than a second element:
        one box, two lines, and the inset keeps them from touching. */

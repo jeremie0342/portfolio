@@ -37,6 +37,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   and an entry page that carries the pieces it contains.
 - Language switch that keeps the reader on the same entry rather than
   returning them to the front page.
+- Display sizes and section rhythm answer to viewport height as well as width,
+  through min(). A short laptop screen shrinks the type instead of pushing the
+  layout below the fold, so the wide arrangement holds down to the point where
+  stacking is genuinely right.
 - One word of the front page statement rides a reel, between products, solutions
   and worlds. The page opens with a spin that decelerates into the first word,
   then the reel turns slowly. Only the current word is in the document, and the

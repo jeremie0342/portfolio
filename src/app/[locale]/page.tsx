@@ -73,7 +73,11 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
             the large breakpoint they fall back under the paragraph, since a
             stamp squeezed into a phone column stops reading as a stamp. */}
         <div className="mt-12 flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-14">
-          <div className="measure-wide">
+          {/* min-w-0 so the column gives way instead of overflowing. Between
+              the breakpoint and a comfortable laptop the two columns want more
+              room than there is, and a flex item defaults to refusing to
+              shrink below its content. */}
+          <div className="measure-wide min-w-0">
             {t("intro")
               .split("\n\n")
               .map((paragraph) => (
