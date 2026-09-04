@@ -30,11 +30,6 @@
       "label": "Ces derniers jours",
       "summary": "{pushes} poussées et {merged} pull requests fusionnées sur {repositories} dépôts depuis le {since}."
     },
-    "contact": {
-      "label": "Travailler ensemble",
-      "body": "Ouvert aux postes full-stack et ingénierie logicielle en télétravail, et au travail produit là où la décision technique et la décision produit n’en font qu’une.",
-      "more": "Me contacter"
-    },
     "stamps": {
       "contact": {
         "label": "Contact",
@@ -94,6 +89,14 @@
       },
       "more": "Lire le parcours complet",
       "portrait": "Portrait de Zardonis Jérémie ZITTI"
+    },
+    "reach": {
+      "label": "Me contacter",
+      "lead": "Concevoir un produit, reprendre un système qui a grossi trop vite, ou porter la technique d’une équipe qui n’en a pas.",
+      "body": "Écrivez-moi avec le problème plutôt qu’avec la solution attendue : ce qui ne fonctionne pas aujourd’hui, pour qui, et à quelle échéance. Une page suffit, et un appel de trente minutes suffit souvent à savoir si cela a du sens.\n\nJe réponds sous deux jours ouvrés, et je le dis quand ce n’est pas pour moi.",
+      "email": "Courriel",
+      "phone": "Téléphone",
+      "more": "Tous les moyens de me joindre"
     }
   },
   "archive": {

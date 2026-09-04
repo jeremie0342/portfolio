@@ -30,11 +30,6 @@
       "label": "These past days",
       "summary": "{pushes} pushes and {merged} pull requests merged across {repositories} repositories since {since}."
     },
-    "contact": {
-      "label": "Work together",
-      "body": "Open to remote full-stack and software engineering roles, and to product work where the technical decision and the product decision are the same decision.",
-      "more": "Get in touch"
-    },
     "stamps": {
       "contact": {
         "label": "Contact",
@@ -94,6 +89,14 @@
       },
       "more": "Read the full career",
       "portrait": "Portrait of Zardonis Jeremie ZITTI"
+    },
+    "reach": {
+      "label": "Get in touch",
+      "lead": "Designing a product, taking over a system that grew too fast, or carrying the technical side of a team that has none.",
+      "body": "Write with the problem rather than with the expected solution: what does not work today, for whom, and by when. One page is enough, and a thirty minute call is usually enough to tell whether it makes sense.\n\nI reply within two working days, and I say so when it is not for me.",
+      "email": "Email",
+      "phone": "Phone",
+      "more": "Every way to reach me"
     }
   },
   "archive": {

@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import portrait from "@/images/portrait.jpg";
+import { contact } from "@/lib/contact";
 import { routing } from "@/i18n/routing";
 import { listSelected, listPositions, listCredentials } from "@/lib/entries";
 import { readActivity, readYearTotals } from "@/lib/github";
@@ -368,6 +369,65 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
               ) : null}
             </dl>
           </div>
+        </div>
+      </section>
+
+      {/* The closing section, and the one the whole page has been arguing
+          towards. It says what the work is worth being asked for before it
+          says how to ask, since an address on its own answers a question the
+          reader has not decided to have yet. */}
+      <section className="mt-(--spacing-section)">
+        <p className="t-meta text-accent">{t("reach.label")}</p>
+
+        <p className="t-display text-display-m measure-lead mt-8 text-balance">
+          {t("reach.lead")}
+        </p>
+
+        <div className="mt-14 grid gap-x-16 gap-y-12 lg:grid-cols-[1fr_auto]">
+          <div className="measure">
+            {t("reach.body")
+              .split("\n\n")
+              .map((paragraph) => (
+                <p key={paragraph.slice(0, 40)} className="text-body-l mt-6">
+                  {paragraph}
+                </p>
+              ))}
+
+            <Link
+              href="/contact"
+              className="t-meta text-accent mt-10 inline-block underline underline-offset-4"
+            >
+              {t("reach.more")}
+            </Link>
+          </div>
+
+          {/* Two lines rather than the whole page's worth. Someone who wants
+              the rest follows the link. */}
+          <dl className="shrink-0 lg:w-72">
+            <div className="border-t border-rule py-5">
+              <dt className="t-meta text-accent">{t("reach.email")}</dt>
+              <dd className="t-register mt-2">
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="decoration-accent underline-offset-4 hover:text-accent underline transition-colors"
+                >
+                  {contact.email}
+                </a>
+              </dd>
+            </div>
+
+            <div className="border-t border-rule py-5">
+              <dt className="t-meta text-accent">{t("reach.phone")}</dt>
+              <dd className="t-register mt-2">
+                <a
+                  href={`tel:${contact.phone}`}
+                  className="decoration-accent underline-offset-4 hover:text-accent underline transition-colors"
+                >
+                  {contact.phoneDisplay}
+                </a>
+              </dd>
+            </div>
+          </dl>
         </div>
       </section>
 
