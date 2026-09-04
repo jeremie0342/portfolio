@@ -304,13 +304,6 @@
     pointer-events: none;
   }
 
-  /* The grid display would otherwise win over the hidden attribute, which is
-     how the component removes the layer for a session that has already seen
-     it. */
-  .opening[hidden] {
-    display: none;
-  }
-
   .opening-mark {
     /* The family is set from the component, one degree of wear per step.
        Tracking opens at the coarse end so the halftone has room to read as
