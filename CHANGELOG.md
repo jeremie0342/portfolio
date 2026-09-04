@@ -37,6 +37,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   and an entry page that carries the pieces it contains.
 - Language switch that keeps the reader on the same entry rather than
   returning them to the front page.
+- One word of the front page statement turns in place, between products,
+  solutions and worlds. Only the current word is in the document, and the box is
+  sized from a measurement so the sentence neither jumps nor sits in a gap.
 - Gold marker strokes under the three verbs of the front page statement, pulled
   left to right on hover. The word takes the surface colour as the stroke
   passes: ivory on gold measures 2.3:1, so a highlighted word that kept its

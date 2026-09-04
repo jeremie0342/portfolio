@@ -443,6 +443,69 @@
   }
 
   /* ----------------------------------------------------------
+     The turning word
+     ----------------------------------------------------------
+     One word of the headline gives way to the next. The box is
+     sized from a measurement rather than from the longest word,
+     so the sentence neither jumps nor sits in a padded gap, and
+     the width eases while the words cross.
+
+     Nothing is clipped: at display size Redaction runs well
+     outside its line box, so the words move a third of an em and
+     fade rather than rolling behind a mask.
+     ---------------------------------------------------------- */
+  .cycle {
+    position: relative;
+    display: inline-block;
+    vertical-align: baseline;
+    white-space: nowrap;
+    transition: width 520ms cubic-bezier(0.4, 0, 0.1, 1);
+  }
+
+  .cycle-ruler {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    pointer-events: none;
+    white-space: pre;
+  }
+
+  .cycle-word {
+    display: inline-block;
+    animation: cycle-in 520ms cubic-bezier(0.2, 0, 0, 1) backwards;
+  }
+
+  .cycle-out {
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: cycle-out 520ms cubic-bezier(0.4, 0, 1, 1) forwards;
+  }
+
+  @keyframes cycle-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.32em);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes cycle-out {
+    from {
+      opacity: 1;
+      transform: none;
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-0.32em);
+    }
+  }
+
+  /* ----------------------------------------------------------
      The marker
      ----------------------------------------------------------
      A stroke of gold pulled under a keyword on hover, left to

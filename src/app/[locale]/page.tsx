@@ -10,6 +10,7 @@ import { SiteHeader } from "@/components/site-header";
 import { EntryRow } from "@/components/entry-row";
 import { Stamp } from "@/components/stamp";
 import { Marker } from "@/components/marker";
+import { WordCycle } from "@/components/word-cycle";
 
 /**
  * The front page.
@@ -59,6 +60,11 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         <h1 className="t-display text-display-xl measure-lead mt-8 text-balance">
           {t.rich("statement", {
             mark: (chunks) => <Marker>{chunks}</Marker>,
+            cycle: () => (
+              <WordCycle
+                words={[t("cycle.one"), t("cycle.two"), t("cycle.three")]}
+              />
+            ),
           })}
         </h1>
 
