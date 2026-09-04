@@ -60,7 +60,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
             a document, rather than underneath it where a button would. Below
             the large breakpoint they fall back under the paragraph, since a
             stamp squeezed into a phone column stops reading as a stamp. */}
-        <div className="mt-12 flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-20">
+        <div className="mt-12 flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-14">
           <div className="measure">
             {t("intro")
               .split("\n\n")
@@ -74,7 +74,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
           {/* The two lean opposite ways by different amounts, so they read as
               two impressions made by hand at different moments rather than as
               a pair of buttons that happen to be rotated. */}
-          <div className="flex shrink-0 flex-wrap items-start gap-x-8 gap-y-8 lg:pt-3">
+          <div className="flex shrink-0 flex-wrap items-center gap-x-8 gap-y-8">
             <Stamp
               href="/contact"
               label={t("stamps.contact.label")}
