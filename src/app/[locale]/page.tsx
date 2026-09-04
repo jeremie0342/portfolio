@@ -60,7 +60,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
             a document, rather than underneath it where a button would. Below
             the large breakpoint they fall back under the paragraph, since a
             stamp squeezed into a phone column stops reading as a stamp. */}
-        <div className="mt-12 flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
+        <div className="mt-12 flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-20">
           <div className="measure">
             {t("intro")
               .split("\n\n")
