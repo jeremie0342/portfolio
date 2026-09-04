@@ -9,6 +9,7 @@ import { readActivity } from "@/lib/github";
 import { SiteHeader } from "@/components/site-header";
 import { EntryRow } from "@/components/entry-row";
 import { Stamp } from "@/components/stamp";
+import { Marker } from "@/components/marker";
 
 /**
  * The front page.
@@ -52,8 +53,13 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       <section className="pt-(--spacing-hero) pb-(--spacing-section)">
         <p className="t-byline text-accent">{site("person")}</p>
 
+        {/* The keywords are marked in the message rather than in the markup, so
+            each language decides which of its own words carry the sentence.
+            "Construis" and "build" do not sit in the same place in a line. */}
         <h1 className="t-display text-display-xl measure-lead mt-8 text-balance">
-          {t("statement")}
+          {t.rich("statement", {
+            mark: (chunks) => <Marker>{chunks}</Marker>,
+          })}
         </h1>
 
         {/* The marks sit in the margin beside the text, where a stamp lands on

@@ -443,6 +443,45 @@
   }
 
   /* ----------------------------------------------------------
+     The marker
+     ----------------------------------------------------------
+     A stroke of gold under a keyword, drawn left to right.
+
+     The stroke is a pseudo element scaled from its left edge
+     rather than a background gradient: a transform is composited
+     and a background size is not, and this runs across a headline
+     that fills half the viewport.
+
+     Slightly taller than the letters and slightly wider than the
+     word, tilted by a fraction of a degree. A marker held in a
+     hand does not stop where the word does.
+     ---------------------------------------------------------- */
+  .marker {
+    position: relative;
+    isolation: isolate;
+    background: none;
+    color: inherit;
+  }
+
+  .marker::before {
+    content: "";
+    position: absolute;
+    inset: 0.16em -0.1em 0.1em -0.1em;
+    z-index: 0;
+    background-color: var(--color-accent);
+    transform: scaleX(1) rotate(-0.4deg);
+    transform-origin: left center;
+  }
+
+  .marker-word {
+    position: relative;
+    z-index: 1;
+    /* Reads as emphasis and is required for contrast: ivory on gold measures
+       2.3:1, the surface colour 7.6:1. */
+    color: var(--color-surface);
+  }
+
+  /* ----------------------------------------------------------
      The page arriving
      ----------------------------------------------------------
      Held back only while the opening plays, and only when the
@@ -487,7 +526,60 @@
     [data-opening="done"] main > *:nth-child(n + 6) {
       animation-delay: 450ms;
     }
+
+    /* The strokes are drawn after the page has arrived, one after another, at
+       reading speed rather than at interface speed. */
+    [data-opening="playing"] .marker::before {
+      transform: scaleX(0) rotate(-0.4deg);
+    }
+
+    [data-opening="playing"] .marker-word {
+      color: inherit;
+    }
+
+    [data-opening="done"] .marker::before {
+      animation: marker-draw 420ms cubic-bezier(0.4, 0, 0.1, 1) backwards;
+    }
+
+    [data-opening="done"] .marker-word {
+      animation: marker-ink 420ms step-end backwards;
+    }
+
+    [data-opening="done"] .marker:nth-of-type(1)::before,
+    [data-opening="done"] .marker:nth-of-type(1) .marker-word {
+      animation-delay: 820ms;
+    }
+    [data-opening="done"] .marker:nth-of-type(2)::before,
+    [data-opening="done"] .marker:nth-of-type(2) .marker-word {
+      animation-delay: 1010ms;
+    }
+    [data-opening="done"] .marker:nth-of-type(3)::before,
+    [data-opening="done"] .marker:nth-of-type(3) .marker-word {
+      animation-delay: 1200ms;
+    }
   }
+
+  @keyframes marker-draw {
+    from {
+      transform: scaleX(0) rotate(-0.4deg);
+    }
+    to {
+      transform: scaleX(1) rotate(-0.4deg);
+    }
+  }
+
+  /* Stepped rather than eased: the letter is either under the gold or it is
+     not, and a colour fading through the middle would pass through the two
+     point three to one it exists to avoid. */
+  @keyframes marker-ink {
+    from {
+      color: var(--color-content);
+    }
+    to {
+      color: var(--color-surface);
+    }
+  }
+
 
   @keyframes opening-arrive {
     from {

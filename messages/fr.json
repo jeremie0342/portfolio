@@ -13,14 +13,14 @@
   },
   "home": {
     "metaTitle": "Zardonis Jérémie ZITTI, ingénieur produit",
-    "metaDescription": "Je construis des produits logiciels, je dirige la communauté autour de l'un d'eux, et je tiens tout ce que je fais comme une seule archive numérotée.",
-    "statement": "Je construis des produits, je décide où ils vont, et j'imagine ce qui les entoure.",
-    "intro": "Je suis ingénieur produit, au sein de l'écosystème tech africain. L'essentiel de mon travail se situe là où une décision produit et une décision technique se révèlent être la même décision, et c'est la partie qui m'intéresse.\n\nSur l'année écoulée, cela a donné une plateforme de développement des talents répartie sur quatre services, quatorze implémentations de référence pour ceux qui apprennent à livrer, et une couche de gouvernance qui garde publiques les décisions derrière tout cela.",
+    "metaDescription": "Je construis des produits logiciels, je dirige la communauté autour de l’un d’eux, et je tiens tout ce que je fais comme une seule archive numérotée.",
+    "statement": "Je <mark>construis</mark> des produits, je <mark>décide</mark> où ils vont, et j’<mark>imagine</mark> ce qui les entoure.",
+    "intro": "Je suis ingénieur produit, au sein de l’écosystème tech africain. L’essentiel de mon travail se situe là où une décision produit et une décision technique se révèlent être la même décision, et c’est la partie qui m’intéresse.\n\nSur l’année écoulée, cela a donné une plateforme de développement des talents répartie sur quatre services, quatorze implémentations de référence pour ceux qui apprennent à livrer, et une couche de gouvernance qui garde publiques les décisions derrière tout cela.",
     "dimensions": {
       "label": "Trois entrées",
       "BUILD": {
         "title": "Construire",
-        "body": "Rust, Python, TypeScript, Kotlin, Go. Des backends qui tiennent, du mobile qui fonctionne sans réseau, et des interfaces qui ne font pas travailler ceux qui s'en servent."
+        "body": "Rust, Python, TypeScript, Kotlin, Go. Des backends qui tiennent, du mobile qui fonctionne sans réseau, et des interfaces qui ne font pas travailler ceux qui s’en servent."
       },
       "LEAD": {
         "title": "Diriger",
@@ -28,7 +28,7 @@
       },
       "CREATE": {
         "title": "Créer",
-        "body": "Direction artistique, worldbuilding, interfaces construites dans un moteur de jeu parce qu'une liste n'aurait pas suffi. La part qui ne répond qu'à l'idée."
+        "body": "Direction artistique, worldbuilding, interfaces construites dans un moteur de jeu parce qu’une liste n’aurait pas suffi. La part qui ne répond qu’à l’idée."
       }
     },
     "evidence": {
@@ -39,11 +39,11 @@
     },
     "selected": {
       "label": "Sélection",
-      "all": "Entrer dans l'archive"
+      "all": "Entrer dans l’archive"
     },
     "about": {
       "label": "Qui",
-      "body": "Basé à Cotonou, au Bénin, en télétravail sur GMT+1. Architecte principal d'une plateforme SaaS multi-tenant en production chez cinq clients, directeur technique d'un produit culturel qui sort ce trimestre, et seul bâtisseur de Skilluv.\n\nLe français est ma langue maternelle, l'anglais ma langue de travail.",
+      "body": "Basé à Cotonou, au Bénin, en télétravail sur GMT+1. Architecte principal d’une plateforme SaaS multi-tenant en production chez cinq clients, directeur technique d’un produit culturel qui sort ce trimestre, et seul bâtisseur de Skilluv.\n\nLe français est ma langue maternelle, l’anglais ma langue de travail.",
       "more": "Lire le parcours complet"
     },
     "activity": {
@@ -53,7 +53,7 @@
     },
     "contact": {
       "label": "Travailler ensemble",
-      "body": "Ouvert aux postes full-stack et ingénierie logicielle en télétravail, et au travail produit là où la décision technique et la décision produit n'en font qu'une.",
+      "body": "Ouvert aux postes full-stack et ingénierie logicielle en télétravail, et au travail produit là où la décision technique et la décision produit n’en font qu’une.",
       "more": "Me contacter"
     },
     "stamps": {
@@ -71,16 +71,16 @@
     "metaTitle": "Archive",
     "metaDescription": "Chaque projet, chaque service, chaque pièce de travail, numérotés et tenus au même endroit.",
     "title": "Archive",
-    "intro": "Tout, numéroté. Les entrées contiennent les pièces qui les composent, si bien qu'une plateforme et les quatorze dépôts qu'elle abrite vivent à la même adresse.",
+    "intro": "Tout, numéroté. Les entrées contiennent les pièces qui les composent, si bien qu’une plateforme et les quatorze dépôts qu’elle abrite vivent à la même adresse.",
     "pieces": "{count, plural, =1 {# pièce} other {# pièces}}",
-    "back": "Retour à l'archive"
+    "back": "Retour à l’archive"
   },
   "entry": {
     "contents": "Sommaire",
     "repository": "Dépôt",
     "stack": "Stack",
     "period": {
-      "ongoing": "{start} à aujourd'hui",
+      "ongoing": "{start} à aujourd’hui",
       "range": "{start} à {end}",
       "single": "{start}"
     },
@@ -104,15 +104,15 @@
     "metaTitle": "Parcours",
     "metaDescription": "Parcours, expérience et formation de Zardonis Jérémie ZITTI, ingénieur full-stack à Cotonou, Bénin.",
     "title": "Parcours",
-    "intro": "Ingénieur full-stack, je construis des systèmes de production de bout en bout. Architecture, backend, front, infrastructure, et la partie où cela part réellement en production.\n\nJe préfère les produits réels aux démonstrations, ce qui explique que l'essentiel de ce qui suit tourne quelque part avec de vrais utilisateurs, plutôt que de dormir dans un dépôt à l'état de preuve de concept.",
+    "intro": "Ingénieur full-stack, je construis des systèmes de production de bout en bout. Architecture, backend, front, infrastructure, et la partie où cela part réellement en production.\n\nJe préfère les produits réels aux démonstrations, ce qui explique que l’essentiel de ce qui suit tourne quelque part avec de vrais utilisateurs, plutôt que de dormir dans un dépôt à l’état de preuve de concept.",
     "experience": "Expérience",
     "education": "Formation",
     "skills": "Compétences",
     "organisations": "Organisations",
     "languages": "Langues",
     "languagesBody": "Français, langue maternelle. Anglais, lu et écrit professionnellement, parlé en conversation.",
-    "present": "Aujourd'hui",
-    "cta": "Voir l'archive",
+    "present": "Aujourd’hui",
+    "cta": "Voir l’archive",
     "skillGroups": {
       "languages": "Langages",
       "frontend": "Front",

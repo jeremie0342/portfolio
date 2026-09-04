@@ -14,7 +14,7 @@
   "home": {
     "metaTitle": "Zardonis Jeremie ZITTI, product engineer",
     "metaDescription": "I build software products, lead the community around one of them, and keep everything I make as a single numbered archive.",
-    "statement": "I build products, decide where they go, and imagine what surrounds them.",
+    "statement": "I <mark>build</mark> products, <mark>decide</mark> where they go, and <mark>imagine</mark> what surrounds them.",
     "intro": "I am a product engineer working across the African tech ecosystem. Most of my work sits at the point where a product decision and a technical decision turn out to be the same decision, which is the part I find worth doing.\n\nOver the past year that has meant a talent development platform running on four services, fourteen reference implementations for people learning to ship, and a governance layer that keeps the decisions behind all of it public.",
     "dimensions": {
       "label": "Three ways in",
