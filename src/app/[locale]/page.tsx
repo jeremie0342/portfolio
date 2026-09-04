@@ -1,4 +1,8 @@
-import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
+import {
+  getFormatter,
+  getTranslations,
+  setRequestLocale,
+} from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
@@ -132,17 +136,17 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       </section>
 
       {/*
-        * Decisions rather than skills.
-        *
-        * This block used to name three dimensions and assert what each one
-        * meant, which made it the only part of the page that claimed instead
-        * of showing. Everything around it is evidence, and the contrast was
-        * audible.
-        *
-        * Each decision now carries the constraint that forced it, so the
-        * dimension survives as a label on a proof rather than as a heading
-        * over an adjective.
-        */}
+       * Decisions rather than skills.
+       *
+       * This block used to name three dimensions and assert what each one
+       * meant, which made it the only part of the page that claimed instead
+       * of showing. Everything around it is evidence, and the contrast was
+       * audible.
+       *
+       * Each decision now carries the constraint that forced it, so the
+       * dimension survives as a label on a proof rather than as a heading
+       * over an adjective.
+       */}
       <section>
         <p className="t-meta text-accent">{t("decisions.label")}</p>
 
@@ -212,7 +216,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
                 >
                   <a
                     href={touch.url}
-                    rel="noreferrer"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="t-meta hover:text-accent transition-colors"
                   >
                     {touch.repository}

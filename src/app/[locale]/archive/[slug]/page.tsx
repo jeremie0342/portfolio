@@ -139,7 +139,9 @@ export default async function EntryPage({
 
       <SiteHeader locale={locale} />
 
-      <section className={`${worn ? displayWorn.variable : ""} ${openingShell}`}>
+      <section
+        className={`${worn ? displayWorn.variable : ""} ${openingShell}`}
+      >
         <p className="t-meta text-accent">
           {String(entry.number).padStart(3, "0")}{" "}
           <span className={muted}>
@@ -186,7 +188,8 @@ export default async function EntryPage({
               <dd className="t-meta mt-2">
                 <a
                   href={entry.repositoryUrl}
-                  rel="noreferrer"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`${imagined ? "text-ivory" : "text-content"} underline decoration-accent underline-offset-4`}
                 >
                   {entry.repositoryUrl.replace("https://github.com/", "")}
@@ -200,7 +203,10 @@ export default async function EntryPage({
       {entry.body ? (
         <section className="pb-(--spacing-section)">
           {entry.body.split("\n\n").map((paragraph) => (
-            <p key={paragraph.slice(0, 40)} className="measure text-body-l mt-6">
+            <p
+              key={paragraph.slice(0, 40)}
+              className="measure text-body-l mt-6"
+            >
               {paragraph}
             </p>
           ))}
@@ -237,7 +243,8 @@ export default async function EntryPage({
                         {" "}
                         <a
                           href={child.repositoryUrl}
-                          rel="noreferrer"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="text-accent underline underline-offset-4"
                         >
                           {child.repositoryUrl.replace(

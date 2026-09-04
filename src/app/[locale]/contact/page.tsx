@@ -51,7 +51,11 @@ export default async function Contact({
   const footer = await getTranslations("footer");
 
   const direct = [
-    { label: t("email"), value: contact.email, href: `mailto:${contact.email}` },
+    {
+      label: t("email"),
+      value: contact.email,
+      href: `mailto:${contact.email}`,
+    },
     {
       label: t("personalEmail"),
       value: contact.personalEmail,
@@ -131,7 +135,8 @@ export default async function Contact({
               <dd className="t-register">
                 <a
                   href={profile.url}
-                  rel="me noreferrer"
+                  target="_blank"
+                  rel="me noopener noreferrer"
                   className="underline decoration-accent underline-offset-4 hover:text-accent transition-colors"
                 >
                   {profile.handle}
@@ -158,7 +163,8 @@ export default async function Contact({
                 {organisation.url ? (
                   <a
                     href={organisation.url}
-                    rel="noreferrer"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="underline decoration-accent underline-offset-4 hover:text-accent transition-colors"
                   >
                     {organisation.name}

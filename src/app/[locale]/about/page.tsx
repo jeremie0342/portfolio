@@ -4,7 +4,11 @@ import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { listPositions, listCredentials, type CareerRecord } from "@/lib/entries";
+import {
+  listPositions,
+  listCredentials,
+  type CareerRecord,
+} from "@/lib/entries";
 import { skills } from "@/lib/skills";
 import { organisations } from "@/lib/contact";
 import { SiteHeader } from "@/components/site-header";
@@ -131,7 +135,8 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
                   {position.organizationUrl ? (
                     <a
                       href={position.organizationUrl}
-                      rel="noreferrer"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="underline decoration-accent underline-offset-4"
                     >
                       {position.organization}
@@ -200,7 +205,8 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
                 {organisation.url ? (
                   <a
                     href={organisation.url}
-                    rel="noreferrer"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="underline decoration-accent underline-offset-4"
                   >
                     {organisation.name}

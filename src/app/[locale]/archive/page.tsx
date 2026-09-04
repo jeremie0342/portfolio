@@ -55,7 +55,12 @@ export default async function Archive({
     <main className="px-(--spacing-gutter) py-(--spacing-gutter)">
       <JsonLd
         data={graph([
-          collectionSchema(locale, "/archive", t("title"), t("metaDescription")),
+          collectionSchema(
+            locale,
+            "/archive",
+            t("title"),
+            t("metaDescription"),
+          ),
           breadcrumbSchema(locale, [
             { name: site("name"), path: "" },
             { name: t("title"), path: "/archive" },
