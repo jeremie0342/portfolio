@@ -1,36 +1,43 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { displayWorn } from "@/lib/fonts";
+import { hasLocale } from "next-intl";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
+import { listEntries } from "@/lib/entries";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ArchiveEntryBlock } from "@/components/archive-entry";
 
 /**
- * Proof sheet.
+ * The archive index.
  *
- * This page exists to judge the art direction on a real screen rather than
- * to stand in for the eventual home page: Redaction in ivory on the deep
- * black, gold reserved for the meta line, crimson confined to display sizes
- * and violet used as ground. The copy will be replaced by archive entries
- * once the database is wired.
+ * Prerendered and revalidated hourly rather than rendered per request. The
+ * content changes when an entry is edited, not when a visitor arrives, and a
+ * static document is what gives the crawler and the first paint their best
+ * case. The cost is that the database has to be reachable at build time.
  */
+export const revalidate = 3600;
+
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   setRequestLocale(locale);
 
   const t = await getTranslations("home");
   const masthead = await getTranslations("masthead");
   const footer = await getTranslations("footer");
-
-  const facts = [
-    [t("entry.roleLabel"), t("entry.roleValue")],
-    [t("entry.periodLabel"), t("entry.periodValue")],
-    [t("entry.statusLabel"), t("entry.statusValue")],
-  ];
+  const entries = await listEntries(locale);
 
   return (
     <main className="px-(--spacing-gutter) py-(--spacing-gutter)">
       <header className="flex items-baseline justify-between gap-4 border-b border-rule pb-4">
         <span className="t-meta">{masthead("name")}</span>
         <div className="flex items-baseline gap-6">
-          <span className="t-meta text-accent">{masthead("reference")}</span>
+          <span className="t-meta text-accent">
+            {new Date().getUTCFullYear()} / {String(entries.length).padStart(3, "0")}
+          </span>
           <ThemeToggle label={masthead("themeToggle")} />
         </div>
       </header>
@@ -41,67 +48,15 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </h1>
       </section>
 
-      <section>
-        <p className="t-meta text-accent">
-          {t("entry.reference")}{" "}
-          <span className="text-content-muted">{t("entry.kind")}</span>
-        </p>
-
-        <h2 className="t-display text-display-l text-energy mt-6">
-          {t("entry.name")}
-        </h2>
-
-        <p className="t-label text-content-muted mt-5">
-          {t("entry.disciplines")}
-        </p>
-
-        <p className="measure text-body-l mt-8">{t("entry.body")}</p>
-
-        <dl className="mt-10 flex flex-wrap gap-x-12 gap-y-5">
-          {facts.map(([label, value]) => (
-            <div key={label}>
-              <dt className="t-meta text-accent">{label}</dt>
-              <dd className="t-meta text-content-muted mt-1">{value}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      {/*
-       * Violet cannot be ink, so it becomes the ground for this entry. The
-       * negative margin lets the field run to the window edges while the
-       * copy stays inside the gutter.
-       */}
-      <section className="mt-(--spacing-section) -mx-(--spacing-gutter) bg-surface-imagined px-(--spacing-gutter) py-(--spacing-section)">
-        <p className="t-meta text-accent">
-          {t("world.reference")}{" "}
-          <span className="text-ivory/70">{t("world.date")}</span>
-        </p>
-
-        <h2 className="t-display text-display-l text-ivory mt-6 measure-lead text-balance">
-          {t("world.title")}
-        </h2>
-
-        <p className="measure text-body-l text-ivory/85 mt-8">
-          {t("world.body")}
-        </p>
-      </section>
-
-      {/*
-       * Redaction 50 is requested by this section alone. Its font variable is
-       * carried here rather than by the root layout, which keeps it off the
-       * routes that never render it.
-       */}
-      <section className={`${displayWorn.variable} mt-(--spacing-section)`}>
-        <p className="t-meta text-accent">{t("fragment.reference")}</p>
-        <p className="t-display-worn text-display-m mt-6 measure-lead">
-          {t("fragment.body")}
-        </p>
-      </section>
+      <div className="flex flex-col gap-(--spacing-section)">
+        {entries.map((entry) => (
+          <ArchiveEntryBlock key={entry.slug} entry={entry} />
+        ))}
+      </div>
 
       <footer className="mt-(--spacing-section) flex flex-wrap justify-between gap-4 border-t border-rule pt-6">
-        <span className="t-meta text-content-muted">{footer("left")}</span>
-        <span className="t-meta text-accent">{footer("right")}</span>
+        <span className="t-meta text-content-muted">{footer("name")}</span>
+        <span className="t-meta text-accent">{footer("typefaces")}</span>
       </footer>
     </main>
   );

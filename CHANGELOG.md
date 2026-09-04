@@ -20,8 +20,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Prisma schema for the archive: a single numbered entry with satellite
   tables for projects, worlds, credentials and positions, and dedicated
   translation tables.
-- Proof sheet page used to judge the art direction against real type and
-  real contrast ratios.
+- Read layer over the archive, and an index page rendered from the database
+  in both languages, prerendered and revalidated hourly.
+- Seed drawn from real public repositories: Skilluv and its four services,
+  the community governance repositories, the fourteen starters, the chess
+  coach, and TrackMyWeight. Private work is seeded as a draft.
+- Colour rules encoded in the entry component rather than restated per entry:
+  a violet accent turns the section into a violet field instead of colouring
+  the text, since violet cannot reach a readable contrast as ink.
 
 ### Notes
 
