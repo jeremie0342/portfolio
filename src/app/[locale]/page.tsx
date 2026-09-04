@@ -29,7 +29,10 @@ import { WordCycle } from "@/components/word-cycle";
  */
 export const revalidate = 3600;
 
-const decisions = ["one", "two", "three", "four", "five"] as const;
+/* Six steps forming a closed loop: the last measures against the objective set
+   by the first. The order is the argument, so they are numbered and read in
+   sequence rather than laid out as a grid of equals. */
+const method = ["one", "two", "three", "four", "five", "six"] as const;
 
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
@@ -145,7 +148,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </p>
 
         <div className="mt-12">
-          {decisions.map((key, position) => (
+          {method.map((key, position) => (
             <article
               key={key}
               className="grid gap-x-10 gap-y-3 border-t border-rule py-8 md:grid-cols-[10rem_1fr]"

@@ -59,31 +59,30 @@
     "tagline": "Une archive de ce que je construis, dirige et imagine",
     "decisions": {
       "label": "Comment je travaille",
-      "intro": "Cinq principes qui reviennent sur chaque projet, quels que soient le domaine et la stack.",
+      "intro": "Six étapes, dans cet ordre. Elles ne changent ni avec le domaine ni avec la stack.",
       "one": {
-        "dimension": "01",
-        "title": "Je commence par les contraintes qui ne bougeront pas",
-        "body": "Qui va s’en servir, ce qui casse le jour où le service tombe, ce qui devra encore tenir dans deux ans. Ces réponses décident de l’architecture, et elles la décident avant la première ligne de code."
+        "title": "Je commence par le problème et par qui l’a",
+        "body": "À qui ça manque, ce que la situation actuelle leur coûte, et à quoi on saura que c’est réglé. Le succès s’écrit comme une variation mesurable, pas comme une liste de fonctionnalités. J’y ajoute ce qu’on ne fera pas : c’est la moitié du cadrage, et celle qu’on regrette d’avoir laissée implicite."
       },
       "two": {
-        "dimension": "02",
-        "title": "Je découpe selon les gens, pas selon les modules",
-        "body": "Deux publics qui n’ont pas les mêmes besoins obtiennent deux interfaces différentes. C’est un chantier de plus, et c’est ce qui évite un produit tiède qui ne convient tout à fait à personne."
+        "title": "Je trie les contraintes en négociables et non négociables",
+        "body": "Volume et profil des usages, disponibilité attendue, nature des données et règles qui s’y appliquent, systèmes déjà en place, équipe, budget, échéance. Le tas des non négociables élimine la plupart des architectures avant qu’on en débatte. Pour chaque choix qui reste, je note s’il est réversible : on décide vite sur ce qui se défait, lentement sur ce qui ne se défait pas."
       },
       "three": {
-        "dimension": "03",
-        "title": "J’écris les décisions au moment où je les prends",
-        "body": "L’option retenue, celles que j’écarte, et la raison. Une équipe peut alors avancer sans moi, et personne ne rejoue le même débat trois mois plus tard."
+        "title": "Je fais tenir debout au moins deux options avant de trancher",
+        "body": "Comparées sur les critères posés à la première étape, pas sur les préférences de qui parle le plus fort. Puis une décision écrite, avec ce qu’elle écarte et pourquoi. Une équipe peut alors avancer sans moi, et le débat ne revient pas trois mois plus tard sous un autre nom."
       },
       "four": {
-        "dimension": "04",
-        "title": "Je traite la forme comme une décision produit",
-        "body": "Typographie, rythme, couleur, hiérarchie : cela se décide en même temps que le modèle de données, pas à la fin, quand il ne reste que de la place pour décorer."
+        "title": "Je décide la forme en même temps que le modèle",
+        "body": "Hiérarchie, typographie, rythme, densité : ce sont des décisions produit, prises avec le modèle de données et non après lui. Je commence par les états, vide, chargement, erreur, droits insuffisants, parce que ce sont eux qui révèlent ce que le produit doit réellement savoir faire."
       },
       "five": {
-        "dimension": "05",
-        "title": "Je livre, et je reste après",
-        "body": "La mise en ligne est le début de la partie intéressante. Des gens en dépendent tous les jours, et le système doit tenir sans que je sois devant l’écran."
+        "title": "Je livre la tranche la plus risquée en premier, de bout en bout",
+        "body": "Pas la plus facile. Une tranche fine mais complète, jusqu’en production, confronte le plan à la réalité pendant qu’il est encore temps d’en changer. Ce qui suit n’est plus que de l’exécution."
+      },
+      "six": {
+        "title": "Je mesure, j’exploite, et je reste",
+        "body": "Instrumentation dès la première mise en ligne, relue contre l’objectif de la première étape. L’exploitation se conçoit, elle ne s’ajoute pas : journaux, alertes, procédures de reprise. Un système qui ne tient que si je suis devant l’écran n’est pas terminé."
       }
     }
   },

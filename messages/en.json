@@ -59,31 +59,30 @@
     "tagline": "An archive of things I build, shape and imagine",
     "decisions": {
       "label": "How I work",
-      "intro": "Five principles that come back on every project, whatever the domain and whatever the stack.",
+      "intro": "Six steps, in this order. They change with neither the domain nor the stack.",
       "one": {
-        "dimension": "01",
-        "title": "I start from the constraints that will not move",
-        "body": "Who is going to use it, what breaks the day the service goes down, what still has to hold in two years. Those answers decide the architecture, and they decide it before the first line of code."
+        "title": "I start from the problem and who has it",
+        "body": "Who is missing it, what the current situation costs them, and how we will know it is solved. Success is written as a measurable change, not as a list of features. I add what we will not do: that is half the framing, and the half people regret leaving implicit."
       },
       "two": {
-        "dimension": "02",
-        "title": "I split by audience, not by module",
-        "body": "Two audiences with different needs get two different interfaces. It is one more piece of work, and it is what prevents a lukewarm product that suits nobody exactly."
+        "title": "I sort constraints into negotiable and non-negotiable",
+        "body": "Usage volume and shape, expected availability, the nature of the data and the rules that apply to it, systems already in place, team, budget, deadline. The non-negotiable pile rules out most architectures before anyone debates them. For each remaining choice I note whether it is reversible: decide fast on what can be undone, slowly on what cannot."
       },
       "three": {
-        "dimension": "03",
-        "title": "I write decisions down as I make them",
-        "body": "The option taken, the ones set aside, and the reason. A team can then move without me, and nobody reopens the same debate three months later."
+        "title": "I make at least two options stand up before choosing",
+        "body": "Compared against the criteria set in the first step, not against the preferences of whoever speaks loudest. Then one written decision, with what it rules out and why. A team can move without me, and the debate does not come back three months later under a different name."
       },
       "four": {
-        "dimension": "04",
-        "title": "I treat form as a product decision",
-        "body": "Typography, rhythm, colour, hierarchy: decided alongside the data model, not at the end when all that is left is room to decorate."
+        "title": "I decide form alongside the model",
+        "body": "Hierarchy, typography, rhythm, density: these are product decisions, taken with the data model rather than after it. I start from the states, empty, loading, error, insufficient rights, because they are what reveal what the product actually has to be able to do."
       },
       "five": {
-        "dimension": "05",
-        "title": "I ship, and I stay",
-        "body": "Going live is where the interesting part starts. People depend on it every day, and the system has to hold without me watching it."
+        "title": "I ship the riskiest slice first, end to end",
+        "body": "Not the easiest. A thin but complete slice, all the way to production, puts the plan against reality while there is still time to change it. What follows is execution."
+      },
+      "six": {
+        "title": "I measure, I operate, and I stay",
+        "body": "Instrumentation from the first release, read against the objective set in the first step. Operations are designed rather than added: logs, alerts, recovery procedures. A system that only holds while I am watching it is not finished."
       }
     }
   },
