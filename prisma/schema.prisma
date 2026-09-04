@@ -62,6 +62,17 @@ enum Wear {
   WORN
 }
 
+/// Where a message stands, not what it is worth. The distinction matters for
+/// the inbox: READ says someone looked, REPLIED says someone answered, and a
+/// message can be archived without ever having been either.
+enum MessageStatus {
+  NEW
+  READ
+  REPLIED
+  ARCHIVED
+  SPAM
+}
+
 enum CredentialKind {
   DEGREE
   CERTIFICATION
@@ -267,4 +278,31 @@ model EntryMedia {
 
   @@id([entryId, mediaId])
   @@index([entryId, position])
+}
+
+/// A message left through the contact form.
+///
+/// Kept deliberately thin. It holds what the sender typed and nothing they did
+/// not offer: no address, no fingerprint, no session. A portfolio has no reason
+/// to build a profile of the people who write to it, and anything stored here
+/// is something that has to be defended later.
+model Message {
+  id      String        @id @default(cuid())
+  name    String
+  email   String
+  subject String?
+  body    String
+  locale  Locale
+  status  MessageStatus @default(NEW)
+
+  createdAt DateTime  @default(now())
+  readAt    DateTime?
+  repliedAt DateTime?
+
+  /// What the reply said, kept beside the message rather than only in a mail
+  /// client, so the thread survives a change of address.
+  reply String?
+
+  @@index([status, createdAt])
+  @@index([createdAt])
 }

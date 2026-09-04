@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { contact, profiles, organisations } from "@/lib/contact";
 import { SiteHeader } from "@/components/site-header";
+import { ContactForm } from "@/components/contact-form";
 import { JsonLd } from "@/components/json-ld";
 import { languageAlternates } from "@/lib/site";
 import { breadcrumbSchema, graph, personSchema } from "@/lib/schema";
@@ -30,10 +31,11 @@ export async function generateMetadata(
 /**
  * Contact.
  *
- * Deliberately a page of addresses rather than a form. A form asks a stranger
- * to trust an unfamiliar endpoint with their message and gives them nothing to
- * keep; an address goes into their own client, where they have a copy of what
- * they sent and a thread to follow.
+ * A form and the addresses, in that order, and the order is the point. A form
+ * asks a stranger to trust an unfamiliar endpoint and leaves them nothing to
+ * keep, so the addresses stay listed underneath for anyone who would rather
+ * have a copy of what they sent in their own client. Neither is a fallback for
+ * the other; they suit different people.
  */
 export default async function Contact({
   params,
@@ -95,7 +97,33 @@ export default async function Contact({
         <p className="measure-lead text-body-l mt-10">{t("intro")}</p>
       </section>
 
+      {/* The form comes before the addresses. Someone who arrived meaning to
+          write should not have to scroll past four ways of doing it somewhere
+          else first. */}
       <section>
+        <p className="t-meta text-accent">{t("formLabel")}</p>
+
+        <p className="measure-lead text-body-l mt-6">{t("formLead")}</p>
+
+        <ContactForm
+          locale={locale}
+          labels={{
+            name: t("form.name"),
+            email: t("form.email"),
+            subject: t("form.subject"),
+            optional: t("form.optional"),
+            body: t("form.body"),
+            send: t("form.send"),
+            sending: t("form.sending"),
+            sent: t("form.sent"),
+            invalid: t("form.invalid"),
+            failed: t("form.failed"),
+            privacy: t("form.privacy"),
+          }}
+        />
+      </section>
+
+      <section className="mt-(--spacing-section)">
         <p className="t-meta text-accent">{t("direct")}</p>
 
         <dl className="mt-8">

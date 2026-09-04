@@ -159,15 +159,30 @@
   },
   "contact": {
     "metaTitle": "Contact",
-    "metaDescription": "Reach Zardonis Jeremie ZITTI: email, phone and public profiles.",
+    "metaDescription": "Write to Zardonis Jeremie ZITTI: form, email, phone and public profiles.",
     "title": "Contact",
-    "intro": "Open to remote full-stack and software engineering roles. The fastest route is email.",
+    "intro": "The form goes straight to my inbox. If you would rather use email or the phone, everything is below.",
     "direct": "Direct",
     "email": "Email",
     "personalEmail": "Personal email",
     "phone": "Phone",
     "location": "Location",
     "elsewhere": "Elsewhere",
-    "organisations": "Organisations"
+    "organisations": "Organisations",
+    "formLabel": "Write",
+    "formLead": "Tell me what does not work today, for whom, and by when. The rest can be discussed.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "optional": "(optional)",
+      "body": "Message",
+      "send": "Send",
+      "sending": "Sending",
+      "sent": "Message received. I reply within two working days.",
+      "invalid": "Check the name, the email, and a message of at least ten characters.",
+      "failed": "Sending failed. Write to me directly at jeremie@skill-uv.com.",
+      "privacy": "Your message and your address are kept only so that I can reply. They are not sold and not used for anything else, and I delete them on request."
+    }
   }
 }

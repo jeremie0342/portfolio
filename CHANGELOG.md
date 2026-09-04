@@ -81,6 +81,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   dark ground.
 - A section of its own for the person, with a portrait held as an archive
   plate: monochrome by default, its colour returning under the pointer.
+- A contact form stored in the database, with a hidden field and a minimum
+  time to submit as its defences, and a note saying what happens to the message.
 - A career page and a contact page, both linked from a summary on the front.
 - Positions, organisations and credentials seeded from the curriculum vitae,
   and the professional work itself added to the archive: a multi-tenant SaaS

@@ -159,15 +159,30 @@
   },
   "contact": {
     "metaTitle": "Contact",
-    "metaDescription": "Joindre Zardonis Jérémie ZITTI : courriel, téléphone et profils publics.",
+    "metaDescription": "Écrire à Zardonis Jérémie ZITTI : formulaire, courriel, téléphone et profils publics.",
     "title": "Contact",
-    "intro": "Ouvert aux postes full-stack et ingénierie logicielle en télétravail. Le plus rapide reste le courriel.",
+    "intro": "Le formulaire arrive directement dans ma boîte de réception. Si vous préférez le courriel ou le téléphone, tout est plus bas.",
     "direct": "Direct",
     "email": "Courriel",
     "personalEmail": "Courriel personnel",
     "phone": "Téléphone",
     "location": "Localisation",
     "elsewhere": "Ailleurs",
-    "organisations": "Organisations"
+    "organisations": "Organisations",
+    "formLabel": "Écrire",
+    "formLead": "Dites-moi ce qui ne fonctionne pas aujourd’hui, pour qui, et à quelle échéance. Le reste se discute.",
+    "form": {
+      "name": "Nom",
+      "email": "Courriel",
+      "subject": "Objet",
+      "optional": "(facultatif)",
+      "body": "Message",
+      "send": "Envoyer",
+      "sending": "Envoi",
+      "sent": "Message reçu. Je réponds sous deux jours ouvrés.",
+      "invalid": "Vérifiez le nom, le courriel et un message d’au moins dix caractères.",
+      "failed": "L’envoi a échoué. Écrivez-moi directement à jeremie@skill-uv.com.",
+      "privacy": "Votre message et votre adresse sont conservés uniquement pour vous répondre. Ils ne sont ni revendus ni utilisés pour autre chose, et je les supprime sur simple demande."
+    }
   }
 }
