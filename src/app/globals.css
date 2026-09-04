@@ -457,6 +457,53 @@
   }
 
   /* ----------------------------------------------------------
+     The odometer
+     ----------------------------------------------------------
+     A figure whose digits arrive on reels.
+
+     Every column is fixed at 0.6em, which is the advance of the
+     widest digit in Redaction. The face carries no tabular
+     figures and its digits run from 370 to 600 units, so a
+     column sized to its content would change width on every step
+     of the spin and the whole number would jitter sideways. The
+     fixed column also keeps the figure stable when the value
+     itself changes, which it now does: these are read from
+     GitHub.
+
+     Clipped with clip-path for the same reason as the word reel:
+     overflow on an inline element moves the baseline to the
+     bottom of the box.
+     ---------------------------------------------------------- */
+  .odometer {
+    --digit-width: 0.6em;
+    --digit-height: 1em;
+    display: inline-flex;
+  }
+
+  .odometer-slot {
+    display: block;
+    width: var(--digit-width);
+    height: var(--digit-height);
+    clip-path: inset(0);
+  }
+
+  .odometer-strip {
+    display: block;
+    /* Decelerating, with no overshoot. A reel is stopped by a detent, and a
+       digit that sprang back past its value would read as a mistake rather
+       than as a mechanism. */
+    transition-timing-function: cubic-bezier(0.16, 0.86, 0.2, 1);
+    will-change: transform;
+  }
+
+  .odometer-digit {
+    display: block;
+    height: var(--digit-height);
+    line-height: var(--digit-height);
+    text-align: center;
+  }
+
+  /* ----------------------------------------------------------
      The reel
      ----------------------------------------------------------
      One word of the headline sits on a reel: the outgoing word

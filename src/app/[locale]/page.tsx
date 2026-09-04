@@ -17,6 +17,7 @@ import {
 import { Stamp } from "@/components/stamp";
 import { Marker } from "@/components/marker";
 import { WordCycle } from "@/components/word-cycle";
+import { Odometer } from "@/components/odometer";
 
 /**
  * The front page.
@@ -183,9 +184,14 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </p>
 
         <dl className="mt-8 flex flex-wrap gap-x-16 gap-y-8">
-          {figures.map(([value, label]) => (
+          {figures.map(([value, label], rank) => (
             <div key={label}>
-              <dt className="t-display text-display-l">{value}</dt>
+              <dt className="t-display text-display-l">
+                {/* Offset per figure so the three do not settle at once: the
+                    reels release across the row as well as across the digits
+                    of each number. */}
+                <Odometer value={value} offset={rank * 160} />
+              </dt>
               <dd className="t-meta text-content-muted mt-2">{label}</dd>
             </div>
           ))}
