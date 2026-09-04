@@ -1,157 +1,150 @@
-# Archive Nocturne — Système typographique
+# Archive Nocturne, typographic system
 
-Kit retenu : **A — ARCHIVE MATÉRIELLE**.
-Principe : la typographie ne décrit pas l'archive, elle en est la matière.
+Three families, four roles, no overlap.
 
----
+| Role | Family | Origin | Licence |
+| --- | --- | --- | --- |
+| Display | **Redaction** | The Redaction, by Titus Kaphar and Reginald Dwayne Betts at MoMA PS1; typeface by Forest Young and Jeremy Mickel (MCKL) | SIL OFL |
+| Text | **Author** | Indian Type Foundry, via Fontshare | Fontshare |
+| Meta and register | **Sligoil Micro** | Ariel Martin Perez, Velvetyne | SIL OFL |
 
-## 1. Les trois familles
+All three are self-hosted through `next/font/local`. No third-party request, no
+layout shift.
 
-| Rôle | Famille | Origine | Licence |
-|---|---|---|---|
-| Display | **Redaction** | Projet *Redaction* de Titus Kaphar & Reginald Dwayne Betts ; caractère par Forest Young & Jeremy Mickel (MCKL) | SIL OFL |
-| Texte | **Author** | Indian Type Foundry / Fontshare | Fontshare (usage commercial inclus) |
-| Méta | **Sligoil Micro** | Ariel Martín Pérez / Velvetyne | SIL OFL |
+## Redaction: wear as data
 
-Aucune quatrième famille. Jamais.
+Redaction is not a variable font. Each degree of print wear is a separate
+family (0, 10, 20, 35, 50, 70, 100), with the halftone cut into the outlines
+themselves.
 
----
+**Two degrees, not seven.** Seven degrees is an effect. Two is a system.
 
-## 2. Redaction — la dégradation comme système
+| Degree | Token | Use |
+| --- | --- | --- |
+| Redaction 10 | `--font-display` | Default. Everything alive and in progress. |
+| Redaction 50 | `--font-worn` | Exception. Older pieces, worldbuilding fragments, closed entries. |
 
-Redaction n'est pas une police variable : chaque degré de dégradation est **une famille distincte**
-(Redaction 0, 10, 20, 35, 50, 70, 100). Le degré correspond à une trame d'impression de plus en plus
-grossière, gravée dans les contours eux-mêmes.
+Moving from 10 to 50 has to **mean** something, namely age or depth in the
+archive, and never serve as decorative variation. It is a column in the
+database, not a layout choice.
 
-### Règle de discipline : deux degrés, pas sept
+### Size floor
 
-Sept degrés = un effet. Deux degrés = un système.
+The halftone closes up as the size drops, and a high degree becomes a grey
+smear.
 
-| Degré | Nom interne | Usage |
-|---|---|---|
-| **Redaction 10** | `--font-display-clean` | Défaut. Titres de page, noms de projets, tout ce qui est vivant et en cours. |
-| **Redaction 50** | `--font-display-worn` | Exception. Pièces anciennes de l'archive, fragments de worldbuilding, citations d'origine, entrées closes. |
-
-Le passage de 10 à 50 doit **signifier quelque chose** — l'âge ou la profondeur dans l'archive —
-et jamais servir de variation décorative. C'est un champ en base de données, pas un choix de mise en page.
-
-### Contrainte de corps
-
-La trame se referme quand le corps diminue : en dessous d'un certain seuil, un degré élevé
-devient une bouillie grise.
-
-| Degré | Corps minimum |
-|---|---|
+| Degree | Minimum |
+| --- | --- |
 | Redaction 10 | 32 px |
 | Redaction 50 | 64 px |
 
-En dessous de 32 px, Redaction ne s'utilise pas du tout. Jamais en corps de texte, jamais en libellé,
-jamais en navigation.
+Below 32 px, Redaction is not used at all. Never in body copy, never in a
+label, never in navigation.
 
-### Réglages
+### Settings
 
-- Graisses : **Regular uniquement**. Le Bold de Redaction combiné à la trame devient opaque et perd le grain.
-- `letter-spacing: -0.015em` en très grand corps ; `0` en dessous de 48 px.
-- Pas de capitales : la trame se lit mieux sur des formes basses variées.
-- Italique autorisé pour les citations, en Redaction 10 seulement.
+- Regular only. Bold plus halftone goes opaque and loses the grain.
+- `letter-spacing: -0.015em` at very large sizes, `0` below 48 px.
+- No uppercase: the halftone reads better across varied lowercase shapes.
 
----
+## Author: reading
 
-## 3. Author — le texte
+- Body: 400, `1.0625rem`, `line-height: 1.65`, measure capped at **68
+  characters**.
+- Uppercase labels: 600, `letter-spacing: 0.08em`.
+- Three weights total: 400, 500, 600. No 700.
 
-C'est la famille qui porte la lisibilité et la crédibilité d'ingénieur.
+**Optical correction on the dark ground.** Ivory irradiates against
+`#0b0a0c` and reads heavier than it is, so the dark theme drops the body to
+`wght: 380`. The correction belongs on the weight axis rather than on
+smoothing, which would have no equivalent effect in the light theme.
 
-- Corps : **400**, `1.0625rem`, `line-height: 1.65`, mesure max **68 caractères**.
-- Chapeau : **400**, `--t-body-l`, `line-height: 1.5`, mesure max 55 caractères.
-- Libellés capitales : **600**, `letter-spacing: 0.08em`.
-- Navigation : **500**.
-- Trois graisses au total : 400 / 500 / 600. Pas de 700.
+## Sligoil: two voices
 
-**Correction optique sur fond sombre** : le texte ivoire irradie sur `#0B0A0C`.
-Si la version variable d'Author est disponible, descendre le corps à `wght: 380`.
-Sinon garder 400 et ne jamais monter.
+Sligoil carries two distinct roles, and the difference between them is size
+and case rather than family.
 
----
+### Meta, 11 to 13 px, uppercase
 
-## 4. Sligoil Micro — la méta
+Archive punctuation: numbers, dates, tags, field labels, chapter markers.
+This is not text. **It is the only place gold appears systematically**;
+everywhere else gold is an exception.
 
-Sligoil est un mono humaniste dessiné pour le sous-titrage : il a des courbes, il n'a rien
-d'un mono de terminal. La variante **Micro** est optimisée pour les petits corps — c'est
-exactement notre cas.
+### Register, 15 px, lowercase
 
-- Toujours en capitales, `letter-spacing: 0.06em`.
-- Corps : **11 à 13 px uniquement**. C'est de la ponctuation, pas du texte.
-- Usages : `2026 / 001`, dates, tags, numéros de chapitre, légendes, libellés de champ.
-- **C'est le seul endroit où l'or `#C49A5A` est systématique.** Partout ailleurs, l'or est une exception.
+The one place the meta face carries actual sentences, and it is deliberately
+confined to the archive: index standfirsts, entry standfirsts, the summaries
+of the pieces inside an entry.
 
----
+A catalogue describes its holdings in the same hand it uses to label them,
+and that is what makes a registry feel like a registry rather than a blog
+with numbers on it. The front page and any long-form body stay in Author:
+monospace is a texture, and eight hundred words of texture is a wall.
 
-## 5. Échelle fluide
+Lowercase, unlike the meta role, since uppercase stops being readable the
+moment a line becomes a sentence.
+
+## Scale
 
 ```css
---t-display-xl: clamp(4rem, 1.5rem + 8vw, 8rem);        /* Redaction — titre de page */
---t-display-l:  clamp(2.75rem, 1.5rem + 4.5vw, 4.5rem); /* Redaction — titre d'entrée */
---t-display-m:  clamp(2rem, 1.5rem + 2vw, 2.75rem);     /* Redaction 10 seulement */
---t-quote:      clamp(1.75rem, 1.2rem + 2vw, 2.5rem);   /* Redaction 10 italique */
-
---t-body-l:     clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);/* Author 400 */
---t-body:       1.0625rem;                               /* Author 400 */
---t-label:      0.875rem;                                /* Author 600 caps */
---t-meta:       0.75rem;                                 /* Sligoil Micro caps */
+--text-display-xl: clamp(4rem, 1.5rem + 8vw, 8rem);
+--text-display-l:  clamp(2.75rem, 1.5rem + 4.5vw, 4.5rem);
+--text-display-m:  clamp(2rem, 1.5rem + 2vw, 2.75rem);
+--text-body-l:     clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+--text-body:       1.0625rem;
+--text-register:   0.9375rem;
+--text-label:      0.875rem;
+--text-meta:       0.75rem;
 ```
 
-Interlignage display : **0.95**. C'est ce serrage qui produit le bloc typographique compact
-des couvertures de revue.
+Display line height is **0.95**. That tightness is what produces the compact
+typographic block of a magazine cover.
 
----
+## Interaction with the palette
 
-## 6. Interaction avec la palette
+Contrast against `#0b0a0c`:
 
-Rappel des ratios de contraste sur `#0B0A0C` :
+| | Ratio | Allowed in |
+| --- | --- | --- |
+| Ivory `#f3efe6` | 16.3:1 | anything |
+| Gold `#c49a5a` | 7.6:1 | anything, meta included |
+| Crimson `#a92532` | 2.8:1 | **display only**, 32 px and up |
+| Violet `#54245f` | 1.7:1 | **surface only**, never ink |
 
-| | Ratio | Autorisé en |
-|---|---|---|
-| Ivoire `#F3EFE6` | 16.3:1 | tout |
-| Or `#C49A5A` | 7.6:1 | tout, y compris la méta |
-| Carmin `#A92532` | 2.8:1 | **display uniquement** (≥ 32 px) ou aplat |
-| Violet `#54245F` | 1.7:1 | **surface uniquement**, jamais d'encre |
+Crimson can therefore only live in Redaction, never in Author or Sligoil,
+which makes it mechanically a title colour.
 
-Conséquence directe : le carmin ne peut vivre qu'en Redaction, jamais en Author ni en Sligoil.
-Le rouge devient donc, mécaniquement, une couleur de titre — ce qui est mieux que ce que
-prévoyait le plan initial.
+Against the light ground the relationship inverts: crimson reaches 6.1:1 and
+violet 10.2:1, so both become usable ink, while gold falls to 2.3:1 and hands
+over to its deeper cut `#7e5f28`.
 
-**Redaction dégradé en carmin est interdit** : la trame fragmente déjà les contours,
-le contraste effectif tombe sous 2:1. Le degré 50 est réservé à l'ivoire et à l'or.
+**Worn Redaction in crimson is forbidden.** The halftone already fragments the
+outlines and effective contrast drops below 2:1. Degree 50 stays ivory or
+gold.
 
----
-
-## 7. Chargement
-
-Toutes les polices sont **auto-hébergées** via `next/font/local` — zéro requête tierce, zéro CLS.
-
-Fichiers à charger (woff2, sous-ensemblés latin + chiffres + ponctuation) :
+## Loading
 
 ```
-Redaction10-Regular.woff2
-Redaction10-Italic.woff2
-Redaction50-Regular.woff2      (chargé uniquement sur les routes qui l'utilisent)
-Author-Variable.woff2          (ou 400/500/600 statiques)
-SligoilMicro-Regular.woff2
+Redaction10-Regular.woff2      preloaded, font-display: optional
+Redaction10-Italic.woff2       not in the global bundle
+Redaction50-Regular.woff2      route scoped, never preloaded
+Author-Variable.woff2          preloaded
+SligoilMicro-Regular.woff2     preloaded
 ```
 
-- Les contours de Redaction sont lourds (la trame multiplie les points) : **sous-ensembler est obligatoire**,
-  via `pyftsubset` ou `glyphhanger`.
-- Redaction 50 n'est jamais dans le bundle global : import dynamique sur les routes concernées.
-- Budget cible : **< 250 Ko** de police au total sur une page.
-- `font-display: swap` partout sauf sur le display de la page d'accueil, en `optional`
-  pour protéger le LCP.
+The default display face uses `optional` rather than `swap` because it renders
+the largest text on the page and is therefore almost always the LCP element.
+If it has not arrived in time, keeping the fallback beats reflowing a headline
+that occupies half the viewport.
 
----
+Redaction outlines are heavy, since the halftone multiplies the point count,
+so subsetting is required. Budget: **under 250 KB** of type per page.
 
-## 8. Interdits
+## Forbidden
 
-- Une quatrième famille.
-- Redaction sous 32 px, en capitales, en gras, ou en carmin dégradé.
-- Sligoil au-delà de 13 px ou pour autre chose que de la méta.
-- Plus de deux graisses d'Author visibles dans un même écran.
-- Un troisième degré de dégradation.
+- A fourth family.
+- Redaction below 32 px, in uppercase, in bold, or worn in crimson.
+- Sligoil above 15 px, or in uppercase once a line becomes a sentence.
+- The register voice outside the archive.
+- More than two Author weights visible in one screen.
+- A third degree of wear.

@@ -56,7 +56,7 @@ export default async function Archive({
 
       <section className="pt-(--spacing-section) pb-16">
         <h1 className="t-display text-display-xl">{t("title")}</h1>
-        <p className="measure text-body-l text-content-muted mt-8">
+        <p className="measure t-register text-content-muted mt-8">
           {t("intro")}
         </p>
       </section>

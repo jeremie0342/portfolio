@@ -132,7 +132,7 @@ export default async function EntryPage({
         </h1>
 
         {entry.summary ? (
-          <p className={`measure-lead text-body-l ${prose} mt-10`}>
+          <p className={`measure-lead t-register ${prose} mt-10`}>
             {entry.summary}
           </p>
         ) : null}
@@ -201,7 +201,7 @@ export default async function EntryPage({
                   <h2 className="t-display text-display-m">{child.title}</h2>
 
                   {child.summary ? (
-                    <p className="measure text-content-muted mt-3">
+                    <p className="measure t-register text-content-muted mt-3">
                       {child.summary}
                     </p>
                   ) : null}

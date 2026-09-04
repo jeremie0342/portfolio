@@ -50,7 +50,9 @@ export async function EntryRow({ entry }: { entry: ArchiveEntry }) {
         </h3>
 
         {entry.summary ? (
-          <p className="measure text-content-muted mt-3">{entry.summary}</p>
+          <p className="measure t-register text-content-muted mt-3">
+            {entry.summary}
+          </p>
         ) : null}
       </div>
 

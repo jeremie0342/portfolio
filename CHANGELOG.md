@@ -34,6 +34,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   and an entry page that carries the pieces it contains.
 - Language switch that keeps the reader on the same entry rather than
   returning them to the front page.
+- A register voice: Sligoil at reading size and lowercase, confined to archive
+  surfaces. The archive now speaks in the same hand it uses to label itself,
+  while the front page and long-form bodies stay in Author.
 
 ### Notes
 
