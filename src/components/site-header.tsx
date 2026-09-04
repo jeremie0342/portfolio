@@ -23,9 +23,24 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
         {site("name")}
       </Link>
 
-      <nav className="flex items-baseline gap-6">
-        <Link href="/archive" className="t-meta hover:text-accent transition-colors">
+      <nav className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+        <Link
+          href="/archive"
+          className="t-meta hover:text-accent transition-colors"
+        >
           {t("archive")}
+        </Link>
+        <Link
+          href="/about"
+          className="t-meta hover:text-accent transition-colors"
+        >
+          {t("about")}
+        </Link>
+        <Link
+          href="/contact"
+          className="t-meta hover:text-accent transition-colors"
+        >
+          {t("contact")}
         </Link>
         <LocaleSwitch target={other} label={t("localeToggle")} />
         <ThemeToggle label={t("themeToggle")} />

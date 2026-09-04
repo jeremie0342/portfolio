@@ -37,6 +37,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   and an entry page that carries the pieces it contains.
 - Language switch that keeps the reader on the same entry rather than
   returning them to the front page.
+- A career page and a contact page, both linked from a summary on the front.
+- Positions, organisations and credentials seeded from the curriculum vitae,
+  and the professional work itself added to the archive: a multi-tenant SaaS
+  platform, a civic technology platform, a diaspora campaign site, a production
+  ETL pipeline, and the technical direction of a cultural product.
+- Live GitHub activity on the front page, read from the public events feed with
+  no token and degrading to nothing when the API is unavailable.
 - A register voice: Sligoil at reading size and lowercase, confined to archive
   surfaces. The archive now speaks in the same hand it uses to label itself,
   while the front page and long-form bodies stay in Author.

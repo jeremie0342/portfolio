@@ -40,6 +40,14 @@ export type ArchiveEntry = {
    forgotten filter leaks unfinished work. */
 const published = { status: "PUBLISHED" } as const;
 
+/* Positions and credentials are entries like any other, but they belong to the
+   career page rather than to the archive. Listing a job alongside a project
+   would say they are the same kind of thing, and they are not: one is work,
+   the other is where the work happened. */
+const archiveKinds: { in: ("PROJECT" | "WORLD")[] } = {
+  in: ["PROJECT", "WORLD"],
+};
+
 const shape = (locale: Locale) => ({
   translations: { where: { locale: localeColumn[locale] } },
   project: true,
@@ -97,7 +105,7 @@ function present(row: Row, children: ArchiveEntry[] = []): ArchiveEntry | null {
 export const listArchive = cache(
   async (locale: Locale): Promise<ArchiveEntry[]> => {
     const rows = await db.entry.findMany({
-      where: { ...published, parentId: null },
+      where: { ...published, parentId: null, kind: archiveKinds },
       orderBy: { number: "asc" },
       include: shape(locale),
     });
@@ -110,7 +118,7 @@ export const listArchive = cache(
 export const listSelected = cache(
   async (locale: Locale): Promise<ArchiveEntry[]> => {
     const rows = await db.entry.findMany({
-      where: { ...published, parentId: null, featured: true },
+      where: { ...published, parentId: null, featured: true, kind: archiveKinds },
       orderBy: { number: "asc" },
       include: shape(locale),
     });
@@ -143,16 +151,99 @@ export const getEntry = cache(
   },
 );
 
-/** Slugs for static generation. Children have pages of their own too. */
+/** Slugs for static generation. Children have pages of their own too.
+    Positions and credentials do not: a job title and two lines of summary make
+    a thin page, and thin pages are worth less than the link that led to them. */
 export const listSlugs = cache(async (): Promise<string[]> => {
   const rows = await db.entry.findMany({
-    where: published,
+    where: { ...published, kind: archiveKinds },
     select: { slug: true },
   });
 
   return rows.map((row) => row.slug);
 });
 
+export type CareerRecord = {
+  slug: string;
+  title: string;
+  summary: string | null;
+  organization: string;
+  organizationUrl: string | null;
+  location: string | null;
+  startedOn: Date | null;
+  endedOn: Date | null;
+};
+
+/** Positions, most recent first. */
+export const listPositions = cache(
+  async (locale: Locale): Promise<CareerRecord[]> => {
+    const rows = await db.entry.findMany({
+      where: { ...published, kind: "POSITION" },
+      orderBy: { startedOn: "desc" },
+      include: {
+        translations: { where: { locale: localeColumn[locale] } },
+        position: { include: { organization: true } },
+      },
+    });
+
+    return rows.flatMap((row) => {
+      const translation = row.translations[0];
+
+      if (!translation || !row.position) {
+        return [];
+      }
+
+      return [
+        {
+          slug: row.slug,
+          title: translation.title,
+          summary: translation.summary,
+          organization: row.position.organization.name,
+          organizationUrl: row.position.organization.url,
+          location: row.position.location,
+          startedOn: row.startedOn,
+          endedOn: row.endedOn,
+        },
+      ];
+    });
+  },
+);
+
+/** Degrees, certifications and courses, most recent first. */
+export const listCredentials = cache(
+  async (locale: Locale): Promise<CareerRecord[]> => {
+    const rows = await db.entry.findMany({
+      where: { ...published, kind: "CREDENTIAL" },
+      orderBy: { endedOn: "desc" },
+      include: {
+        translations: { where: { locale: localeColumn[locale] } },
+        credential: { include: { issuer: true } },
+      },
+    });
+
+    return rows.flatMap((row) => {
+      const translation = row.translations[0];
+
+      if (!translation || !row.credential) {
+        return [];
+      }
+
+      return [
+        {
+          slug: row.slug,
+          title: translation.title,
+          summary: translation.summary,
+          organization: row.credential.issuer.name,
+          organizationUrl: row.credential.issuer.url,
+          location: null,
+          startedOn: row.startedOn,
+          endedOn: row.credential.issuedOn ?? row.endedOn,
+        },
+      ];
+    });
+  },
+);
+
 export const archiveSize = cache(async (): Promise<number> => {
-  return db.entry.count({ where: published });
+  return db.entry.count({ where: { ...published, kind: archiveKinds } });
 });

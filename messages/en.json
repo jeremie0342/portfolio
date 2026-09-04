@@ -40,6 +40,21 @@
     "selected": {
       "label": "Selected",
       "all": "Enter the archive"
+    },
+    "about": {
+      "label": "Who",
+      "body": "Based in Cotonou, Benin, working remote on GMT+1. Lead architect on a multi-tenant SaaS platform serving five live client tenants, technical director of a cultural product launching this quarter, and sole builder of Skilluv.\n\nFrench is my first language, English my working one.",
+      "more": "Read the full career"
+    },
+    "activity": {
+      "label": "Recent activity",
+      "summary": "{commits} commits across {repositories} repositories since {since}, read live from GitHub.",
+      "commits": "{count, plural, =1 {# commit} other {# commits}}"
+    },
+    "contact": {
+      "label": "Work together",
+      "body": "Open to remote full-stack and software engineering roles, and to product work where the technical decision and the product decision are the same decision.",
+      "more": "Get in touch"
     }
   },
   "archive": {
@@ -74,5 +89,43 @@
   },
   "footer": {
     "typefaces": "Redaction, Author, Sligoil"
+  },
+  "about": {
+    "metaTitle": "About",
+    "metaDescription": "Career, experience and education of Zardonis Jeremie ZITTI, full-stack engineer in Cotonou, Benin.",
+    "title": "About",
+    "intro": "Full-stack engineer building production systems end to end. Architecture, backend, frontend, infrastructure, and the part where it actually ships.\n\nI have a bias for real products over demonstrations, which is why most of what follows is running somewhere with users on it rather than sitting in a repository as a proof of concept.",
+    "experience": "Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "organisations": "Organisations",
+    "languages": "Languages",
+    "languagesBody": "French, native. English, professional reading and writing, conversational speaking.",
+    "present": "Present",
+    "cta": "See the archive",
+    "skillGroups": {
+      "languages": "Languages",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "data": "Data",
+      "infrastructure": "Infrastructure",
+      "observability": "Observability",
+      "security": "Security",
+      "payments": "Payments",
+      "ai": "AI and LLM"
+    }
+  },
+  "contact": {
+    "metaTitle": "Contact",
+    "metaDescription": "Reach Zardonis Jeremie ZITTI: email, phone and public profiles.",
+    "title": "Contact",
+    "intro": "Open to remote full-stack and software engineering roles. The fastest route is email.",
+    "direct": "Direct",
+    "email": "Email",
+    "personalEmail": "Personal email",
+    "phone": "Phone",
+    "location": "Location",
+    "elsewhere": "Elsewhere",
+    "organisations": "Organisations"
   }
 }

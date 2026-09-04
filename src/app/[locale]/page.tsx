@@ -1,20 +1,21 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { listSelected } from "@/lib/entries";
 import { contributions } from "@/lib/evidence";
+import { readActivity } from "@/lib/github";
 import { SiteHeader } from "@/components/site-header";
 import { EntryRow } from "@/components/entry-row";
 
 /**
  * The front page.
  *
- * This is a portfolio before it is an archive. Someone arriving here has not
- * asked for a catalogue: they want to know who this is, what he does and
- * whether it is any good, in that order and quickly. The archive is one
- * section deeper, and this page is the argument for going there.
+ * This is a portfolio before it is an archive. Someone arriving has not asked
+ * for a catalogue: they want to know who this is, what he does and whether it
+ * is any good, in that order and quickly. The archive is one section deeper,
+ * and this page is the argument for going there.
  */
 export const revalidate = 3600;
 
@@ -32,7 +33,10 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   const t = await getTranslations("home");
   const site = await getTranslations("site");
   const footer = await getTranslations("footer");
+  const format = await getFormatter();
+
   const selected = await listSelected(locale);
+  const activity = await readActivity();
 
   const figures = [
     [contributions.commits, t("evidence.commits")],
@@ -82,11 +86,14 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </div>
       </section>
 
-      {/* Figures rather than adjectives. They are measured, dated, and they
-          say more about how someone works than a paragraph claiming to. */}
+      {/* Figures rather than adjectives. The yearly totals are measured and
+          dated; the list underneath is read from GitHub on every revalidation,
+          so the page keeps proving the work is ongoing without anyone
+          maintaining a copy of that claim. */}
       <section className="mt-(--spacing-section)">
         <p className="t-meta text-accent">
-          {t("evidence.label")} <span className="text-content-muted">{contributions.year}</span>
+          {t("evidence.label")}{" "}
+          <span className="text-content-muted">{contributions.year}</span>
         </p>
 
         <dl className="mt-8 flex flex-wrap gap-x-16 gap-y-8">
@@ -97,6 +104,51 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
             </div>
           ))}
         </dl>
+
+        {activity ? (
+          <div className="mt-16">
+            <p className="t-meta text-accent">{t("activity.label")}</p>
+
+            <p className="measure t-register text-content-muted mt-4">
+              {t("activity.summary", {
+                commits: activity.commits,
+                repositories: activity.repositories,
+                since: format.dateTime(new Date(activity.since), {
+                  day: "numeric",
+                  month: "long",
+                }),
+              })}
+            </p>
+
+            <ul className="mt-8">
+              {activity.pushes.map((push) => (
+                <li
+                  key={push.repository}
+                  className="grid gap-x-8 gap-y-2 border-t border-rule py-5 md:grid-cols-[14rem_1fr_auto]"
+                >
+                  <a
+                    href={push.url}
+                    rel="noreferrer"
+                    className="t-meta hover:text-accent transition-colors"
+                  >
+                    {push.repository}
+                  </a>
+
+                  <span className="t-register text-content-muted">
+                    {push.message}
+                  </span>
+
+                  <span className="t-meta text-content-muted">
+                    {format.dateTime(new Date(push.at), {
+                      day: "numeric",
+                      month: "short",
+                    })}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </section>
 
       <section className="mt-(--spacing-section)">
@@ -114,6 +166,42 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         >
           {t("selected.all")}
         </Link>
+      </section>
+
+      <section className="mt-(--spacing-section) grid gap-x-16 gap-y-16 md:grid-cols-2">
+        <div>
+          <p className="t-meta text-accent">{t("about.label")}</p>
+
+          <div className="measure mt-6">
+            {t("about.body")
+              .split("\n\n")
+              .map((paragraph) => (
+                <p key={paragraph.slice(0, 40)} className="mt-4">
+                  {paragraph}
+                </p>
+              ))}
+          </div>
+
+          <Link
+            href="/about"
+            className="t-meta text-accent mt-8 inline-block underline underline-offset-4"
+          >
+            {t("about.more")}
+          </Link>
+        </div>
+
+        <div>
+          <p className="t-meta text-accent">{t("contact.label")}</p>
+
+          <p className="measure mt-6">{t("contact.body")}</p>
+
+          <Link
+            href="/contact"
+            className="t-meta text-accent mt-8 inline-block underline underline-offset-4"
+          >
+            {t("contact.more")}
+          </Link>
+        </div>
       </section>
 
       <footer className="mt-(--spacing-section) flex flex-wrap justify-between gap-4 border-t border-rule pt-6">
