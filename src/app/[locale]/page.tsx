@@ -29,9 +29,6 @@ import { WordCycle } from "@/components/word-cycle";
  */
 export const revalidate = 3600;
 
-/* Five rather than three, and unevenly spread across the dimensions on
-   purpose: the evidence is heaviest on building, solid on leading and thinner
-   on creating, and three equal columns claimed otherwise. */
 const decisions = ["one", "two", "three", "four", "five"] as const;
 
 export default async function Home({ params }: PageProps<"/[locale]">) {
@@ -154,10 +151,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
               className="grid gap-x-10 gap-y-3 border-t border-rule py-8 md:grid-cols-[10rem_1fr]"
             >
               <p className="t-meta text-accent">
-                {String(position + 1).padStart(2, "0")}{" "}
-                <span className="text-content-muted">
-                  {t(`decisions.${key}.dimension`)}
-                </span>
+                {String(position + 1).padStart(2, "0")}
               </p>
 
               <div>

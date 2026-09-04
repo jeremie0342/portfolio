@@ -22,9 +22,9 @@ export default async function Image({
 
   return shareImage({
     eyebrow: locale === "fr" ? "Ingénieur produit" : "Product engineer",
-    mark: String(new Date().getUTCFullYear()),
+    mark: "Archive",
     title: "Zardonis Jérémie ZITTI",
     footnote: t("tagline"),
-    stamp: "Cotonou",
+    stamp: String(new Date().getUTCFullYear()),
   });
 }

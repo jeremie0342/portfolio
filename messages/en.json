@@ -28,7 +28,7 @@
     },
     "about": {
       "label": "Who",
-      "body": "Based in Cotonou, Benin, working remote on GMT+1. Lead architect on a multi-tenant SaaS platform serving five live client tenants, technical director of a cultural product launching this quarter, and sole builder of Skilluv.\n\nFrench is my first language, English my working one.",
+      "body": "Lead architect on a multi-tenant SaaS platform in production, technical director of a cultural product launching this quarter, and sole builder of Skilluv.\n\nFrench first language, English working language. Remote on GMT+1, from Cotonou.",
       "more": "Read the full career"
     },
     "activity": {
@@ -58,32 +58,32 @@
     },
     "tagline": "An archive of things I build, shape and imagine",
     "decisions": {
-      "label": "Decisions",
-      "intro": "A portfolio lists skills. An archive keeps decisions, because that is where judgment shows, and judgment is the part a stack cannot tell you.",
+      "label": "How I work",
+      "intro": "Five principles that come back on every project, whatever the domain and whatever the stack.",
       "one": {
-        "dimension": "Lead",
-        "title": "Take the admin out of the product",
-        "body": "An operations team and a learner have almost nothing in common in what they need to see. Two separate applications, rather than one interface permanently compromised for both."
+        "dimension": "01",
+        "title": "I start from the constraints that will not move",
+        "body": "Who is going to use it, what breaks the day the service goes down, what still has to hold in two years. Those answers decide the architecture, and they decide it before the first line of code."
       },
       "two": {
-        "dimension": "Build",
-        "title": "Two payment providers, not one",
-        "body": "Stripe and FedaPay together. Serving European and West African clients is not an integration detail, it is an architectural constraint worth accepting early."
+        "dimension": "02",
+        "title": "I split by audience, not by module",
+        "body": "Two audiences with different needs get two different interfaces. It is one more piece of work, and it is what prevents a lukewarm product that suits nobody exactly."
       },
       "three": {
-        "dimension": "Build",
-        "title": "Local-first, because the network is not a given",
-        "body": "A nutrition app that is unusable offline serves nobody in Cotonou. That is not a line on a specification sheet, it is the condition for it being used at all."
+        "dimension": "03",
+        "title": "I write decisions down as I make them",
+        "body": "The option taken, the ones set aside, and the reason. A team can then move without me, and nobody reopens the same debate three months later."
       },
       "four": {
-        "dimension": "Create",
-        "title": "A game engine for what could have been a web page",
-        "body": "The chess coach runs in Unity. The constraint was deliberate: it forced the interface to be spatial rather than a list of moves."
+        "dimension": "04",
+        "title": "I treat form as a product decision",
+        "body": "Typography, rhythm, colour, hierarchy: decided alongside the data model, not at the end when all that is left is room to decorate."
       },
       "five": {
-        "dimension": "Lead",
-        "title": "Write the governance before having contributors",
-        "body": "RFCs, a public changelog and a code of conduct, written before the community existed. A community becomes governable when its decisions stop living in private conversations."
+        "dimension": "05",
+        "title": "I ship, and I stay",
+        "body": "Going live is where the interesting part starts. People depend on it every day, and the system has to hold without me watching it."
       }
     }
   },

@@ -37,8 +37,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   and an entry page that carries the pieces it contains.
 - Language switch that keeps the reader on the same entry rather than
   returning them to the front page.
-- The front page shows decisions rather than dimensions: five real calls, each
-  with the constraint that forced it and the dimension it belonged to.
+- The front page carries a working method rather than a list of dimensions:
+  five principles that hold across projects, each stated plainly and each
+  implying a facet of the role without naming it.
 - Search work: a database driven sitemap with per-URL language alternates, a
   robots file, reciprocal hreflang including x-default, and JSON-LD on every
   page tying four spellings of one name to the profiles that corroborate it.
