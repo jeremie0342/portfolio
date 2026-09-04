@@ -32,9 +32,8 @@
       "more": "Lire le parcours complet"
     },
     "activity": {
-      "label": "Activité récente",
-      "summary": "{commits} commits sur {repositories} dépôts depuis {since}, lus en direct depuis GitHub.",
-      "commits": "{count, plural, =1 {# commit} other {# commits}}"
+      "label": "Ces derniers jours",
+      "summary": "{pushes} poussées et {merged} pull requests fusionnées sur {repositories} dépôts depuis le {since}, lues en direct depuis GitHub."
     },
     "contact": {
       "label": "Travailler ensemble",

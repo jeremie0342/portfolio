@@ -32,9 +32,8 @@
       "more": "Read the full career"
     },
     "activity": {
-      "label": "Recent activity",
-      "summary": "{commits} commits across {repositories} repositories since {since}, read live from GitHub.",
-      "commits": "{count, plural, =1 {# commit} other {# commits}}"
+      "label": "These past days",
+      "summary": "{pushes} pushes and {merged} pull requests merged across {repositories} repositories since {since}, read live from GitHub."
     },
     "contact": {
       "label": "Work together",

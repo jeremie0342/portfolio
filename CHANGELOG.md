@@ -85,7 +85,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   platform, a civic technology platform, a diaspora campaign site, a production
   ETL pipeline, and the technical direction of a cultural product.
 - Live GitHub activity on the front page, read from the public events feed with
-  no token and degrading to nothing when the API is unavailable.
+  no token and degrading to nothing when the API is unavailable. Counted in
+  pushes and merged pull requests, since the feed no longer carries commit
+  counts, and listed by branch rather than by commit message.
+- Year totals read from the GraphQL API when GITHUB_TOKEN is set, falling back
+  to the recorded values when it is not.
 - A register voice: Sligoil at reading size and lowercase, confined to archive
   surfaces. The archive now speaks in the same hand it uses to label itself,
   while the front page and long-form bodies stay in Author.

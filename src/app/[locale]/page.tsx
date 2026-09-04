@@ -4,8 +4,7 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { listSelected } from "@/lib/entries";
-import { contributions } from "@/lib/evidence";
-import { readActivity } from "@/lib/github";
+import { readActivity, readYearTotals } from "@/lib/github";
 import { SiteHeader } from "@/components/site-header";
 import { EntryRow } from "@/components/entry-row";
 import { JsonLd } from "@/components/json-ld";
@@ -49,12 +48,15 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   const format = await getFormatter();
 
   const selected = await listSelected(locale);
-  const activity = await readActivity();
+  const [activity, totals] = await Promise.all([
+    readActivity(),
+    readYearTotals(),
+  ]);
 
   const figures = [
-    [contributions.commits, t("evidence.commits")],
-    [contributions.pullRequests, t("evidence.pullRequests")],
-    [contributions.repositories, t("evidence.repositories")],
+    [totals.commits, t("evidence.commits")],
+    [totals.pullRequests, t("evidence.pullRequests")],
+    [totals.repositories, t("evidence.repositories")],
   ] as const;
 
   return (
@@ -177,7 +179,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       <section className="mt-(--spacing-section)">
         <p className="t-meta text-accent">
           {t("evidence.label")}{" "}
-          <span className="text-content-muted">{contributions.year}</span>
+          <span className="text-content-muted">{totals.year}</span>
         </p>
 
         <dl className="mt-8 flex flex-wrap gap-x-16 gap-y-8">
@@ -195,7 +197,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
             <p className="measure t-register text-content-muted mt-4">
               {t("activity.summary", {
-                commits: activity.commits,
+                pushes: activity.pushes,
+                merged: activity.merged,
                 repositories: activity.repositories,
                 since: format.dateTime(new Date(activity.since), {
                   day: "numeric",
@@ -205,25 +208,28 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
             </p>
 
             <ul className="mt-8">
-              {activity.pushes.map((push) => (
+              {activity.recent.map((touch) => (
                 <li
-                  key={push.repository}
-                  className="grid gap-x-8 gap-y-2 border-t border-rule py-5 md:grid-cols-[14rem_1fr_auto]"
+                  key={`${touch.repository}#${touch.branch}`}
+                  className="grid gap-x-8 gap-y-2 border-t border-rule py-5 md:grid-cols-[18rem_1fr_auto]"
                 >
                   <a
-                    href={push.url}
+                    href={touch.url}
                     rel="noreferrer"
                     className="t-meta hover:text-accent transition-colors"
                   >
-                    {push.repository}
+                    {touch.repository}
                   </a>
 
+                  {/* The branch name is what the feed still carries, and it
+                      happens to say more than a commit subject would: it names
+                      the piece of work rather than one step inside it. */}
                   <span className="t-register text-content-muted">
-                    {push.message}
+                    {touch.branch}
                   </span>
 
                   <span className="t-meta text-content-muted">
-                    {format.dateTime(new Date(push.at), {
+                    {format.dateTime(new Date(touch.at), {
                       day: "numeric",
                       month: "short",
                     })}
