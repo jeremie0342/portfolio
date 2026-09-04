@@ -445,12 +445,13 @@
   /* ----------------------------------------------------------
      The marker
      ----------------------------------------------------------
-     A stroke of gold under a keyword, drawn left to right.
+     A stroke of gold pulled under a keyword on hover, left to
+     right, the way a reader marks a line while reading it.
 
      The stroke is a pseudo element scaled from its left edge
-     rather than a background gradient: a transform is composited
-     and a background size is not, and this runs across a headline
-     that fills half the viewport.
+     rather than an animated background size: a transform is
+     composited and a background size is not, and this runs under
+     a headline that fills half the viewport.
 
      Slightly taller than the letters and slightly wider than the
      word, tilted by a fraction of a degree. A marker held in a
@@ -469,16 +470,42 @@
     inset: 0.16em -0.1em 0.1em -0.1em;
     z-index: 0;
     background-color: var(--color-accent);
-    transform: scaleX(1) rotate(-0.4deg);
+    transform: scaleX(0) rotate(-0.4deg);
     transform-origin: left center;
+    transition: transform 420ms cubic-bezier(0.4, 0, 0.1, 1);
   }
 
   .marker-word {
     position: relative;
     z-index: 1;
-    /* Reads as emphasis and is required for contrast: ivory on gold measures
-       2.3:1, the surface colour 7.6:1. */
+    /* Stepped rather than eased. The letter is either under the gold or it is
+       not, and a colour fading through the middle would pass through the two
+       point three to one that the inversion exists to avoid. */
+    transition: color 0s;
+  }
+
+  .marker:hover::before {
+    transform: scaleX(1) rotate(-0.4deg);
+  }
+
+  .marker:hover .marker-word {
+    /* Emphasis, and a contrast requirement: ivory on gold measures 2.3:1, the
+       surface colour 7.6:1 on the dark ground and 5.2:1 on the light one. The
+       delay lets the stroke reach the first letters before they flip. */
     color: var(--color-surface);
+    transition-delay: 130ms;
+  }
+
+  /* Without a pointer there is no hover to reward, so the emphasis is simply
+     drawn. The keywords should carry the sentence on a phone too. */
+  @media (hover: none) {
+    .marker::before {
+      transform: scaleX(1) rotate(-0.4deg);
+    }
+
+    .marker-word {
+      color: var(--color-surface);
+    }
   }
 
   /* ----------------------------------------------------------
@@ -527,57 +554,6 @@
       animation-delay: 450ms;
     }
 
-    /* The strokes are drawn after the page has arrived, one after another, at
-       reading speed rather than at interface speed. */
-    [data-opening="playing"] .marker::before {
-      transform: scaleX(0) rotate(-0.4deg);
-    }
-
-    [data-opening="playing"] .marker-word {
-      color: inherit;
-    }
-
-    [data-opening="done"] .marker::before {
-      animation: marker-draw 420ms cubic-bezier(0.4, 0, 0.1, 1) backwards;
-    }
-
-    [data-opening="done"] .marker-word {
-      animation: marker-ink 420ms step-end backwards;
-    }
-
-    [data-opening="done"] .marker:nth-of-type(1)::before,
-    [data-opening="done"] .marker:nth-of-type(1) .marker-word {
-      animation-delay: 820ms;
-    }
-    [data-opening="done"] .marker:nth-of-type(2)::before,
-    [data-opening="done"] .marker:nth-of-type(2) .marker-word {
-      animation-delay: 1010ms;
-    }
-    [data-opening="done"] .marker:nth-of-type(3)::before,
-    [data-opening="done"] .marker:nth-of-type(3) .marker-word {
-      animation-delay: 1200ms;
-    }
-  }
-
-  @keyframes marker-draw {
-    from {
-      transform: scaleX(0) rotate(-0.4deg);
-    }
-    to {
-      transform: scaleX(1) rotate(-0.4deg);
-    }
-  }
-
-  /* Stepped rather than eased: the letter is either under the gold or it is
-     not, and a colour fading through the middle would pass through the two
-     point three to one it exists to avoid. */
-  @keyframes marker-ink {
-    from {
-      color: var(--color-content);
-    }
-    to {
-      color: var(--color-surface);
-    }
   }
 
 

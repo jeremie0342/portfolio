@@ -37,10 +37,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   and an entry page that carries the pieces it contains.
 - Language switch that keeps the reader on the same entry rather than
   returning them to the front page.
-- Gold marker strokes under the three verbs of the front page statement, drawn
-  left to right once the page has arrived. The word takes the surface colour as
-  the stroke passes: ivory on gold measures 2.3:1, so a highlighted word that
-  kept its colour would be less readable than the sentence around it.
+- Gold marker strokes under the three verbs of the front page statement, pulled
+  left to right on hover. The word takes the surface colour as the stroke
+  passes: ivory on gold measures 2.3:1, so a highlighted word that kept its
+  colour would be less readable than the sentence around it. Without a pointer
+  the strokes are simply drawn, so the emphasis survives on a phone.
 - French messages use the typographic apostrophe. It is the correct form, and
   the straight one is the ICU escape character, which had silently swallowed a
   marker tag after "j'".
