@@ -13,9 +13,9 @@
   },
   "home": {
     "metaTitle": "Zardonis Jérémie ZITTI, ingénieur produit",
-    "metaDescription": "Je construis des produits logiciels, je dirige la communauté autour de l’un d’eux, et je tiens tout ce que je fais comme une seule archive numérotée.",
+    "metaDescription": "Zardonis Jérémie ZITTI, ingénieur produit. Je conçois et je livre des systèmes de bout en bout, et je tiens tout ce que je fais comme une seule archive numérotée.",
     "statement": "Je <mark>construis</mark> des <cycle></cycle>, je <mark>décide</mark> où tout cela va, et j’<mark>imagine</mark> ce qui l’entoure.",
-    "intro": "Je suis ingénieur produit, au sein de l’écosystème tech africain. L’essentiel de mon travail se situe là où une décision produit et une décision technique se révèlent être la même décision, et c’est la partie qui m’intéresse.\n\nSur l’année écoulée, cela a donné une plateforme de développement des talents répartie sur quatre services, quatorze implémentations de référence pour ceux qui apprennent à livrer, et une couche de gouvernance qui garde publiques les décisions derrière tout cela.",
+    "intro": "Ingénieur produit. Je conçois et je livre des systèmes de bout en bout, et ce que je construis n’a pas de secteur : l’exploitation d’une entreprise, une élection, un produit culturel, une plateforme d’apprentissage. Ce qui m’intéresse se trouve là où une décision produit et une décision technique se révèlent être la même décision.\n\nSur l’année écoulée : une plateforme SaaS multi-tenant en production chez cinq clients, une plateforme civique déployée pendant une présidentielle, quatorze implémentations de référence pour ceux qui apprennent à livrer, et la direction technique d’un produit culturel.",
     "dimensions": {
       "label": "Trois entrées",
       "BUILD": {
