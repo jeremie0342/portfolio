@@ -1,0 +1,39 @@
+{
+  "masthead": {
+    "name": "Flemart",
+    "reference": "2026 / 001",
+    "themeToggle": "Changer de theme"
+  },
+  "home": {
+    "metaTitle": "Une archive de ce que je construis, dirige et imagine",
+    "metaDescription": "Travail produit, ingenierie et worldbuilding, tenus comme une archive plutot que comme un portfolio.",
+    "title": "Une archive de ce que je construis, dirige et imagine.",
+    "entry": {
+      "reference": "Entree 001",
+      "kind": "Produit",
+      "name": "Skilluv",
+      "disciplines": "Produit, communaute, open source",
+      "body": "Une plateforme d'apprentissage par le logiciel reel. Le carmin ne vit qu'ici, en display : a 2.8 contre 1 sur le noir, il ne peut pas porter du texte courant sans devenir illisible.",
+      "roleLabel": "Role",
+      "roleValue": "Produit et ingenierie",
+      "periodLabel": "Periode",
+      "periodValue": "2024 a aujourd'hui",
+      "statusLabel": "Statut",
+      "statusValue": "Actif"
+    },
+    "world": {
+      "reference": "Monde 001",
+      "date": "1147 A.F.",
+      "title": "Le Royaume de Sel et de Fer",
+      "body": "Le violet ne peut pas etre de l'encre. A 1.7 contre 1 sur le noir, il disparait. Il devient donc le sol, et l'ivoire ecrit dessus a 10.2 contre 1. C'est la mesure de contraste qui a produit la regle, pas le gout."
+    },
+    "fragment": {
+      "reference": "Fragment",
+      "body": "Ce degre de trame ne s'emploie qu'au dela de 64 pixels."
+    }
+  },
+  "footer": {
+    "left": "Archive Nocturne, epreuve",
+    "right": "Redaction, Author, Sligoil"
+  }
+}

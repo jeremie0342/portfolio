@@ -1,0 +1,39 @@
+{
+  "masthead": {
+    "name": "Flemart",
+    "reference": "2026 / 001",
+    "themeToggle": "Switch theme"
+  },
+  "home": {
+    "metaTitle": "An archive of things I build, shape and imagine",
+    "metaDescription": "Product work, engineering and worldbuilding, kept as a single archive rather than a portfolio.",
+    "title": "An archive of things I build, shape and imagine.",
+    "entry": {
+      "reference": "Entry 001",
+      "kind": "Product",
+      "name": "Skilluv",
+      "disciplines": "Product, community, open source",
+      "body": "A platform for learning through real software. Crimson lives only here, at display size: at 2.8 to 1 against the black it cannot carry running text without becoming unreadable.",
+      "roleLabel": "Role",
+      "roleValue": "Product and engineering",
+      "periodLabel": "Period",
+      "periodValue": "2024 to present",
+      "statusLabel": "Status",
+      "statusValue": "Active"
+    },
+    "world": {
+      "reference": "World 001",
+      "date": "1147 A.F.",
+      "title": "The Kingdom of Salt and Iron",
+      "body": "Violet cannot be ink. At 1.7 to 1 against the black it disappears. So it becomes the ground instead, and ivory writes on top of it at 10.2 to 1. The contrast measurement produced the rule, not taste."
+    },
+    "fragment": {
+      "reference": "Fragment",
+      "body": "This degree of print wear is only used above 64 pixels."
+    }
+  },
+  "footer": {
+    "left": "Archive Nocturne, proof sheet",
+    "right": "Redaction, Author, Sligoil"
+  }
+}

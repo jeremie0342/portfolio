@@ -1,0 +1,255 @@
+// Archive content model.
+//
+// Anything that can change over time lives here rather than in the code:
+// projects, worlds, degrees, certifications, courses, positions. The site
+// holds none of these values as literals.
+//
+// The central decision is the single entry. An archive entry carries what
+// every entry has in common: a number, a status, a colour climate, a degree
+// of typographic wear. Data specific to one kind lives in a satellite table
+// joined one to one. Adding a content type is therefore a matter of adding a
+// satellite, without touching numbering or translations.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Locale {
+  EN
+  FR
+}
+
+enum PublicationStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum EntryKind {
+  PROJECT
+  WORLD
+  CREDENTIAL
+  POSITION
+  WRITING
+}
+
+/// The three dimensions of the site. An entry may carry none of them: a
+/// degree is neither something built nor something imagined.
+enum Dimension {
+  BUILD
+  LEAD
+  CREATE
+}
+
+/// Colour climate of an entry. A closed list rather than a free field: each
+/// value has been checked for contrast against both themes, and a free
+/// colour picker in the admin would eventually produce unreadable pages.
+enum Accent {
+  GOLD
+  CRIMSON
+  VIOLET
+}
+
+/// Redaction wear level. CLEAN maps to degree 10, WORN to degree 50. This is
+/// data rather than a layout choice: wear signals how old or how deep a
+/// piece sits in the archive.
+enum Wear {
+  CLEAN
+  WORN
+}
+
+enum CredentialKind {
+  DEGREE
+  CERTIFICATION
+  COURSE
+  AWARD
+}
+
+model Entry {
+  id     String            @id @default(cuid())
+  /// Archive number, shown in the meta line. Monotonic and never reused,
+  /// including after unpublishing: a reference that has been printed or
+  /// shared has to keep resolving.
+  number Int               @unique
+  slug   String            @unique
+  kind   EntryKind
+  status PublicationStatus @default(DRAFT)
+
+  dimension Dimension?
+  accent    Accent     @default(GOLD)
+  wear      Wear       @default(CLEAN)
+
+  /// A featured entry rises to the head of the archive. Kept separate from
+  /// status on purpose: a piece can be published without being selected.
+  featured Boolean @default(false)
+
+  startedOn   DateTime? @db.Date
+  endedOn     DateTime? @db.Date
+  publishedAt DateTime?
+
+  coverId String?
+  cover   Media?  @relation(fields: [coverId], references: [id], onDelete: SetNull)
+
+  translations EntryTranslation[]
+  tags         EntryTag[]
+  gallery      EntryMedia[]
+
+  project    Project?
+  world      World?
+  credential Credential?
+  position   Position?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, kind, number])
+  @@index([status, featured])
+}
+
+/// Translatable text sits in its own table rather than in a per-locale JSON
+/// column. That lets Postgres index the content per language for full text
+/// search, which a JSON object would make considerably more painful.
+model EntryTranslation {
+  id      String @id @default(cuid())
+  entryId String
+  entry   Entry  @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  locale  Locale
+
+  title String
+  /// Editorial standfirst. Also acts as the fallback for the search
+  /// description when that one is left empty.
+  summary String?
+  body    String?
+
+  seoTitle       String?
+  seoDescription String?
+
+  @@unique([entryId, locale])
+  @@index([locale])
+}
+
+model Project {
+  entryId String @id
+  entry   Entry  @relation(fields: [entryId], references: [id], map: "project_entry_fkey")
+
+  repositoryUrl String?
+  liveUrl       String?
+  stack         String[]
+}
+
+model World {
+  entryId String @id
+  entry   Entry  @relation(fields: [entryId], references: [id], map: "world_entry_fkey")
+
+  /// In-fiction dating, left as free text: invented calendars do not reduce
+  /// to a date.
+  era String?
+}
+
+model Organization {
+  id      String  @id @default(cuid())
+  name    String  @unique
+  url     String?
+  country String?
+
+  credentials Credential[]
+  positions   Position[]
+}
+
+model Credential {
+  entryId String @id
+  entry   Entry  @relation(fields: [entryId], references: [id], map: "credential_entry_fkey")
+
+  kind     CredentialKind
+  issuerId String
+  issuer   Organization   @relation(fields: [issuerId], references: [id])
+
+  issuedOn DateTime? @db.Date
+  /// Certifications lapse. This field lets one drop out of the active list
+  /// without being removed from the archive.
+  expiresOn DateTime? @db.Date
+
+  reference String?
+  verifyUrl String?
+
+  @@index([kind, issuedOn])
+}
+
+model Position {
+  entryId String @id
+  entry   Entry  @relation(fields: [entryId], references: [id], map: "position_entry_fkey")
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  location       String?
+  remote         Boolean      @default(false)
+}
+
+model Tag {
+  id   String @id @default(cuid())
+  slug String @unique
+
+  translations TagTranslation[]
+  entries      EntryTag[]
+}
+
+model TagTranslation {
+  id     String @id @default(cuid())
+  tagId  String
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  locale Locale
+  label  String
+
+  @@unique([tagId, locale])
+}
+
+model EntryTag {
+  entryId String
+  entry   Entry  @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  tagId   String
+  tag     Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([entryId, tagId])
+}
+
+model Media {
+  id     String @id @default(cuid())
+  path   String @unique
+  width  Int
+  height Int
+  /// Encoded placeholder served while the asset loads. It prevents the
+  /// layout shift without costing an extra request.
+  blurData String?
+
+  translations MediaTranslation[]
+  coverOf      Entry[]
+  usedIn       EntryMedia[]
+}
+
+/// Alternative text is editorial content, not a technical label, so it is
+/// translated like everything else.
+model MediaTranslation {
+  id      String @id @default(cuid())
+  mediaId String
+  media   Media  @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  locale  Locale
+  alt     String
+  caption String?
+
+  @@unique([mediaId, locale])
+}
+
+model EntryMedia {
+  entryId  String
+  entry    Entry  @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  mediaId  String
+  media    Media  @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  position Int    @default(0)
+
+  @@id([entryId, mediaId])
+  @@index([entryId, position])
+}

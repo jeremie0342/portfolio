@@ -1,26 +1,210 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
+/* ============================================================
+   Archive Nocturne design tokens
+   ------------------------------------------------------------
+   Two layers, and the order matters.
+
+   1. Pigments. Raw palette values. These never change between
+      themes: a crimson stays a crimson.
+   2. Roles. What the interface actually consumes. Only roles get
+      reassigned when the theme flips.
+
+   No component should reach for a pigment directly. If one does,
+   every future theme means revisiting every file that did.
+   ============================================================ */
+
+@theme {
+  /* ---------- Pigments ---------- */
+  --color-black: #0b0a0c;
+  --color-black-violet: #18121b;
+  --color-ivory: #f3efe6;
+  --color-white: #ffffff;
+  --color-crimson: #a92532;
+  --color-violet: #54245f;
+  --color-gold: #c49a5a;
+  --color-gold-deep: #7e5f28;
+  --color-warm-grey: #a7a19a;
+  --color-stone: #6b645c;
+
+  /* ---------- Families ---------- */
+  --font-display: var(--font-redaction-10), Georgia, "Times New Roman", serif;
+  --font-worn: var(--font-redaction-50), Georgia, "Times New Roman", serif;
+  --font-text: var(--font-author), ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --font-meta: var(--font-sligoil), ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  /* ---------- Scale ---------- */
+  --text-display-xl: clamp(4rem, 1.5rem + 8vw, 8rem);
+  --text-display-xl--line-height: 0.95;
+  --text-display-xl--letter-spacing: -0.015em;
+
+  --text-display-l: clamp(2.75rem, 1.5rem + 4.5vw, 4.5rem);
+  --text-display-l--line-height: 0.98;
+  --text-display-l--letter-spacing: -0.01em;
+
+  --text-display-m: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+  --text-display-m--line-height: 1.1;
+
+  --text-body-l: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --text-body-l--line-height: 1.5;
+
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+
+  --text-label: 0.875rem;
+  --text-label--line-height: 1.3;
+  --text-label--letter-spacing: 0.08em;
+
+  --text-meta: 0.75rem;
+  --text-meta--line-height: 1.3;
+  --text-meta--letter-spacing: 0.06em;
+
+  /* ---------- Rhythm ---------- */
+  --spacing-gutter: clamp(1.25rem, 0.5rem + 3vw, 4rem);
+  --spacing-section: clamp(5rem, 3rem + 10vw, 12rem);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ============================================================
+   Roles, dark theme
+   ------------------------------------------------------------
+   Ratios measured against the #0b0a0c ground:
+     ivory 16.3:1, gold 7.6:1, crimson 2.8:1, violet 1.7:1.
+
+   Two rules follow from that, and neither is a matter of taste:
+   crimson can only carry very large text, and violet cannot be
+   ink at all. It becomes a surface instead.
+   ============================================================ */
+
+@theme {
+  --color-surface: var(--color-black);
+  --color-surface-raised: var(--color-black-violet);
+  --color-surface-imagined: var(--color-violet);
+
+  --color-content: var(--color-ivory);
+  --color-content-bright: var(--color-white);
+  --color-content-muted: var(--color-warm-grey);
+
+  --color-accent: var(--color-gold);
+  --color-energy: var(--color-crimson);
+  --color-rule: color-mix(in oklab, var(--color-ivory) 15%, transparent);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ============================================================
+   Roles, light theme
+   ------------------------------------------------------------
+   The relationship inverts, and not only in value. Against ivory,
+   crimson reaches 6.1:1 and violet 10.2:1, so both become usable
+   ink again. Gold is what breaks, at 2.3:1, and hands over to its
+   deeper cut.
+   ============================================================ */
+
+[data-theme="light"] {
+  --color-surface: var(--color-ivory);
+  --color-surface-raised: #e9e3d6;
+  --color-surface-imagined: var(--color-violet);
+
+  --color-content: var(--color-black);
+  --color-content-bright: var(--color-black);
+  --color-content-muted: var(--color-stone);
+
+  --color-accent: var(--color-gold-deep);
+  --color-energy: var(--color-crimson);
+  --color-rule: color-mix(in oklab, var(--color-black) 18%, transparent);
+}
+
+@layer base {
+  html {
+    background-color: var(--color-surface);
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-content);
+    font-family: var(--font-text);
+    font-size: var(--text-body);
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Light text irradiates against a very dark ground and reads heavier
+     than it is. The correction belongs on the weight axis rather than on
+     smoothing, which would have no equivalent effect in the light theme. */
+  :where([data-theme="dark"]) body {
+    font-variation-settings: "wght" 380;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-energy);
+    color: var(--color-ivory);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ============================================================
+   Typographic roles
+   ------------------------------------------------------------
+   The constraints in docs/typography.md are applied here, in one
+   place. Restating them as stacked utilities at every call site
+   would be the surest way to watch them drift apart.
+   ============================================================ */
+
+@layer components {
+  /* Redaction never goes below 32px: the print halftone closes up and the
+     word turns into a grey smear. No uppercase either, since the halftone
+     reads better across varied lowercase shapes. */
+  .t-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+  }
+
+  /* The worn cut, reserved for older pieces of the archive and only above
+     64px. Never in crimson: the halftone already breaks up the outlines,
+     which drops effective contrast below 2:1. */
+  .t-display-worn {
+    font-family: var(--font-worn);
+    font-weight: 400;
+  }
+
+  .t-label {
+    font-family: var(--font-text);
+    font-variation-settings: "wght" 600;
+    font-size: var(--text-label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Sligoil holds between 11 and 13px, uppercase. This is archive
+     punctuation, not body copy. */
+  .t-meta {
+    font-family: var(--font-meta);
+    font-size: var(--text-meta);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Measure does as much as the typeface choice to make this read like a
+     publication rather than a web page. */
+  .measure {
+    max-width: 68ch;
+  }
+
+  .measure-lead {
+    max-width: 55ch;
+  }
 }
