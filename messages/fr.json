@@ -33,7 +33,7 @@
     },
     "activity": {
       "label": "Ces derniers jours",
-      "summary": "{pushes} poussées et {merged} pull requests fusionnées sur {repositories} dépôts depuis le {since}, lues en direct depuis GitHub."
+      "summary": "{pushes} poussées et {merged} pull requests fusionnées sur {repositories} dépôts depuis le {since}."
     },
     "contact": {
       "label": "Travailler ensemble",

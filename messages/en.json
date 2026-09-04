@@ -33,7 +33,7 @@
     },
     "activity": {
       "label": "These past days",
-      "summary": "{pushes} pushes and {merged} pull requests merged across {repositories} repositories since {since}, read live from GitHub."
+      "summary": "{pushes} pushes and {merged} pull requests merged across {repositories} repositories since {since}."
     },
     "contact": {
       "label": "Work together",
