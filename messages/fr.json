@@ -16,21 +16,6 @@
     "metaDescription": "Zardonis Jérémie ZITTI, ingénieur produit. Je conçois et je livre des systèmes de bout en bout, et je tiens tout ce que je fais comme une seule archive numérotée.",
     "statement": "Je <mark>construis</mark> des <cycle></cycle>, je <mark>décide</mark> où tout cela va, et j’<mark>imagine</mark> ce qui l’entoure.",
     "intro": "Ingénieur produit. Je conçois et je livre des systèmes de bout en bout, et ce que je construis n’a pas de secteur : l’exploitation d’une entreprise, une élection, un produit culturel, une plateforme d’apprentissage. Ce qui m’intéresse se trouve là où une décision produit et une décision technique se révèlent être la même décision.\n\nSur l’année écoulée : une plateforme SaaS multi-tenant en production chez de nombreux clients, une plateforme civique, quatorze implémentations de référence pour ceux qui apprennent à livrer, et la direction technique d’un produit culturel.",
-    "dimensions": {
-      "label": "Trois entrées",
-      "BUILD": {
-        "title": "Construire",
-        "body": "Rust, Python, TypeScript, Kotlin, Go. Des backends qui tiennent, du mobile qui fonctionne sans réseau, et des interfaces qui ne font pas travailler ceux qui s’en servent."
-      },
-      "LEAD": {
-        "title": "Diriger",
-        "body": "Direction produit, décisions écrites, changelogs publics, charte de communauté. Diriger consiste surtout à rendre le raisonnement visible avant que le résultat ne le soit."
-      },
-      "CREATE": {
-        "title": "Créer",
-        "body": "Direction artistique, worldbuilding, interfaces construites dans un moteur de jeu parce qu’une liste n’aurait pas suffi. La part qui ne répond qu’à l’idée."
-      }
-    },
     "evidence": {
       "label": "Cette année",
       "commits": "commits",
@@ -71,7 +56,36 @@
       "two": "solutions",
       "three": "mondes"
     },
-    "tagline": "Une archive de ce que je construis, dirige et imagine"
+    "tagline": "Une archive de ce que je construis, dirige et imagine",
+    "decisions": {
+      "label": "Décisions",
+      "intro": "Un portfolio liste des compétences. Une archive garde les décisions, parce que c’est là que se voit le jugement, et que le jugement est la part qu’une stack ne dit pas.",
+      "one": {
+        "dimension": "Diriger",
+        "title": "Sortir l’administration du produit",
+        "body": "Une équipe d’exploitation et un apprenant n’ont presque rien en commun dans ce qu’ils ont besoin de voir. Deux applications distinctes, plutôt qu’une interface durablement médiocre pour les deux."
+      },
+      "two": {
+        "dimension": "Construire",
+        "title": "Deux prestataires de paiement, pas un",
+        "body": "Stripe et FedaPay ensemble. Servir des clients européens et ouest-africains n’est pas un détail d’intégration, c’est une contrainte d’architecture qu’il vaut mieux accepter tôt."
+      },
+      "three": {
+        "dimension": "Construire",
+        "title": "Local-first, parce que le réseau n’est pas acquis",
+        "body": "Une application de nutrition inutilisable hors ligne ne sert personne à Cotonou. Ce n’est pas une ligne de spécification, c’est la condition pour qu’elle serve."
+      },
+      "four": {
+        "dimension": "Créer",
+        "title": "Un moteur de jeu pour ce qui aurait pu être une page web",
+        "body": "Le coach d’échecs tourne dans Unity. La contrainte était volontaire : elle a obligé l’interface à devenir spatiale au lieu de rester une liste de coups."
+      },
+      "five": {
+        "dimension": "Diriger",
+        "title": "Écrire la gouvernance avant d’avoir des contributeurs",
+        "body": "Des RFC, un changelog public et une charte, rédigés avant que la communauté n’existe. Une communauté devient gouvernable quand ses décisions cessent de vivre dans des conversations privées."
+      }
+    }
   },
   "archive": {
     "metaTitle": "Archive",

@@ -29,7 +29,10 @@ import { WordCycle } from "@/components/word-cycle";
  */
 export const revalidate = 3600;
 
-const dimensions = ["BUILD", "LEAD", "CREATE"] as const;
+/* Five rather than three, and unevenly spread across the dimensions on
+   purpose: the evidence is heaviest on building, solid on leading and thinner
+   on creating, and three equal columns claimed otherwise. */
+const decisions = ["one", "two", "three", "four", "five"] as const;
 
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
@@ -125,22 +128,47 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </div>
       </section>
 
-      {/* The three dimensions, stated once and plainly. A visitor who reads
-          only this block should already know what kind of person they are
-          dealing with. */}
+      {/*
+        * Decisions rather than skills.
+        *
+        * This block used to name three dimensions and assert what each one
+        * meant, which made it the only part of the page that claimed instead
+        * of showing. Everything around it is evidence, and the contrast was
+        * audible.
+        *
+        * Each decision now carries the constraint that forced it, so the
+        * dimension survives as a label on a proof rather than as a heading
+        * over an adjective.
+        */}
       <section>
-        <p className="t-meta text-accent">{t("dimensions.label")}</p>
+        <p className="t-meta text-accent">{t("decisions.label")}</p>
 
-        <div className="mt-10 grid gap-x-12 gap-y-12 md:grid-cols-3">
-          {dimensions.map((dimension) => (
-            <div key={dimension}>
-              <h2 className="t-display text-display-m">
-                {t(`dimensions.${dimension}.title`)}
-              </h2>
-              <p className="text-content-muted mt-4">
-                {t(`dimensions.${dimension}.body`)}
+        <p className="measure t-register text-content-muted mt-6">
+          {t("decisions.intro")}
+        </p>
+
+        <div className="mt-12">
+          {decisions.map((key, position) => (
+            <article
+              key={key}
+              className="grid gap-x-10 gap-y-3 border-t border-rule py-8 md:grid-cols-[10rem_1fr]"
+            >
+              <p className="t-meta text-accent">
+                {String(position + 1).padStart(2, "0")}{" "}
+                <span className="text-content-muted">
+                  {t(`decisions.${key}.dimension`)}
+                </span>
               </p>
-            </div>
+
+              <div>
+                <h2 className="t-display text-display-m measure-lead text-balance">
+                  {t(`decisions.${key}.title`)}
+                </h2>
+                <p className="measure text-content-muted mt-4">
+                  {t(`decisions.${key}.body`)}
+                </p>
+              </div>
+            </article>
           ))}
         </div>
       </section>

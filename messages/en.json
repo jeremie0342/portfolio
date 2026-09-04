@@ -16,21 +16,6 @@
     "metaDescription": "Zardonis Jeremie ZITTI, product engineer. I design and ship systems end to end, and keep everything I make as a single numbered archive.",
     "statement": "I <mark>build</mark> <cycle></cycle>, <mark>decide</mark> where they go, and <mark>imagine</mark> what surrounds them.",
     "intro": "Product engineer. I design and ship systems end to end, and what I build has no sector: a company's operations, an election, a cultural product, a learning platform. What interests me sits where a product decision and a technical decision turn out to be the same decision.\n\nOver the past year: a multi-tenant SaaS platform in production for many clients, a civic platform, fourteen reference implementations for people learning to ship, and technical direction of a cultural product.",
-    "dimensions": {
-      "label": "Three ways in",
-      "BUILD": {
-        "title": "Build",
-        "body": "Rust, Python, TypeScript, Kotlin, Go. Backends that hold, mobile that works without a network, and interfaces that do not make their users work."
-      },
-      "LEAD": {
-        "title": "Lead",
-        "body": "Product direction, written decisions, public changelogs, a code of conduct. Leading is mostly making the reasoning visible before the outcome is."
-      },
-      "CREATE": {
-        "title": "Create",
-        "body": "Art direction, worldbuilding, interfaces built in a game engine because a list would not have been enough. The part that answers to nothing but the idea."
-      }
-    },
     "evidence": {
       "label": "This year",
       "commits": "commits",
@@ -71,7 +56,36 @@
       "two": "solutions",
       "three": "worlds"
     },
-    "tagline": "An archive of things I build, shape and imagine"
+    "tagline": "An archive of things I build, shape and imagine",
+    "decisions": {
+      "label": "Decisions",
+      "intro": "A portfolio lists skills. An archive keeps decisions, because that is where judgment shows, and judgment is the part a stack cannot tell you.",
+      "one": {
+        "dimension": "Lead",
+        "title": "Take the admin out of the product",
+        "body": "An operations team and a learner have almost nothing in common in what they need to see. Two separate applications, rather than one interface permanently compromised for both."
+      },
+      "two": {
+        "dimension": "Build",
+        "title": "Two payment providers, not one",
+        "body": "Stripe and FedaPay together. Serving European and West African clients is not an integration detail, it is an architectural constraint worth accepting early."
+      },
+      "three": {
+        "dimension": "Build",
+        "title": "Local-first, because the network is not a given",
+        "body": "A nutrition app that is unusable offline serves nobody in Cotonou. That is not a line on a specification sheet, it is the condition for it being used at all."
+      },
+      "four": {
+        "dimension": "Create",
+        "title": "A game engine for what could have been a web page",
+        "body": "The chess coach runs in Unity. The constraint was deliberate: it forced the interface to be spatial rather than a list of moves."
+      },
+      "five": {
+        "dimension": "Lead",
+        "title": "Write the governance before having contributors",
+        "body": "RFCs, a public changelog and a code of conduct, written before the community existed. A community becomes governable when its decisions stop living in private conversations."
+      }
+    }
   },
   "archive": {
     "metaTitle": "Archive",

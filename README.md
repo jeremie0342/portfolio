@@ -54,6 +54,8 @@ The site is served at `http://localhost:3000/en` and
 
 ## Search
 
+The production origin is `https://zardonis.skill-uv.com`.
+
 `NEXT_PUBLIC_SITE_URL` **must be set at build time in production**. Canonical
 URLs, language alternates, the sitemap and the share images are all absolute,
 and without it every one of them points at `http://localhost:3000`. It is the
