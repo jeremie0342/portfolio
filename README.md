@@ -81,6 +81,32 @@ those are one person unless `alternateName` says so. `sameAs` then anchors the
 claim to profiles the engine already knows, which is what turns a page about a
 name into a page about a person.
 
+## Console
+
+A single account reads the messages the contact form collects, at
+`/console/<path>` where the path is generated rather than chosen.
+
+```bash
+npm run console:secrets   # prints CONSOLE_PATH, ADMIN_PASSWORD_HASH, AUTH_SECRET
+```
+
+Copy the three into `.env`. The path is not a security boundary and is not
+treated as one: it keeps scanners away from the login form, and the password
+and the signed session hold the door. A wrong path answers 404 rather than
+showing a login form, since a scanner that finds one knows there is something
+behind it.
+
+The password is stored only as a scrypt digest, in the environment rather than
+in the database, so a stolen dump of this database contains messages from
+strangers and no way in. Sessions last twelve hours and are signed with
+`AUTH_SECRET`; changing that value closes every open session at once.
+
+Mail is optional. Without `RESEND_API_KEY` and `MAIL_FROM` the console still
+reads, files and records replies, and the reply is sent by hand from any mail
+client. With them it leaves from here. The reply is written to the database
+before it is sent either way, because a reply lost to a mail provider's bad
+afternoon is worse than one saved and not yet delivered.
+
 ## Content model
 
 Everything that changes over time lives in the database, never in the code.

@@ -81,6 +81,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   dark ground.
 - A section of its own for the person, with a portrait held as an archive
   plate: monochrome by default, its colour returning under the pointer.
+- A console for the messages, behind a generated path, a single scrypt hashed
+  password and a signed session, with replies recorded and sent through Resend
+  when it is configured.
 - A contact form stored in the database, with a hidden field and a minimum
   time to submit as its defences, and a note saying what happens to the message.
 - A career page and a contact page, both linked from a summary on the front.
