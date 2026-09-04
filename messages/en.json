@@ -66,23 +66,23 @@
       },
       "two": {
         "title": "I sort constraints into negotiable and non-negotiable",
-        "body": "Usage volume and shape, expected availability, the nature of the data and the rules that apply to it, systems already in place, team, budget, deadline. The non-negotiable pile rules out most architectures before anyone debates them. For each remaining choice I note whether it is reversible: decide fast on what can be undone, slowly on what cannot."
+        "body": "I list usage volume and shape, expected availability, the nature of the data and the rules that apply to it, systems already in place, team size, budget and deadline. I then separate what is negotiable from what is not, and mark each remaining choice as reversible or not. Firm constraints rule out most architectures immediately; the marking sets how much time each remaining decision is given."
       },
       "three": {
         "title": "I make at least two options stand up before choosing",
-        "body": "Compared against the criteria set in the first step, not against the preferences of whoever speaks loudest. Then one written decision, with what it rules out and why. A team can move without me, and the debate does not come back three months later under a different name."
+        "body": "I design two or three viable solutions and compare them against the criteria set in the first step: cost, timeline, risk, effect on what already exists. I then write up the decision taken, with the options set aside and the reason for each. The document fits on one page and lives in the repository, so the team can settle neighbouring cases without me and find the reasoning again when the question comes back."
       },
       "four": {
         "title": "I decide form alongside the model",
-        "body": "Hierarchy, typography, rhythm, density: these are product decisions, taken with the data model rather than after it. I start from the states, empty, loading, error, insufficient rights, because they are what reveal what the product actually has to be able to do."
+        "body": "I define hierarchy, typography, rhythm and density alongside the data model, and I start from the states: empty, loading, error, insufficient rights, partial data. Those states demand fields and rules that a nominal screen never surfaces, so handling them first avoids reworking the model afterwards."
       },
       "five": {
         "title": "I ship the riskiest slice first, end to end",
-        "body": "Not the easiest. A thin but complete slice, all the way to production, puts the plan against reality while there is still time to change it. What follows is execution."
+        "body": "I find the riskiest assumption, the one whose failure would force a rethink, and build a thin slice that crosses it end to end, all the way to production. It ships before the easy features. If the assumption fails, it fails while there is still budget and time to change course."
       },
       "six": {
         "title": "I measure, I operate, and I stay",
-        "body": "Instrumentation from the first release, read against the objective set in the first step. Operations are designed rather than added: logs, alerts, recovery procedures. A system that only holds while I am watching it is not finished."
+        "body": "I instrument from the first release and read the figures against the objective set in the first step, at a defined interval. I ship logs, alerts and recovery procedures with it, and train someone else to use them. That allows fixes based on measurements rather than impressions, and a handover that does not degrade the service."
       }
     }
   },

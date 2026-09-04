@@ -66,23 +66,23 @@
       },
       "two": {
         "title": "Je trie les contraintes en négociables et non négociables",
-        "body": "Volume et profil des usages, disponibilité attendue, nature des données et règles qui s’y appliquent, systèmes déjà en place, équipe, budget, échéance. Le tas des non négociables élimine la plupart des architectures avant qu’on en débatte. Pour chaque choix qui reste, je note s’il est réversible : on décide vite sur ce qui se défait, lentement sur ce qui ne se défait pas."
+        "body": "Je liste le volume et le profil des usages, la disponibilité attendue, la nature des données et les règles qui s’y appliquent, les systèmes déjà en place, la taille de l’équipe, le budget et l’échéance. Je sépare ensuite ce qui est négociable de ce qui ne l’est pas, et je marque chaque choix restant comme réversible ou non. Les contraintes fermes écartent la majorité des architectures d’emblée ; le marquage fixe le temps qu’on accorde à chaque arbitrage."
       },
       "three": {
         "title": "Je fais tenir debout au moins deux options avant de trancher",
-        "body": "Comparées sur les critères posés à la première étape, pas sur les préférences de qui parle le plus fort. Puis une décision écrite, avec ce qu’elle écarte et pourquoi. Une équipe peut alors avancer sans moi, et le débat ne revient pas trois mois plus tard sous un autre nom."
+        "body": "Je conçois deux ou trois solutions viables et je les compare sur les critères posés à la première étape : coût, délai, risque, effet sur l’existant. Je rédige ensuite la décision retenue, avec les options écartées et le motif de chacune. Le document tient en une page et vit dans le dépôt : l’équipe peut trancher les cas voisins sans moi et retrouver le raisonnement quand la question revient."
       },
       "four": {
         "title": "Je décide la forme en même temps que le modèle",
-        "body": "Hiérarchie, typographie, rythme, densité : ce sont des décisions produit, prises avec le modèle de données et non après lui. Je commence par les états, vide, chargement, erreur, droits insuffisants, parce que ce sont eux qui révèlent ce que le produit doit réellement savoir faire."
+        "body": "Je définis la hiérarchie, la typographie, le rythme et la densité en même temps que le modèle de données, et je commence par les états : vide, chargement, erreur, droits insuffisants, données partielles. Ces états exigent des champs et des règles qu’un écran nominal ne fait jamais apparaître, donc les traiter d’abord évite de reprendre le modèle après coup."
       },
       "five": {
         "title": "Je livre la tranche la plus risquée en premier, de bout en bout",
-        "body": "Pas la plus facile. Une tranche fine mais complète, jusqu’en production, confronte le plan à la réalité pendant qu’il est encore temps d’en changer. Ce qui suit n’est plus que de l’exécution."
+        "body": "Je repère l’hypothèse la plus risquée, celle dont l’invalidation obligerait à tout revoir, et je construis une tranche fine qui la traverse de bout en bout, jusqu’en production. Elle sort avant les fonctionnalités faciles. Si l’hypothèse tombe, elle tombe pendant qu’il reste du budget et du délai pour changer de trajectoire."
       },
       "six": {
         "title": "Je mesure, j’exploite, et je reste",
-        "body": "Instrumentation dès la première mise en ligne, relue contre l’objectif de la première étape. L’exploitation se conçoit, elle ne s’ajoute pas : journaux, alertes, procédures de reprise. Un système qui ne tient que si je suis devant l’écran n’est pas terminé."
+        "body": "J’instrumente dès la première mise en ligne et je relis les chiffres contre l’objectif fixé à la première étape, à intervalle défini. Je livre en même temps les journaux, les alertes et les procédures de reprise, et je forme quelqu’un d’autre à les utiliser. Cela permet de corriger sur des mesures plutôt que sur des impressions, et de passer la main sans que le service en pâtisse."
       }
     }
   },
