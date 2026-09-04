@@ -26,11 +26,6 @@
       "label": "Sélection",
       "all": "Entrer dans l’archive"
     },
-    "about": {
-      "label": "Qui",
-      "body": "Architecte principal d’une plateforme SaaS multi-tenant en production, directeur technique d’un produit culturel qui sort ce trimestre, et seul bâtisseur de Skilluv.\n\nFrançais en langue maternelle, anglais en langue de travail. Télétravail sur GMT+1, depuis Cotonou.",
-      "more": "Lire le parcours complet"
-    },
     "activity": {
       "label": "Ces derniers jours",
       "summary": "{pushes} poussées et {merged} pull requests fusionnées sur {repositories} dépôts depuis le {since}."
@@ -83,6 +78,21 @@
         "title": "Je mesure, j’exploite, et je reste",
         "body": "J’instrumente dès la première mise en ligne et je relis les chiffres contre l’objectif fixé à la première étape, à intervalle défini. Je livre en même temps les journaux, les alertes et les procédures de reprise, et je forme quelqu’un d’autre à les utiliser. Cela permet de corriger sur des mesures plutôt que sur des impressions, et de passer la main sans que le service en pâtisse."
       }
+    },
+    "who": {
+      "label": "Qui",
+      "lead": "Je conçois et je construis des systèmes de production, de l’architecture jusqu’à l’exploitation.",
+      "body": "Ce que je fais tient rarement dans une seule case. Sur la même année : un ERP multi-tenant qui fait tourner l’exploitation de plusieurs entreprises, une plateforme civique livrée dans une fenêtre qui ne se décalait pas, une application mobile pensée pour fonctionner sans réseau, et une plateforme d’apprentissage que je porte seul.\n\nJe travaille sur les deux versants à la fois. La même journée peut aller d’un bus d’événements à une échelle typographique, et je ne considère pas que ce soient deux métiers. Une hiérarchie visuelle et un modèle de données décrivent le même produit, à deux endroits différents. Quand ils sont décidés séparément, cela se voit.\n\nCe qui m’intéresse commence là où une décision produit et une décision technique se révèlent être la même décision : le moment où il faut arbitrer entre ce qui sera juste pour l’utilisateur et ce qui tiendra dans trois ans, sans pouvoir déléguer l’un des deux côtés à quelqu’un d’autre.",
+      "facts": {
+        "now": "Aujourd’hui",
+        "building": "En construction",
+        "availability": "Disponibilité",
+        "availabilityValue": "Télétravail, GMT+1",
+        "languages": "Langues",
+        "languagesValue": "Français, anglais",
+        "education": "Formation"
+      },
+      "more": "Lire le parcours complet"
     }
   },
   "archive": {

@@ -7,7 +7,7 @@ import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { listSelected } from "@/lib/entries";
+import { listSelected, listPositions, listCredentials } from "@/lib/entries";
 import { readActivity, readYearTotals } from "@/lib/github";
 import { SiteHeader } from "@/components/site-header";
 import { EntryRow } from "@/components/entry-row";
@@ -53,10 +53,17 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   const format = await getFormatter();
 
   const selected = await listSelected(locale);
-  const [activity, totals] = await Promise.all([
+  const [activity, totals, positions, credentials] = await Promise.all([
     readActivity(),
     readYearTotals(),
+    listPositions(locale),
+    listCredentials(locale),
   ]);
+
+  /* A role that ends should leave this page on the same edit that closes its
+     entry, so the facts column reads the archive rather than repeating it. */
+  const current = positions.filter((position) => !position.endedOn);
+  const latestDegree = credentials[0];
 
   const figures = [
     [totals.commits, t("evidence.commits")],
@@ -260,39 +267,88 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </Link>
       </section>
 
-      <section className="mt-(--spacing-section) grid gap-x-16 gap-y-16 md:grid-cols-2">
-        <div>
-          <p className="t-meta text-accent">{t("about.label")}</p>
+      {/* A section of its own rather than half a row. A reader who has come
+          this far is deciding whether to write, and three lines are not what
+          decides it. */}
+      <section className="mt-(--spacing-section)">
+        <p className="t-meta text-accent">{t("who.label")}</p>
 
-          <div className="measure mt-6">
-            {t("about.body")
+        <p className="t-display text-display-m measure-lead mt-8 text-balance">
+          {t("who.lead")}
+        </p>
+
+        <div className="mt-14 grid gap-x-16 gap-y-12 lg:grid-cols-[1fr_auto]">
+          <div className="measure">
+            {t("who.body")
               .split("\n\n")
               .map((paragraph) => (
-                <p key={paragraph.slice(0, 40)} className="mt-4">
+                <p key={paragraph.slice(0, 40)} className="text-body-l mt-6">
                   {paragraph}
                 </p>
               ))}
+
+            <Link
+              href="/about"
+              className="t-meta text-accent mt-10 inline-block underline underline-offset-4"
+            >
+              {t("who.more")}
+            </Link>
           </div>
 
-          <Link
-            href="/about"
-            className="t-meta text-accent mt-8 inline-block underline underline-offset-4"
-          >
-            {t("about.more")}
-          </Link>
-        </div>
+          {/* Read from the archive rather than restated, so these cannot
+              disagree with the career page. */}
+          <dl className="shrink-0 lg:w-72">
+            {current.length > 0 ? (
+              <div className="border-t border-rule py-5">
+                <dt className="t-meta text-accent">{t("who.facts.now")}</dt>
+                {current.map((position) => (
+                  <dd key={position.slug} className="t-register mt-2">
+                    {position.title}
+                    <span className="text-content-muted">
+                      {" / "}
+                      {position.organization}
+                    </span>
+                  </dd>
+                ))}
+              </div>
+            ) : null}
 
-        <div>
-          <p className="t-meta text-accent">{t("contact.label")}</p>
+            <div className="border-t border-rule py-5">
+              <dt className="t-meta text-accent">{t("who.facts.building")}</dt>
+              <dd className="t-register mt-2">Skilluv</dd>
+            </div>
 
-          <p className="measure mt-6">{t("contact.body")}</p>
+            <div className="border-t border-rule py-5">
+              <dt className="t-meta text-accent">
+                {t("who.facts.availability")}
+              </dt>
+              <dd className="t-register mt-2">
+                {t("who.facts.availabilityValue")}
+              </dd>
+            </div>
 
-          <Link
-            href="/contact"
-            className="t-meta text-accent mt-8 inline-block underline underline-offset-4"
-          >
-            {t("contact.more")}
-          </Link>
+            <div className="border-t border-rule py-5">
+              <dt className="t-meta text-accent">{t("who.facts.languages")}</dt>
+              <dd className="t-register mt-2">
+                {t("who.facts.languagesValue")}
+              </dd>
+            </div>
+
+            {latestDegree ? (
+              <div className="border-t border-rule py-5">
+                <dt className="t-meta text-accent">
+                  {t("who.facts.education")}
+                </dt>
+                <dd className="t-register mt-2">
+                  {latestDegree.title}
+                  <span className="text-content-muted">
+                    {" / "}
+                    {latestDegree.endedOn?.getUTCFullYear()}
+                  </span>
+                </dd>
+              </div>
+            ) : null}
+          </dl>
         </div>
       </section>
 

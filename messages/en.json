@@ -26,11 +26,6 @@
       "label": "Selected",
       "all": "Enter the archive"
     },
-    "about": {
-      "label": "Who",
-      "body": "Lead architect on a multi-tenant SaaS platform in production, technical director of a cultural product launching this quarter, and sole builder of Skilluv.\n\nFrench first language, English working language. Remote on GMT+1, from Cotonou.",
-      "more": "Read the full career"
-    },
     "activity": {
       "label": "These past days",
       "summary": "{pushes} pushes and {merged} pull requests merged across {repositories} repositories since {since}."
@@ -83,6 +78,21 @@
         "title": "I measure, I operate, and I stay",
         "body": "I instrument from the first release and read the figures against the objective set in the first step, at a defined interval. I ship logs, alerts and recovery procedures with it, and train someone else to use them. That allows fixes based on measurements rather than impressions, and a handover that does not degrade the service."
       }
+    },
+    "who": {
+      "label": "Who",
+      "lead": "I design and build production systems, from the architecture through to running them.",
+      "body": "What I do rarely fits one box. Within the same year: a multi-tenant ERP running the operations of several companies, a civic platform delivered inside a window that would not move, a mobile application built to work without a network, and a learning platform I carry on my own.\n\nI work on both sides at once. The same day can go from an event bus to a typographic scale, and I do not consider those two jobs. A visual hierarchy and a data model describe the same product in two different places. When they are decided separately, it shows.\n\nWhat interests me starts where a product decision and a technical decision turn out to be the same decision: the moment you have to weigh what will be right for the user against what will still hold in three years, with neither side available to hand to somebody else.",
+      "facts": {
+        "now": "Today",
+        "building": "Building",
+        "availability": "Availability",
+        "availabilityValue": "Remote, GMT+1",
+        "languages": "Languages",
+        "languagesValue": "French, English",
+        "education": "Education"
+      },
+      "more": "Read the full career"
     }
   },
   "archive": {
