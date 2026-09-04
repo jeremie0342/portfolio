@@ -1,14 +1,29 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 
 type Theme = "dark" | "light";
 
-/*
- * The document element is the source of truth for the active theme: the
- * pre-paint script writes it there before React ever runs. Subscribing to the
- * attribute rather than mirroring it into component state keeps the two from
- * drifting, and leaves room for a second control elsewhere on the page.
+const query = "(prefers-color-scheme: light)";
+const storageKey = "theme";
+
+/**
+ * Reflects and flips the active theme, and applies a stored override.
+ *
+ * The system preference is answered in CSS alone, so a visitor who never
+ * touched this control gets the right ground on the first paint with no
+ * JavaScript involved. What remains is the minority who chose a theme that
+ * differs from their system, and that override is applied here on mount.
+ *
+ * Those visitors see one frame of their system theme before the override
+ * lands. The alternatives were worse: an inline script that React refuses to
+ * run on client navigation, a render-blocking request on the critical path for
+ * every visitor, or reading a cookie on the server, which would opt every page
+ * out of static rendering to serve a preference most people never set.
+ *
+ * The effective theme has two possible sources, an explicit attribute or the
+ * system query, so both are read and both are subscribed to. Reading only the
+ * attribute would label this control "Dark" while the page renders light.
  */
 function subscribe(onChange: () => void) {
   const observer = new MutationObserver(onChange);
@@ -16,26 +31,64 @@ function subscribe(onChange: () => void) {
     attributes: true,
     attributeFilter: ["data-theme"],
   });
-  return () => observer.disconnect();
+
+  const media = window.matchMedia(query);
+  media.addEventListener("change", onChange);
+
+  return () => {
+    observer.disconnect();
+    media.removeEventListener("change", onChange);
+  };
 }
 
 function readTheme(): Theme {
-  return document.documentElement.dataset.theme === "light" ? "light" : "dark";
+  const chosen = document.documentElement.dataset.theme;
+
+  if (chosen === "light" || chosen === "dark") {
+    return chosen;
+  }
+
+  return window.matchMedia(query).matches ? "light" : "dark";
 }
 
-/* On the server there is no resolved theme yet, and rendering a guess would
-   only produce a label that flips on hydration. */
+/* Nothing is resolved on the server, and rendering a guess would only produce
+   a label that flips on hydration. */
 function readNothing(): null {
   return null;
+}
+
+function readStored(): Theme | null {
+  try {
+    const stored = localStorage.getItem(storageKey);
+    return stored === "light" || stored === "dark" ? stored : null;
+  } catch {
+    /* Private browsing and blocked storage both throw. The CSS default already
+       renders correctly, so there is nothing to recover from. */
+    return null;
+  }
 }
 
 export function ThemeToggle({ label }: { label: string }) {
   const theme = useSyncExternalStore(subscribe, readTheme, readNothing);
 
+  useEffect(() => {
+    const stored = readStored();
+
+    if (stored) {
+      document.documentElement.dataset.theme = stored;
+    }
+  }, []);
+
   function toggle() {
     const next: Theme = theme === "light" ? "dark" : "light";
     document.documentElement.dataset.theme = next;
-    localStorage.setItem("theme", next);
+
+    try {
+      localStorage.setItem(storageKey, next);
+    } catch {
+      /* The theme still applies to this page view, it simply is not
+         remembered. */
+    }
   }
 
   return (
