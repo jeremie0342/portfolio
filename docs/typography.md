@@ -44,9 +44,18 @@ smear.
 | --- | --- |
 | Redaction 10 | 32 px |
 | Redaction 50 | 64 px |
+| Redaction 100 | none |
 
 Below 32 px, Redaction is not used at all. Never in body copy, never in a
 label, never in navigation.
+
+**Degree 100 is the exception, and for a reason worth recording.** Past a
+certain coarseness the halftone stops being a screen laid over an outline and
+becomes the outline: the Z at degree 100 is described entirely by horizontal
+and vertical segments on hundred-unit steps, 140 characters of path against 902
+at degree 10. It is a grid, not a texture, so it holds at wordmark and favicon
+sizes where every finer degree turns to mud. That is what the masthead and the
+site icon are set in.
 
 ### Settings
 

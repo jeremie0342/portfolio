@@ -38,7 +38,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Language switch that keeps the reader on the same entry rather than
   returning them to the front page.
 - The wordmark is ZARDONIS rather than the handle, in the masthead, the opening
-  and the metadata.
+  and the metadata, set in Redaction at the coarsest degree of wear so the mark
+  and the first frame of the opening are the same object.
+- A site icon cut from the typeface itself: the Z of Redaction 100, extracted
+  as an outline so the file carries no font dependency.
 - An opening sequence: the wordmark resolves through five degrees of Redaction
   print wear while an accession counter runs up to the size of the archive. The
   five degrees are subset to seven glyphs and weigh 4.4 KB together. It plays

@@ -254,6 +254,20 @@
     text-transform: uppercase;
   }
 
+  /* The wordmark, set in Redaction at the coarsest degree of wear.
+     At degree 100 the halftone is so wide that the letter stops being a
+     screened outline and becomes a grid: the Z is described entirely by
+     horizontal and vertical segments on hundred-unit steps. That is why it
+     survives at logo and favicon sizes where a finer degree would turn to
+     mud, and it is the same face the opening starts from, so the mark and
+     the first frame of the sequence are literally the same object. */
+  .logo {
+    font-family: var(--font-wear-100);
+    font-size: clamp(1.375rem, 1rem + 1.4vw, 2rem);
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+
   /* The byline sits between punctuation and register: a name is not a label
      and not a sentence either, so it takes the meta face one step up. */
   .t-byline {
