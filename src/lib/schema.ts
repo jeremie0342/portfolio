@@ -1,5 +1,6 @@
 import portrait from "@/images/portrait.jpg";
-import { contact, profiles } from "./contact";
+import { contact } from "./contact";
+import { listProfiles } from "./entries";
 import { siteUrl } from "./site";
 import type { Locale } from "@/i18n/routing";
 
@@ -22,7 +23,9 @@ import type { Locale } from "@/i18n/routing";
 const personId = `${siteUrl}/#person`;
 const siteId = `${siteUrl}/#website`;
 
-export function personSchema(locale: Locale) {
+export async function personSchema(locale: Locale) {
+  const profiles = await listProfiles();
+
   return {
     "@type": "Person",
     "@id": personId,
@@ -61,7 +64,9 @@ export function personSchema(locale: Locale) {
     },
     nationality: { "@type": "Country", name: "Bénin" },
     /* The anchor of the whole thing. Each of these is a profile a search engine
-       already has, so the identity here is corroborated rather than asserted. */
+       already has, so the identity here is corroborated rather than asserted.
+       Read from the same table the contact page lists, so the claim and the
+       page cannot disagree. */
     sameAs: profiles.map((profile) => profile.url),
     knowsLanguage: ["fr", "en"],
     knowsAbout: [

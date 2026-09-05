@@ -80,7 +80,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
           page references these two nodes by id rather than restating them. */}
       <JsonLd
         data={graph([
-          personSchema(locale),
+          await personSchema(locale),
           websiteSchema(locale),
           profilePageSchema(locale, t("metaTitle")),
         ])}

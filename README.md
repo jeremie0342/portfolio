@@ -101,6 +101,11 @@ in the database, so a stolen dump of this database contains messages from
 strangers and no way in. Sessions last twelve hours and are signed with
 `AUTH_SECRET`; changing that value closes every open session at once.
 
+The console manages the messages and everything the site reads from the
+database: archive entries with both translations and their kind specific
+fields, organisations, and the public profiles. Media is not there yet, since
+managing images needs a file store and none is configured.
+
 Mail is optional. Without `RESEND_API_KEY` and `MAIL_FROM` the console still
 reads, files and records replies, and the reply is sent by hand from any mail
 client. With them it leaves from here. The reply is written to the database

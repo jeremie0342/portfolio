@@ -1,6 +1,6 @@
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client";
-import { entries, organizations } from "./seed-data";
+import { entries, organizations, profiles } from "./seed-data";
 
 /**
  * Writes the archive contents into the database.
@@ -27,6 +27,14 @@ const PARKING = 10_000;
 
 async function main() {
   await db.$executeRaw`UPDATE "Entry" SET number = number + ${PARKING} WHERE number < ${PARKING}`;
+
+  for (const profile of profiles) {
+    await db.profile.upsert({
+      where: { url: profile.url },
+      create: profile,
+      update: profile,
+    });
+  }
 
   const organizationIds = new Map<string, string>();
 

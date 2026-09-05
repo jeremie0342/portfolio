@@ -260,3 +260,18 @@ export const listSitemapEntries = cache(
 export const archiveSize = cache(async (): Promise<number> => {
   return db.entry.count({ where: { ...published, kind: archiveKinds } });
 });
+
+export type PublicProfile = {
+  label: string;
+  handle: string;
+  url: string;
+};
+
+/** Listed profiles, in the order they were curated. */
+export const listProfiles = cache(async (): Promise<PublicProfile[]> => {
+  return db.profile.findMany({
+    where: { listed: true },
+    orderBy: [{ rank: "asc" }, { label: "asc" }],
+    select: { label: true, handle: true, url: true },
+  });
+});

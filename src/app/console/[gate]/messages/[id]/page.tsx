@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
-import { hasSession, isGate } from "@/lib/auth";
+import { notFound } from "next/navigation";
 import { setStatus } from "@/app/actions/console";
+import { requireConsole } from "@/lib/console";
+import { Shell, Head } from "@/components/console/shell";
 import { db } from "@/lib/db";
 import { ReplyForm } from "@/components/console/reply-form";
 
@@ -14,16 +14,9 @@ const filings = [
 
 export default async function Message({
   params,
-}: PageProps<"/console/[gate]/[id]">) {
+}: PageProps<"/console/[gate]/messages/[id]">) {
   const { gate, id } = await params;
-
-  if (!isGate(gate)) {
-    notFound();
-  }
-
-  if (!(await hasSession())) {
-    redirect(`/console/${gate}`);
-  }
+  await requireConsole(gate);
 
   const message = await db.message.findUnique({ where: { id } });
 
@@ -32,26 +25,17 @@ export default async function Message({
   }
 
   return (
-    <main className="px-(--spacing-gutter) py-(--spacing-gutter)">
-      <header className="border-rule flex flex-wrap items-baseline justify-between gap-4 border-b pb-4">
-        <Link
-          href={`/console/${gate}`}
-          className="t-meta hover:text-accent transition-colors"
-        >
-          Console
-        </Link>
-        <span className="t-meta text-accent">{message.status}</span>
-      </header>
+    <Shell gate={gate} current="messages">
+      <Head
+        title={message.subject ?? message.name}
+        action={<span className="t-meta text-accent">{message.status}</span>}
+      />
 
-      <section className="pt-16">
+      <section>
         <p className="t-meta text-accent">
           {message.createdAt.toISOString().slice(0, 16).replace("T", " ")}
           <span className="text-content-muted"> {message.locale}</span>
         </p>
-
-        <h1 className="t-display text-display-l mt-6">
-          {message.subject ?? message.name}
-        </h1>
 
         <p className="t-register text-content-muted mt-4">
           {message.name}{" "}
@@ -101,6 +85,6 @@ export default async function Message({
 
         <ReplyForm gate={gate} id={message.id} existing={message.reply} />
       </section>
-    </main>
+    </Shell>
   );
 }

@@ -86,7 +86,7 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
           only one whose content is the biography itself. */}
       <JsonLd
         data={graph([
-          personSchema(locale),
+          await personSchema(locale),
           collectionSchema(locale, "/about", t("title"), t("metaDescription")),
           breadcrumbSchema(locale, [
             { name: site("name"), path: "" },

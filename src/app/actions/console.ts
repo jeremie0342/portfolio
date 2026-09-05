@@ -109,8 +109,8 @@ export async function setStatus(form: FormData) {
     },
   });
 
-  revalidatePath(`/console/${gate}`);
-  revalidatePath(`/console/${gate}/${id}`);
+  revalidatePath(`/console/${gate}/messages`);
+  revalidatePath(`/console/${gate}/messages/${id}`);
 }
 
 export type ReplyState = {
@@ -149,8 +149,8 @@ export async function replyTo(
     data: { reply: body, repliedAt: new Date(), status: "REPLIED" },
   });
 
-  revalidatePath(`/console/${gate}`);
-  revalidatePath(`/console/${gate}/${id}`);
+  revalidatePath(`/console/${gate}/messages`);
+  revalidatePath(`/console/${gate}/messages/${id}`);
 
   const delivery = await sendReply({
     to: message.email,

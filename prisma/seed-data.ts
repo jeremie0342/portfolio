@@ -41,6 +41,28 @@ export type Seed = {
   fr: Translation;
 };
 
+export const profiles = [
+  {
+    label: "GitHub",
+    handle: "jeremie0342",
+    url: "https://github.com/jeremie0342",
+    rank: 1,
+  },
+  {
+    label: "LinkedIn",
+    handle: "jérémiezitti",
+    url: "https://www.linkedin.com/in/jérémiezitti",
+    rank: 2,
+  },
+  { label: "X", handle: "@jeremy0342", url: "https://x.com/jeremy0342", rank: 3 },
+  {
+    label: "dev.to",
+    handle: "jeremie0342",
+    url: "https://dev.to/jeremie0342",
+    rank: 4,
+  },
+] as const;
+
 export const organizations = [
   { name: "KPS Groupe", url: "https://ubbfy.com", country: "BJ" },
   { name: "Orisum Groupe", url: "https://yaragroupe.com", country: "BJ" },

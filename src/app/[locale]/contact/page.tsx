@@ -3,7 +3,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { contact, profiles, organisations } from "@/lib/contact";
+import { contact, organisations } from "@/lib/contact";
+import { listProfiles } from "@/lib/entries";
 import { SiteHeader } from "@/components/site-header";
 import { ContactForm } from "@/components/contact-form";
 import { JsonLd } from "@/components/json-ld";
@@ -51,6 +52,7 @@ export default async function Contact({
   const t = await getTranslations("contact");
   const site = await getTranslations("site");
   const footer = await getTranslations("footer");
+  const profiles = await listProfiles();
 
   const direct = [
     {
@@ -79,7 +81,7 @@ export default async function Contact({
     <main className="px-(--spacing-gutter) py-(--spacing-gutter)">
       <JsonLd
         data={graph([
-          personSchema(locale),
+          await personSchema(locale),
           breadcrumbSchema(locale, [
             { name: site("name"), path: "" },
             { name: t("title"), path: "/contact" },

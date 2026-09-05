@@ -306,3 +306,28 @@ model Message {
   @@index([status, createdAt])
   @@index([createdAt])
 }
+
+/// A public profile, listed on the contact page and used to corroborate the
+/// person in the structured data.
+///
+/// In the database rather than in a constant because it is exactly the kind of
+/// thing that changes without the code changing: an account is opened, a
+/// platform is abandoned, a handle is renamed. Anything that moves on its own
+/// schedule belongs where it can be edited without a deployment.
+model Profile {
+  id     String  @id @default(cuid())
+  label  String
+  handle String
+  url    String  @unique
+  /// Position in the list. Curated rather than alphabetical: the account
+  /// someone should look at first is not the one starting with a D.
+  rank   Int     @default(0)
+  /// Whether it appears on the site. A dormant account stays on record without
+  /// being advertised.
+  listed Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([listed, rank])
+}

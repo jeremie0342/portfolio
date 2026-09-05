@@ -19,17 +19,6 @@ export const contact = {
   timezone: "GMT+1",
 } as const;
 
-export const profiles = [
-  { label: "GitHub", handle: "jeremie0342", url: "https://github.com/jeremie0342" },
-  {
-    label: "LinkedIn",
-    handle: "jérémiezitti",
-    url: "https://www.linkedin.com/in/jérémiezitti",
-  },
-  { label: "X", handle: "@jeremy0342", url: "https://x.com/jeremy0342" },
-  { label: "dev.to", handle: "jeremie0342", url: "https://dev.to/jeremie0342" },
-] as const;
-
 /**
  * Organisations whose repositories carry part of the work. Listed because a
  * reader checking the GitHub account alone would miss most of it: the Skilluv

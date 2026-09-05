@@ -81,6 +81,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   dark ground.
 - A section of its own for the person, with a portrait held as an archive
   plate: monochrome by default, its colour returning under the pointer.
+- Public profiles move from a constant into the database, so opening an account
+  no longer needs a deployment, and the structured data reads the same table the
+  contact page lists.
+- The console manages the archive as well as the messages: entries with both
+  translations and their kind specific fields, organisations, and profiles.
 - A console for the messages, behind a generated path, a single scrypt hashed
   password and a signed session, with replies recorded and sent through Resend
   when it is configured.
