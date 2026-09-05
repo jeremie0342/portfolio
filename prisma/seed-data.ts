@@ -92,13 +92,13 @@ export const entries: Seed[] = [
       title: "Skilluv",
       summary:
         "A skill platform built solo as a polyglot architecture, with a public governance layer around it. Open beta January 2027.",
-      body: "Skilluv is the largest body of work in this archive and the only one that spans every dimension of it. A Rust backend, a Svelte frontend and admin, and a Python AI service that talks to the Rust core over gRPC when an answer is needed now and over a Redis queue when it is not.\n\nThe AI service does the work that makes the platform more than a course catalogue: challenge generation through an LLM, plagiarism detection that combines syntax trees with embeddings across eight languages, scored matching between talent and companies, and media processing for replays.\n\nSplitting the admin panel out from the product is the decision that shaped the rest. An operations team and a learner have almost nothing in common in what they need to see, and merging them would have produced one interface permanently compromised for both.\n\nThe governance repositories matter as much as the code. A community becomes governable at the point where its decisions stop living in private conversations.",
+      body: "Skilluv is the largest body of work in this archive and the only one that spans every dimension of it. A Rust backend, a Svelte frontend and admin, and a Python AI service that talks to the Rust core over gRPC when an answer is needed now and over a Redis queue when it is not. The core is 183,000 lines of Rust, 4,544 tests across 233 files and 468 migrations; the AI service is around 11,000 lines of Python.\n\nThe AI service does the work that makes the platform more than a course catalogue: challenge generation through an LLM, plagiarism detection that combines syntax trees with embeddings across eight languages, scored matching between talent and companies, and media processing for replays. Each of its methods has a latency budget written before it is served: under fifteen seconds at the median for a code review by a model, under two seconds for plagiarism detection, which is deterministic and owes nothing to a model. Going over blocks the release rather than being discovered by a learner.\n\nSplitting the admin panel out from the product is the decision that shaped the rest. An operations team and a learner have almost nothing in common in what they need to see, and merging them would have produced one interface permanently compromised for both.\n\nThe governance repositories matter as much as the code. A community becomes governable at the point where its decisions stop living in private conversations.\n\nThe decision I reversed: I wanted everything to run on my own server, down to the development environments, Blender and Penpot. It worked for one user and for no others. I stopped in time, but late, and it is the kind of ambition that has to be judged on what the next thousand users cost rather than on whether it stands up on the first day.",
     },
     fr: {
       title: "Skilluv",
       summary:
         "Une plateforme de compétences construite en solo sur une architecture polyglotte, entourée d’une gouvernance publique. Bêta ouverte en janvier 2027.",
-      body: "Skilluv est l'ensemble le plus vaste de cette archive, et le seul qui en traverse toutes les dimensions. Un backend Rust, un front et une administration en Svelte, et un service IA Python qui parle au cœur Rust en gRPC quand la réponse doit arriver tout de suite, et par une file Redis quand elle peut attendre.\n\nLe service IA fait le travail qui distingue la plateforme d'un catalogue de cours : génération de défis par un LLM, détection de plagiat combinant arbres syntaxiques et embeddings sur huit langages, appariement noté entre talents et entreprises, et traitement des rediffusions.\n\nSéparer l'administration du produit est la décision qui a structuré le reste. Une équipe d'exploitation et un apprenant n'ont presque rien en commun dans ce qu'ils ont besoin de voir, et les réunir aurait produit une interface durablement médiocre pour les deux.\n\nLes dépôts de gouvernance comptent autant que le code. Une communauté devient gouvernable à partir du moment où ses décisions cessent de vivre dans des conversations privées.",
+      body: "Skilluv est l’ensemble le plus vaste de cette archive, et le seul qui en traverse toutes les dimensions. Un backend Rust, un front et une administration en Svelte, et un service IA Python qui parle au cœur Rust en gRPC quand la réponse doit arriver tout de suite, et par une file Redis quand elle peut attendre. Le cœur, c’est 183 000 lignes de Rust, 4 544 tests répartis sur 233 fichiers et 468 migrations ; le service IA, environ 11 000 lignes de Python.\n\nLe service IA fait le travail qui distingue la plateforme d’un catalogue de cours : génération de défis par un LLM, détection de plagiat combinant arbres syntaxiques et embeddings sur huit langages, appariement noté entre talents et entreprises, et traitement des rediffusions. Chacune de ses méthodes a un budget de latence écrit avant d’être servie : moins de quinze secondes en médiane pour une revue de code par un modèle, moins de deux secondes pour la détection de plagiat, qui est déterministe et ne doit rien à un modèle. Un dépassement bloque la mise en ligne au lieu d’être découvert par un apprenant.\n\nSéparer l’administration du produit est la décision qui a structuré le reste. Une équipe d’exploitation et un apprenant n’ont presque rien en commun dans ce qu’ils ont besoin de voir, et les réunir aurait produit une interface durablement médiocre pour les deux.\n\nLes dépôts de gouvernance comptent autant que le code. Une communauté devient gouvernable à partir du moment où ses décisions cessent de vivre dans des conversations privées.\n\nLa décision que j’ai reprise : je voulais que tout tourne sur mon propre serveur, jusqu’aux environnements de développement, à Blender et à Penpot. Ça marchait pour un utilisateur et pour aucun autre. J’ai arrêté à temps, mais tard, et c’est le genre d’ambition qui se juge sur ce que coûte le millier d’utilisateurs suivant, pas sur le fait qu’elle tienne debout le premier jour.",
     },
   },
   {
@@ -122,9 +122,9 @@ export const entries: Seed[] = [
         "The Rust and Axum service every other part of the platform talks to.",
     },
     fr: {
-      title: "Cœur d'API",
+      title: "Cœur d’API",
       summary:
-        "Le service Rust et Axum auquel toutes les autres parties de la plateforme s'adressent.",
+        "Le service Rust et Axum auquel toutes les autres parties de la plateforme s’adressent.",
     },
   },
   {
@@ -172,7 +172,7 @@ export const entries: Seed[] = [
         "Moderation, catalog and operations, kept as a standalone build rather than a privileged corner of the product.",
     },
     fr: {
-      title: "Panneau d'administration",
+      title: "Panneau d’administration",
       summary:
         "Modération, catalogue et exploitation, tenus dans un build distinct plutôt que dans un recoin privilégié du produit.",
     },
@@ -202,7 +202,7 @@ export const entries: Seed[] = [
       title: "Service IA",
       summary:
         "Génération de défis, détection de plagiat sur huit langages, appariement des talents et traitement des médias.",
-      body: "La détection de plagiat est la partie difficile, et la raison pour laquelle ce service vit dans son propre processus. Comparer les arbres syntaxiques attrape la copie structurelle qu'un simple renommage de variables masquerait, et les embeddings attrapent l'inverse, du code réécrit pour paraître différent tout en faisant la même chose. Aucune des deux approches ne suffit seule, alors les deux tournent et leurs scores se combinent.",
+      body: "La détection de plagiat est la partie difficile, et la raison pour laquelle ce service vit dans son propre processus. Comparer les arbres syntaxiques attrape la copie structurelle qu’un simple renommage de variables masquerait, et les embeddings attrapent l’inverse, du code réécrit pour paraître différent tout en faisant la même chose. Aucune des deux approches ne suffit seule, alors les deux tournent et leurs scores se combinent.",
     },
   },
   {
@@ -239,8 +239,8 @@ export const entries: Seed[] = [
     fr: {
       title: "Quatorze starters",
       summary:
-        "Une implémentation de référence par filière, chacune un projet qui tourne plutôt qu'un gabarit.",
-      body: "Full-stack en Rust, Go, Python et Node. Front en React, Svelte et HTMX. Mobile en Kotlin, Flutter et React Native. Jeu avec Bevy et Godot. Embarqué sur ESP32. Donnée avec JupyterLab. Une filière DevOps avec OpenTofu et l'observabilité déjà câblée.\n\nChacun démarre, comporte des tests et épingle ses versions. Un apprenant qui n'arrive pas à lancer un projet n'apprend rien, sinon que l'écosystème lui est hostile.",
+        "Une implémentation de référence par filière, chacune un projet qui tourne plutôt qu’un gabarit.",
+      body: "Full-stack en Rust, Go, Python et Node. Front en React, Svelte et HTMX. Mobile en Kotlin, Flutter et React Native. Jeu avec Bevy et Godot. Embarqué sur ESP32. Donnée avec JupyterLab. Une filière DevOps avec OpenTofu et l’observabilité déjà câblée.\n\nChacun démarre, comporte des tests et épingle ses versions. Un apprenant qui n’arrive pas à lancer un projet n’apprend rien, sinon que l’écosystème lui est hostile.",
     },
   },
   {
@@ -268,7 +268,7 @@ export const entries: Seed[] = [
       title: "Gouvernance de la communauté",
       summary:
         "Quatre dépôts publics qui rendent visibles les décisions, les règles et les arrivées, au lieu de les laisser implicites.",
-      body: "Des RFC structurées pour les choix de produit, de technique et de gouvernance. Un changelog public hebdomadaire. Une charte pour le modèle de compagnonnage. Et une chronologie publique des premiers commits des membres.\n\nLe dernier compte davantage qu'il n'y paraît. Consigner une première contribution comme un événement, publiquement, change ce que veut dire arriver dans une communauté.",
+      body: "Des RFC structurées pour les choix de produit, de technique et de gouvernance. Un changelog public hebdomadaire. Une charte pour le modèle de compagnonnage. Et une chronologie publique des premiers commits des membres.\n\nLe dernier compte davantage qu’il n’y paraît. Consigner une première contribution comme un événement, publiquement, change ce que veut dire arriver dans une communauté.",
     },
   },
   {
@@ -291,10 +291,10 @@ export const entries: Seed[] = [
       body: "Everything runs locally, including the language model that writes the commentary. Nothing about your play leaves the machine.\n\nChoosing a game engine for what could have been a web page was a deliberate constraint: it forced the interface to be spatial rather than a list of moves.",
     },
     fr: {
-      title: "Coach d'échecs",
+      title: "Coach d’échecs",
       summary:
-        "Un coach auto-hébergé qui lit vos propres parties plutôt qu'un programme générique, réparti entre un backend et un client moteur de jeu.",
-      body: "Tout tourne en local, y compris le modèle de langage qui rédige les commentaires. Rien de votre jeu ne quitte la machine.\n\nChoisir un moteur de jeu pour ce qui aurait pu être une page web était une contrainte volontaire : elle a obligé l'interface à devenir spatiale au lieu de rester une liste de coups.",
+        "Un coach auto-hébergé qui lit vos propres parties plutôt qu’un programme générique, réparti entre un backend et un client moteur de jeu.",
+      body: "Tout tourne en local, y compris le modèle de langage qui rédige les commentaires. Rien de votre jeu ne quitte la machine.\n\nChoisir un moteur de jeu pour ce qui aurait pu être une page web était une contrainte volontaire : elle a obligé l’interface à devenir spatiale au lieu de rester une liste de coups.",
     },
   },
   {
@@ -318,7 +318,7 @@ export const entries: Seed[] = [
         "Imports games from Chess.com, runs Stockfish over them, detects tactical motifs and generates puzzles from the positions where you actually went wrong.",
     },
     fr: {
-      title: "Backend d'analyse",
+      title: "Backend d’analyse",
       summary:
         "Importe les parties depuis Chess.com, les analyse avec Stockfish, détecte les motifs tactiques et génère des exercices à partir des positions où vous vous êtes réellement trompé.",
     },
@@ -372,7 +372,7 @@ export const entries: Seed[] = [
       title: "TrackMyWeight",
       summary:
         "Un suivi de forme et de nutrition local-first pour Android, construit sur une base d’aliments écrite pour ceux qui s’en servent plutôt que traduite pour eux.",
-      body: "Les applications de nutrition supposent une base d'aliments qui ne contient pas ce que mange la majeure partie du monde. Celle-ci est construite dès le départ autour de la cuisine béninoise et ouest-africaine, ce qui est un problème de données avant d'être un problème d'interface.\n\nL'application reste entièrement utilisable sans réseau. Ce n'est pas une ligne de spécification, c'est la condition pour qu'elle serve.",
+      body: "Les applications de nutrition supposent une base d’aliments qui ne contient pas ce que mange la majeure partie du monde. Celle-ci est construite dès le départ autour de la cuisine béninoise et ouest-africaine, ce qui est un problème de données avant d’être un problème d’interface.\n\nL’application reste entièrement utilisable sans réseau. Ce n’est pas une ligne de spécification, c’est la condition pour qu’elle serve.",
     },
   },
   {
@@ -398,7 +398,7 @@ export const entries: Seed[] = [
       title: "Worldsmith",
       summary:
         "Une plateforme web de worldbuilding assistée par IA. Gardée en brouillon, puisque le dépôt est privé.",
-      body: "Cette entrée existe pour que l'archive ait une place réservée à ce qui relève de l'imaginaire plutôt que du livré. Elle reste non publiée volontairement : le dépôt qui la porte est privé, et son périmètre n'a été décrit publiquement nulle part.",
+      body: "Cette entrée existe pour que l’archive ait une place réservée à ce qui relève de l’imaginaire plutôt que du livré. Elle reste non publiée volontairement : le dépôt qui la porte est privé, et son périmètre n’a été décrit publiquement nulle part.",
     },
   },
   {
@@ -419,13 +419,13 @@ export const entries: Seed[] = [
       title: "UBBFY",
       summary:
         "Lead architect on a multi-tenant ERP, CRM and HR platform in production for many clients.",
-      body: "Eight backend modules, more than a hundred API endpoints, forty-odd frontend pages, and the tenants in production: KPS, Planus, Flowplan, Gotolearn and People&Skill.\n\nThe parts that decided the architecture were the ones nobody sees. Role-based access built to be configured rather than coded, so a new tenant does not mean a new deployment. An event bus on Celery, so a module can react to another without importing it. An audit trail, because a platform holding several companies' operations has to be able to answer what happened and who did it.\n\nBilling runs through Stripe and FedaPay together, which is what serving both European and West African clients actually requires.",
+      body: "About ten companies run their operations on it, the largest of them managing two hundred employees and contractors. The platform is thirty-three server-side modules, 338 data models and close to four hundred screens, served in three languages: KPS, Planus, Flowplan, Gotolearn and People&Skill are the tenants in production.\n\nI came onto a project already under way, written in Laravel on MySQL, and the first decision was to restructure it onto Django and PostgreSQL. Migrating data is thankless work that bills you late: timestamps carried over from the old database came in an hour behind, and that kind of gap never shows in review, it shows in production on somebody's timesheet.\n\nThe parts that decided the architecture were the ones nobody sees. Role-based access built to be configured rather than coded, so a new tenant does not mean a new deployment. An event bus on Celery, so a module can react to another without importing it. An audit trail, because a platform holding several companies' operations has to be able to answer what happened and who did it. Billing runs through Stripe and FedaPay together, which is what serving both European and West African clients actually requires.\n\nWhat I did not see coming was internationalisation. I did not design for it, and retrofitting it onto a written codebase took the development environment down for days. The problem was not translation, it was the boundary: interface strings are mine, content typed by a tenant is theirs and has to exist in languages I do not choose. A notification now leaves in the language of whoever reads it rather than whoever triggered it. That is a decision I take on the first day of a project now, not in the sixth month.\n\nThe floor is held by tests: 3,146 on the server, 468 end-to-end runs through the browser.",
     },
     fr: {
       title: "UBBFY",
       summary:
         "Architecte principal d’une plateforme ERP, CRM et RH multi-tenant, en production chez de nombreux clients.",
-      body: "Huit modules backend, plus de cent points d'API, une quarantaine de pages front, et les tenants en production : KPS, Planus, Flowplan, Gotolearn et People&Skill.\n\nCe qui a décidé de l'architecture, ce sont les parties que personne ne voit. Des droits d'accès conçus pour être configurés plutôt que codés, de sorte qu'un nouveau tenant n'implique pas un nouveau déploiement. Un bus d'événements sur Celery, pour qu'un module puisse réagir à un autre sans l'importer. Une piste d'audit, parce qu'une plateforme qui héberge l'exploitation de plusieurs entreprises doit pouvoir dire ce qui s'est passé et qui l'a fait.\n\nLa facturation passe par Stripe et FedaPay ensemble, ce qu'exige réellement le fait de servir des clients européens et ouest-africains.",
+      body: "Une dizaine d’entreprises y font tourner leur exploitation, la plus grande gérant deux cents salariés et prestataires. La plateforme, c’est trente-trois modules côté serveur, 338 modèles de données et près de quatre cents écrans, servis en trois langues : KPS, Planus, Flowplan, Gotolearn et People&Skill sont les tenants en production.\n\nJe suis arrivé sur un projet déjà commencé, écrit en Laravel sur MySQL, et la première décision a été de le restructurer vers Django et PostgreSQL. Migrer des données est un travail ingrat qui se facture tard : les horodatages repris de l’ancienne base arrivaient avec une heure de retard, et ce genre d’écart ne se voit pas en recette, il se voit en production sur la feuille de temps de quelqu’un.\n\nCe qui a décidé de l’architecture, ce sont les parties que personne ne voit. Des droits d’accès conçus pour être configurés plutôt que codés, de sorte qu’un nouveau tenant n’implique pas un nouveau déploiement. Un bus d’événements sur Celery, pour qu’un module puisse réagir à un autre sans l’importer. Une piste d’audit, parce qu’une plateforme qui héberge l’exploitation de plusieurs entreprises doit pouvoir dire ce qui s’est passé et qui l’a fait. La facturation passe par Stripe et FedaPay ensemble, ce qu’exige réellement le fait de servir des clients européens et ouest-africains.\n\nCe que je n’ai pas vu venir, c’est l’internationalisation. Je ne l’ai pas prévue au départ, et la rattraper sur une base déjà écrite a mis l’environnement de développement à terre plusieurs jours. Le problème n’était pas la traduction, c’était la frontière : les chaînes de l’interface sont à moi, le contenu saisi par un tenant est à lui et doit exister dans des langues que je ne choisis pas. Une notification part maintenant dans la langue de qui la lit, pas de qui la déclenche. C’est une décision que je prends désormais le premier jour d’un projet, pas au sixième mois.\n\nLe socle est tenu par les tests : 3 146 côté serveur, 468 parcours de bout en bout dans le navigateur.",
     },
   },
   {
@@ -445,13 +445,13 @@ export const entries: Seed[] = [
       title: "Allons Voter",
       summary:
         "A civic technology platform deployed during the 2026 Benin presidential campaign, designed and shipped end to end.",
-      body: "Thirteen data models, forty-eight API routes, thirty-four pages, built and deployed inside a campaign window that does not move.\n\nA civic platform during an election is a moderation problem before it is a software problem. Anti-spam and moderation were part of the first design rather than a later patch, and sessions use rotating tokens in HttpOnly cookies because the cost of getting authentication wrong here is not measured in support tickets.",
+      body: "Sixteen days between the first commit and production, from 7 to 23 March 2026, in the middle of a presidential campaign. Thirteen data models, forty-eight API routes, thirty-four pages across the public site and the back office. I was alone on the code; the deployment was done with colleagues.\n\nMore than ten thousand visitors over the campaign, peaking at five hundred people on the site at once. It held on the day of the vote.\n\nA civic platform during an election is a moderation problem before it is a software problem. Asking a question takes no account, which is the only way to get questions at all, so anti-spam, one vote per person and moderation were part of the first design rather than a later patch: a challenge and a per-address limit at the door, a browser fingerprint on the vote, a moderation log on every decision, and sessions on rotating tokens in HttpOnly cookies, because the cost of getting authentication wrong here is not measured in support tickets.",
     },
     fr: {
       title: "Allons Voter",
       summary:
         "Une plateforme de tech civique déployée pendant la campagne présidentielle béninoise de 2026, conçue et livrée de bout en bout.",
-      body: "Treize modèles de données, quarante-huit routes d'API, trente-quatre pages, construits et déployés dans une fenêtre de campagne qui ne se décale pas.\n\nUne plateforme civique en période électorale est un problème de modération avant d'être un problème logiciel. L'anti-spam et la modération faisaient partie de la conception initiale plutôt que d'un correctif ultérieur, et les sessions utilisent des jetons rotatifs en cookies HttpOnly, parce que le coût d'une authentification ratée ne se mesure pas ici en tickets de support.",
+      body: "Seize jours entre le premier commit et la mise en production, du 7 au 23 mars 2026, en pleine campagne présidentielle. Treize modèles de données, quarante-huit routes d’API, trente-quatre pages entre le site public et le back-office. J’étais seul sur le code ; le déploiement s’est fait avec des collègues.\n\nPlus de dix mille visiteurs sur la durée de la campagne, avec un pic à cinq cents personnes en même temps sur le site. Elle a tenu le jour du scrutin.\n\nUne plateforme civique en période électorale est un problème de modération avant d’être un problème logiciel. Poser une question ne demande pas de compte, ce qui est la seule façon d’avoir des questions, donc l’anti-spam, le vote unique et la modération faisaient partie de la conception initiale plutôt que d’un correctif ultérieur : une épreuve et une limite par adresse à l’entrée, une empreinte de navigateur sur le vote, un journal de modération sur chaque décision, et des sessions à jetons rotatifs en cookies HttpOnly, parce que le coût d’une authentification ratée ne se mesure pas ici en tickets de support.",
     },
   },
   {
@@ -471,13 +471,13 @@ export const entries: Seed[] = [
       title: "Diaspora ROW",
       summary:
         "The official diaspora campaign site, delivered in a one-month sprint: seventeen sections and a back office covering eighteen resources.",
-      body: "Around seventeen thousand lines in a month, which is only possible because the back office was generated from the resource definitions rather than written eighteen times. The interesting constraint was not the volume but the deadline: a campaign site that ships late ships never.",
+      body: "Around seventeen thousand lines in a month, which is only possible because the back office was generated from the resource definitions rather than written eighteen times. The interesting constraint was not the volume but the deadline: a campaign site that ships late ships never. The date held, and the site carried traffic of the same order as Allons Voter over the campaign.",
     },
     fr: {
       title: "Diaspora ROW",
       summary:
-        "Le site officiel de campagne pour la diaspora, livré en un sprint d'un mois : dix-sept sections et un back-office couvrant dix-huit ressources.",
-      body: "Environ dix-sept mille lignes en un mois, ce qui n'est possible que parce que le back-office a été engendré à partir des définitions de ressources plutôt qu'écrit dix-huit fois. La contrainte intéressante n'était pas le volume mais l'échéance : un site de campagne livré en retard n'est jamais livré.",
+        "Le site officiel de campagne pour la diaspora, livré en un sprint d’un mois : dix-sept sections et un back-office couvrant dix-huit ressources.",
+      body: "Environ dix-sept mille lignes en un mois, ce qui n’est possible que parce que le back-office a été engendré à partir des définitions de ressources plutôt qu’écrit dix-huit fois. La contrainte intéressante n’était pas le volume mais l’échéance : un site de campagne livré en retard n’est jamais livré. La date a tenu, et le site a porté sur la campagne un trafic du même ordre qu’Allons Voter.",
     },
   },
   {
@@ -497,13 +497,13 @@ export const entries: Seed[] = [
       title: "Market Demand Pipeline",
       summary:
         "A five-stage production ETL system that scrapes, normalises and tracks job market demand.",
-      body: "Scraping is easy to demonstrate and hard to run. The stages are separated so a failure in one does not corrupt the others, every run is tracked, and the logs are structured because the question asked of a pipeline at three in the morning is always which run and which stage.",
+      body: "Scraping is easy to demonstrate and hard to run. Three job platforms are collected, LinkedIn, FreeWork and Welcome to the Jungle, through five stages: collect, clean, enrich, control, load. The stages are separated so a failure in one does not corrupt the others, every run is tracked, and the logs are structured because the question asked of a pipeline at three in the morning is always which run and which stage.\n\nVersion 2.0.1 went into production in March 2026 and it has run since, maintained and extended by other people. Handing a pipeline over is the test of whether its logs were written for someone else.",
     },
     fr: {
       title: "Market Demand Pipeline",
       summary:
-        "Un système ETL de production en cinq étapes, qui collecte, normalise et suit la demande du marché de l'emploi.",
-      body: "Le scraping est facile à démontrer et difficile à exploiter. Les étapes sont séparées pour qu'une défaillance de l'une ne corrompe pas les autres, chaque exécution est tracée, et les journaux sont structurés parce que la question posée à un pipeline à trois heures du matin est toujours quelle exécution et quelle étape.",
+        "Un système ETL de production en cinq étapes, qui collecte, normalise et suit la demande du marché de l’emploi.",
+      body: "Le scraping est facile à démontrer et difficile à exploiter. Trois plateformes d’offres sont collectées, LinkedIn, FreeWork et Welcome to the Jungle, à travers cinq étages : collecte, nettoyage, enrichissement, contrôle, chargement. Les étages sont séparés pour qu’une défaillance de l’un ne corrompe pas les autres, chaque exécution est tracée, et les journaux sont structurés parce que la question posée à un pipeline à trois heures du matin est toujours quelle exécution et quelle étape.\n\nLa version 2.0.1 est passée en production en mars 2026 et tourne depuis, maintenue et étendue par d’autres. Passer la main sur un pipeline est l’épreuve qui dit si ses journaux ont été écrits pour quelqu’un d’autre.",
     },
   },
   {
@@ -529,8 +529,8 @@ export const entries: Seed[] = [
     fr: {
       title: "Yara",
       summary:
-        "Direction technique d'une plateforme culturelle et touristique : une identité numérique qui remplace le billet physique pour les événements, la restauration et le tourisme. Bêta privée, lancement public au quatrième trimestre 2026.",
-      body: "Le rôle ici n'est pas d'écrire le code. C'est de porter l'architecture, les choix de stack, le périmètre, les échéances et la revue au sein d'une équipe de trois.\n\nCe qui en fait une entrée, c'est l'idée produit plutôt que la stack. Remplacer un billet physique par une identité change la nature de la plateforme : ce n'est plus un outil de réservation, c'est ce qu'un visiteur porte avec lui entre un concert, un repas et un musée.",
+        "Direction technique d’une plateforme culturelle et touristique : une identité numérique qui remplace le billet physique pour les événements, la restauration et le tourisme. Bêta privée, lancement public au quatrième trimestre 2026.",
+      body: "Le rôle ici n’est pas d’écrire le code. C’est de porter l’architecture, les choix de stack, le périmètre, les échéances et la revue au sein d’une équipe de trois.\n\nCe qui en fait une entrée, c’est l’idée produit plutôt que la stack. Remplacer un billet physique par une identité change la nature de la plateforme : ce n’est plus un outil de réservation, c’est ce qu’un visiteur porte avec lui entre un concert, un repas et un musée.",
     },
   },
   {
@@ -550,12 +550,12 @@ export const entries: Seed[] = [
     en: {
       title: "Full-stack developer and backend architect",
       summary:
-        "Lead architect on UBBFY, a multi-tenant SaaS platform in production for many clients: eight backend modules, more than a hundred API endpoints, configurable access rights, an event bus on Celery, an audit trail, forty odd frontend pages, a real time layer over WebSocket, two factor authentication, and billing through Stripe and FedaPay. Three further production systems delivered across the same period, among them a civic platform and an ETL pipeline. 375 structuring commits over six months across four codebases.",
+        "Lead architect on UBBFY, a multi-tenant SaaS platform run by about ten companies, the largest managing two hundred employees and contractors. The platform holds thirty-three server-side modules, 338 data models and close to four hundred screens in three languages, built by a team of eight. My part since October 2025: the foundations, meaning per-module permissions configured rather than coded, an event bus on Celery, an audit trail, object storage and a currency service covering 160 currencies; eight business modules delivered end to end, among them documents with electronic signature, the helpdesk and billing through Stripe and FedaPay; the platform administration application; and 1,154 commits across the two repositories. Three further production systems delivered across the same period, among them a civic platform and an ETL pipeline.",
     },
     fr: {
       title: "Développeur full-stack et architecte backend",
       summary:
-        "Architecte principal d'UBBFY, plateforme SaaS multi-tenant en production chez de nombreux clients : huit modules backend, plus de cent points d'API, droits d'accès configurables, bus d'événements sur Celery, piste d'audit, une quarantaine de pages front, couche temps réel en WebSocket, double authentification, et facturation par Stripe et FedaPay. Trois autres systèmes en production livrés sur la même période, dont une plateforme civique et un pipeline ETL. 375 commits structurants en six mois sur quatre bases de code.",
+        "Architecte principal d’UBBFY, plateforme SaaS multi-tenant sur laquelle tourne l’exploitation d’une dizaine d’entreprises, la plus grande gérant deux cents salariés et prestataires. La plateforme compte trente-trois modules côté serveur, 338 modèles de données et près de quatre cents écrans en trois langues, construits par une équipe de huit. Ma part depuis octobre 2025 : le socle, c’est-à-dire des droits par module configurés plutôt que codés, un bus d’événements sur Celery, une piste d’audit, le stockage objet et un service de devises couvrant 160 monnaies ; huit modules métier livrés de bout en bout, dont les documents avec signature électronique, le support et la facturation par Stripe et FedaPay ; l’application d’administration de la plateforme ; et 1 154 commits sur les deux dépôts. Trois autres systèmes en production livrés sur la même période, dont une plateforme civique et un pipeline ETL.",
     },
   },
   {

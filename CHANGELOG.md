@@ -123,6 +123,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   the forced password change, and the full create, read, update and delete
   cycle for every record the console manages.
 
+- Measured figures on the entries that carry the most weight. UBBFY, Allons
+  Voter, Skilluv, Diaspora ROW and the pipeline now state the scale of the
+  system, the constraint that was met and, where there is one, the decision
+  that was taken back. The career page separates the size of the platform from
+  the part of it that is mine.
+
 ### Fixed
 
 - One figure for the same fact across the site. The client count, the launch
