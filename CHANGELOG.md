@@ -140,6 +140,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   decides rather than what it contains, and alternative text that describes it
   for anyone who cannot see it.
 
+- A curriculum vitae at `/{locale}/cv.pdf`, drawn from the same tables as the
+  pages and laid out in the site's own faces. It cannot fall behind the site,
+  because there is no second copy of the facts to keep in step.
+- The GitHub account and the document are reachable from the front page, and
+  the document again from the foot of the career page.
+
 ### Fixed
 
 - One figure for the same fact across the site. The client count, the launch

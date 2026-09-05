@@ -96,7 +96,9 @@
       "body": "Écrivez-moi avec le problème plutôt qu’avec la solution attendue : ce qui ne fonctionne pas aujourd’hui, pour qui, et à quelle échéance. Une page suffit, et un appel de trente minutes suffit souvent à savoir si cela a du sens.\n\nJe réponds sous deux jours ouvrés, et je le dis quand ce n’est pas pour moi.",
       "email": "Courriel",
       "phone": "Téléphone",
-      "more": "Tous les moyens de me joindre"
+      "more": "Tous les moyens de me joindre",
+      "code": "Code",
+      "document": "Document"
     }
   },
   "archive": {
@@ -368,5 +370,12 @@
       "alt": "Page d’accueil de Yàra : le titre « Une carte. Toute la culture. » et la carte de membre numérique avec son code, son niveau et sa date de validité.",
       "caption": "L’objet du produit, montré plutôt que décrit. Le billet physique disparaît derrière une carte que le visiteur porte d’un concert à un restaurant."
     }
+  },
+  "cv": {
+    "role": "Ingénieur produit",
+    "selected": "Sélection",
+    "stamp": "Version à jour sur {url}",
+    "download": "CV en PDF",
+    "location": "Cotonou, Bénin (GMT+1)"
   }
 }

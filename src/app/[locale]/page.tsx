@@ -10,7 +10,8 @@ import { Link } from "@/i18n/navigation";
 import portrait from "@/images/portrait.jpg";
 import { contact } from "@/lib/contact";
 import { routing } from "@/i18n/routing";
-import { listSelected, listPositions, listCredentials } from "@/lib/entries";
+import { listProfiles,
+  listSelected, listPositions, listCredentials } from "@/lib/entries";
 import { readActivity, readYearTotals } from "@/lib/github";
 import { SiteHeader } from "@/components/site-header";
 import { EntryRow } from "@/components/entry-row";
@@ -53,15 +54,19 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   const t = await getTranslations("home");
   const site = await getTranslations("site");
   const footer = await getTranslations("footer");
+  const cv = await getTranslations("cv");
   const format = await getFormatter();
 
   const selected = await listSelected(locale);
-  const [activity, totals, positions, credentials] = await Promise.all([
+  const [activity, totals, positions, credentials, profiles] = await Promise.all([
     readActivity(),
     readYearTotals(),
     listPositions(locale),
     listCredentials(locale),
+    listProfiles(),
   ]);
+
+  const github = profiles.find((profile) => profile.label === "GitHub");
 
   /* A role that ends should leave this page on the same edit that closes its
      entry, so the facts column reads the archive rather than repeating it. */
@@ -424,6 +429,39 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
                   className="decoration-accent underline-offset-4 hover:text-accent underline transition-colors"
                 >
                   {contact.phoneDisplay}
+                </a>
+              </dd>
+            </div>
+
+            {/* The account, from the front page. A reader who wants to see the
+                code before writing should not have to find the contact page
+                first, and most of the work in this archive is public. */}
+            {github ? (
+              <div className="border-t border-rule py-5">
+                <dt className="t-meta text-accent">{t("reach.code")}</dt>
+                <dd className="t-register mt-2">
+                  <a
+                    href={github.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="decoration-accent underline-offset-4 hover:text-accent underline transition-colors"
+                  >
+                    {github.handle ?? github.url}
+                  </a>
+                </dd>
+              </div>
+            ) : null}
+
+            {/* A file, because the first thing a recruiter does with a
+                candidate is forward them to somebody else. */}
+            <div className="border-t border-rule py-5">
+              <dt className="t-meta text-accent">{t("reach.document")}</dt>
+              <dd className="t-register mt-2">
+                <a
+                  href={`/${locale}/cv.pdf`}
+                  className="decoration-accent underline-offset-4 hover:text-accent underline transition-colors"
+                >
+                  {cv("download")}
                 </a>
               </dd>
             </div>

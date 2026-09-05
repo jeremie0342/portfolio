@@ -58,6 +58,7 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
   setRequestLocale(locale);
 
   const t = await getTranslations("about");
+  const cv = await getTranslations("cv");
   const site = await getTranslations("site");
   const footer = await getTranslations("footer");
 
@@ -238,7 +239,7 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
         {/* A stamp rather than an underlined line. It is the site's mark for
             an invitation, and the end of the career page is the moment the
             reader is closest to acting on one. */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-6">
           <Stamp
             href="/contact"
             label={t("closing.more")}
@@ -246,6 +247,16 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
             angle="-2deg"
             solid
           />
+
+          {/* The same career, as a file. A page cannot be forwarded to a
+              hiring manager, and this document is drawn from the records
+              above rather than kept beside them, so it cannot fall behind. */}
+          <a
+            href={`/${locale}/cv.pdf`}
+            className="t-meta text-accent underline underline-offset-4"
+          >
+            {cv("download")}
+          </a>
         </div>
       </section>
 

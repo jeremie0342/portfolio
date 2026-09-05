@@ -16,11 +16,13 @@
     "test:e2e": "node --env-file=.env tests/e2e.mjs"
   },
   "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "minio": "^8.0.7",
     "next": "16.3.4",
     "next-intl": "^4.14.2",
+    "pdf-lib": "^1.17.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "resend": "^6.26.0",

@@ -127,6 +127,20 @@ client. With them it leaves from here. The reply is written to the database
 before it is sent either way, because a reply lost to a mail provider's bad
 afternoon is worse than one saved and not yet delivered.
 
+## Curriculum vitae
+
+`/{locale}/cv.pdf` draws the document from the same tables the pages read:
+positions, credentials, the selected archive and the public profiles. It is
+laid out by hand with pdf-lib, in the site's own faces, and rebuilt on the
+same hourly schedule as the pages.
+
+The two OpenType faces are embedded whole rather than subset: pdf-lib's
+subsetting produces a CFF table that some readers refuse, and a document that
+falls back to a substitute font on a recruiter's machine is not worth the
+forty kilobytes. The two TrueType weights of Author are generated from the
+variable file by `scripts/pdf-fonts.py` and committed, since fontTools is not
+a build dependency.
+
 ## Tests
 
 ```bash
