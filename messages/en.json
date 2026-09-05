@@ -346,5 +346,27 @@
       ],
       "caption": "Five isolated stages rather than one script: a failure while collecting does not corrupt the warehouse, and every run carries an identifier that follows it through the logs end to end. That is what answers the only question anyone asks at three in the morning: which run, which stage."
     }
+  },
+  "shots": {
+    "ubbfyDashboard": {
+      "alt": "UBBFY dashboard: headcount, absences, net payroll and pending leave, with the month’s payroll close and the week’s calendar.",
+      "caption": "What an administrator lands on: what they need to know, and the thing they came to do. Closing payroll is a button because it is the task of the month, not a menu entry to go and find."
+    },
+    "ubbfyRoles": {
+      "alt": "UBBFY roles screen: ten roles, each with its permission count and its type, and a button to create another.",
+      "caption": "Permissions configured rather than coded. Each role carries its count of per-module permissions, and a new one is created from this screen: that is what makes a new client something other than a new deployment."
+    },
+    "skilluvOpening": {
+      "alt": "Skilluv home page: the opening date, a two-part headline and what the platform promises.",
+      "caption": "An opening date at the top of the page rather than a form to join a list. Naming a day commits you, which is the reason it is written there."
+    },
+    "skilluvDisciplines": {
+      "alt": "Skilluv section listing eleven disciplines and a hundred and twenty tracks, each discipline marked with a coloured dot.",
+      "caption": "Eleven disciplines set flat, with no grid of cards. The type carries the hierarchy, and a coloured dot is enough to tell one discipline from the next."
+    },
+    "yaraCard": {
+      "alt": "Yàra home page: the headline “One card. All of the culture.” and the digital membership card with its code, tier and expiry.",
+      "caption": "The point of the product, shown rather than described. The physical ticket disappears behind a card the visitor carries from a concert to a restaurant."
+    }
   }
 }

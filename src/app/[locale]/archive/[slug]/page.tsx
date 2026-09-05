@@ -9,6 +9,7 @@ import { displayWorn } from "@/lib/fonts";
 import { SiteHeader } from "@/components/site-header";
 import { JsonLd } from "@/components/json-ld";
 import { Diagram } from "@/components/diagrams";
+import { Shots } from "@/components/shots";
 import { languageAlternates } from "@/lib/site";
 import { breadcrumbSchema, entrySchema, graph } from "@/lib/schema";
 
@@ -216,6 +217,10 @@ export default async function EntryPage({
               question the text has already raised; shown first it is a
               diagram of nothing in particular. */}
           <Diagram name={entry.diagram} />
+
+          {/* The screens come last: the drawing says how the system is put
+              together, and the screenshots say what somebody using it sees. */}
+          <Shots slug={entry.slug} />
         </section>
       ) : null}
 

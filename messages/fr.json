@@ -346,5 +346,27 @@
       ],
       "caption": "Cinq étages isolés plutôt qu’un script : une défaillance à la collecte ne corrompt pas l’entrepôt, et chaque exécution porte un identifiant qu’on retrouve dans les journaux d’un bout à l’autre. C’est ce qui permet de répondre, à trois heures du matin, à la seule question qui se pose : quelle exécution, quel étage."
     }
+  },
+  "shots": {
+    "ubbfyDashboard": {
+      "alt": "Tableau de bord d’UBBFY : effectif, absences, masse salariale nette et congés en attente, avec la clôture de paie du mois et le calendrier de la semaine.",
+      "caption": "L’écran d’arrivée d’un administrateur : ce qu’il doit savoir, et l’action qu’il vient faire. La clôture de paie est un bouton parce que c’est la tâche du mois, pas une entrée de menu à retrouver."
+    },
+    "ubbfyRoles": {
+      "alt": "Écran des rôles d’UBBFY : dix rôles, chacun avec son nombre de permissions et son type, et un bouton pour en créer un nouveau.",
+      "caption": "Les droits, configurés plutôt que codés. Chaque rôle porte son compte de permissions par module, et un nouveau rôle se crée depuis cet écran : c’est ce qui fait qu’un nouveau client n’implique pas un nouveau déploiement."
+    },
+    "skilluvOpening": {
+      "alt": "Page d’accueil de Skilluv : la date d’ouverture, un titre en deux temps et la promesse de la plateforme.",
+      "caption": "Une date d’ouverture en haut de page plutôt qu’une inscription à une liste. Annoncer un jour précis engage, et c’est la raison pour laquelle il est écrit là."
+    },
+    "skilluvDisciplines": {
+      "alt": "Section de Skilluv listant onze disciplines et cent vingt parcours, chaque discipline marquée d’un point de couleur.",
+      "caption": "Onze disciplines à plat, sans grille de cartes. La typographie porte la hiérarchie ; un point de couleur suffit à distinguer une discipline de la suivante."
+    },
+    "yaraCard": {
+      "alt": "Page d’accueil de Yàra : le titre « Une carte. Toute la culture. » et la carte de membre numérique avec son code, son niveau et sa date de validité.",
+      "caption": "L’objet du produit, montré plutôt que décrit. Le billet physique disparaît derrière une carte que le visiteur porte d’un concert à un restaurant."
+    }
   }
 }

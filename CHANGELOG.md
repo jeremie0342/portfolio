@@ -134,6 +134,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   own faces, translate with everything else and can be read aloud. An entry
   names one from the console.
 
+- Screens on the entries that have shipped software behind them: the UBBFY
+  dashboard and its roles matrix, the Skilluv opening and its disciplines, and
+  the Yàra membership card. Each carries a caption that says what the screen
+  decides rather than what it contains, and alternative text that describes it
+  for anyone who cannot see it.
+
 ### Fixed
 
 - One figure for the same fact across the site. The client count, the launch
