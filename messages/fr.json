@@ -159,7 +159,8 @@
     "closing": {
       "label": "La suite",
       "body": "Je cherche un poste, et je reste ouvert aux collaborations et aux missions. Écrivez-moi avec le problème plutôt qu’avec la solution attendue.",
-      "more": "Me contacter"
+      "more": "Me contacter",
+      "note": "Disponible"
     }
   },
   "contact": {

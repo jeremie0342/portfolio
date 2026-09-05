@@ -12,6 +12,7 @@ import {
 import { skills } from "@/lib/skills";
 import { organisations } from "@/lib/contact";
 import { SiteHeader } from "@/components/site-header";
+import { Stamp } from "@/components/stamp";
 import { JsonLd } from "@/components/json-ld";
 import { languageAlternates } from "@/lib/site";
 import {
@@ -101,7 +102,7 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
 
         <h1 className="t-display text-display-xl mt-8">{t("title")}</h1>
 
-        <div className="measure mt-10">
+        <div className="measure-wide mt-10">
           {t("intro")
             .split("\n\n")
             .map((paragraph) => (
@@ -232,14 +233,20 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
       <section className="mt-(--spacing-section)">
         <p className="t-meta text-accent">{t("closing.label")}</p>
 
-        <p className="measure-lead text-body-l mt-6">{t("closing.body")}</p>
+        <p className="measure-wide text-body-l mt-6">{t("closing.body")}</p>
 
-        <Link
-          href="/contact"
-          className="t-meta text-accent mt-8 inline-block underline underline-offset-4"
-        >
-          {t("closing.more")}
-        </Link>
+        {/* A stamp rather than an underlined line. It is the site's mark for
+            an invitation, and the end of the career page is the moment the
+            reader is closest to acting on one. */}
+        <div className="mt-10">
+          <Stamp
+            href="/contact"
+            label={t("closing.more")}
+            note={t("closing.note")}
+            angle="-2deg"
+            solid
+          />
+        </div>
       </section>
 
       <footer className="mt-(--spacing-section) flex flex-wrap items-baseline justify-between gap-4 border-t border-rule pt-6">
