@@ -136,7 +136,7 @@
     "metaTitle": "Parcours",
     "metaDescription": "Parcours, expérience et formation de Zardonis Jérémie ZITTI, ingénieur full-stack à Cotonou, Bénin.",
     "title": "Parcours",
-    "intro": "Ingénieur full-stack, je construis des systèmes de production de bout en bout. Architecture, backend, front, infrastructure, et la partie où cela part réellement en production.\n\nJe préfère les produits réels aux démonstrations, ce qui explique que l’essentiel de ce qui suit tourne quelque part avec de vrais utilisateurs, plutôt que de dormir dans un dépôt à l’état de preuve de concept.",
+    "intro": "Ingénieur produit. J’interviens du cadrage jusqu’à l’exploitation, et je porte ensemble les deux décisions qu’on sépare d’habitude : ce que le produit doit faire, et ce qui le fera tenir.\n\nAujourd’hui architecte principal d’une plateforme SaaS multi-tenant en production chez plusieurs entreprises, et directeur technique d’un produit culturel sur une équipe de trois. Deux rôles qui se ressemblent peu : le premier demande de tenir un système que d’autres font vivre tous les jours, le second de décider ce qu’on construit et dans quel ordre, en sachant que l’équipe avancera pendant que je regarde ailleurs.\n\nEt seul bâtisseur de Skilluv, dont j’écris le backend Rust, le front Svelte et le service IA Python. Travailler seul sur une architecture polyglotte impose sa propre discipline : rien ne peut reposer sur le fait que je me souvienne, donc tout se décide par écrit.\n\nLe reste va d’une plateforme civique déployée pendant une campagne à une application mobile utilisable sans réseau, en passant par un pipeline ETL de production. Cette dispersion est le point : les contraintes changent d’un projet à l’autre, la méthode non.",
     "experience": "Expérience",
     "education": "Formation",
     "skills": "Compétences",
@@ -155,6 +155,11 @@
       "security": "Sécurité",
       "payments": "Paiements",
       "ai": "IA et LLM"
+    },
+    "closing": {
+      "label": "La suite",
+      "body": "Je cherche un poste, et je reste ouvert aux collaborations et aux missions. Écrivez-moi avec le problème plutôt qu’avec la solution attendue.",
+      "more": "Me contacter"
     }
   },
   "contact": {

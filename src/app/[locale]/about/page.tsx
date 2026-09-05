@@ -226,6 +226,22 @@ export default async function About({ params }: PageProps<"/[locale]/about">) {
         </div>
       </section>
 
+      {/* The page ended on a link to the archive, which answers a question a
+          reader of a career page has not asked. They came to find out whether
+          to write. */}
+      <section className="mt-(--spacing-section)">
+        <p className="t-meta text-accent">{t("closing.label")}</p>
+
+        <p className="measure-lead text-body-l mt-6">{t("closing.body")}</p>
+
+        <Link
+          href="/contact"
+          className="t-meta text-accent mt-8 inline-block underline underline-offset-4"
+        >
+          {t("closing.more")}
+        </Link>
+      </section>
+
       <footer className="mt-(--spacing-section) flex flex-wrap items-baseline justify-between gap-4 border-t border-rule pt-6">
         <Link
           href="/archive"

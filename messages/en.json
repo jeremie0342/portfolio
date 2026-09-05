@@ -136,7 +136,7 @@
     "metaTitle": "About",
     "metaDescription": "Career, experience and education of Zardonis Jeremie ZITTI, full-stack engineer in Cotonou, Benin.",
     "title": "About",
-    "intro": "Full-stack engineer building production systems end to end. Architecture, backend, frontend, infrastructure, and the part where it actually ships.\n\nI have a bias for real products over demonstrations, which is why most of what follows is running somewhere with users on it rather than sitting in a repository as a proof of concept.",
+    "intro": "Product engineer. I work from framing through to running it, and I carry together the two decisions usually kept apart: what the product has to do, and what will make it hold.\n\nCurrently lead architect on a multi-tenant SaaS platform in production for several companies, and technical director of a cultural product across a team of three. Two roles that have little in common: the first asks you to hold up a system other people rely on every day, the second to decide what gets built and in what order, knowing the team will move while you are looking elsewhere.\n\nAnd sole builder of Skilluv, whose Rust backend, Svelte frontend and Python AI service I write. Working alone on a polyglot architecture has a discipline of its own: nothing can rest on my remembering it, so everything is decided in writing.\n\nThe rest runs from a civic platform deployed during a campaign to a mobile application usable with no network, by way of a production ETL pipeline. That spread is the point: the constraints change from one project to the next, the method does not.",
     "experience": "Experience",
     "education": "Education",
     "skills": "Skills",
@@ -155,6 +155,11 @@
       "security": "Security",
       "payments": "Payments",
       "ai": "AI and LLM"
+    },
+    "closing": {
+      "label": "Next",
+      "body": "I am looking for a position, and I stay open to collaborations and to contract work. Write with the problem rather than with the expected solution.",
+      "more": "Get in touch"
     }
   },
   "contact": {

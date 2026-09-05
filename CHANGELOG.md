@@ -86,7 +86,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   when it is configured.
 - A contact form stored in the database, with a hidden field and a minimum
   time to submit as its defences, and a note saying what happens to the message.
-- A career page and a contact page, both linked from a summary on the front.
+- A career page that carries the detail: what each role actually asks, and what
+  was built under it, rather than one line per position.
+- A contact page, both linked from a summary on the front.
 - Positions, organisations and credentials seeded from the curriculum vitae,
   and the professional work itself added to the archive: a multi-tenant SaaS
   platform, a civic technology platform, a diaspora campaign site, a production

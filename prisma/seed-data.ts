@@ -525,12 +525,12 @@ export const entries: Seed[] = [
     en: {
       title: "Full-stack developer and backend architect",
       summary:
-        "Lead architect on UBBFY, plus three further production systems delivered across the same period.",
+        "Lead architect on UBBFY, a multi-tenant SaaS platform in production for several companies: eight backend modules, more than a hundred API endpoints, configurable access rights, an event bus on Celery, an audit trail, forty odd frontend pages, a real time layer over WebSocket, two factor authentication, and billing through Stripe and FedaPay. Three further production systems delivered across the same period, among them a civic platform and an ETL pipeline. 375 structuring commits over six months across four codebases.",
     },
     fr: {
       title: "Développeur full-stack et architecte backend",
       summary:
-        "Architecte principal d'UBBFY, et trois autres systèmes en production livrés sur la même période.",
+        "Architecte principal d'UBBFY, plateforme SaaS multi-tenant en production chez plusieurs entreprises : huit modules backend, plus de cent points d'API, droits d'accès configurables, bus d'événements sur Celery, piste d'audit, une quarantaine de pages front, couche temps réel en WebSocket, double authentification, et facturation par Stripe et FedaPay. Trois autres systèmes en production livrés sur la même période, dont une plateforme civique et un pipeline ETL. 375 commits structurants en six mois sur quatre bases de code.",
     },
   },
   {
@@ -550,12 +550,12 @@ export const entries: Seed[] = [
     en: {
       title: "Chief technical officer",
       summary:
-        "Technical direction of Yara across a team of three: architecture, stack, scope, deadlines and review.",
+        "Technical direction of Yara across a team of three, covering frontend, backend and operations: architecture, stack decisions, scope, deadlines and code review. One digital identity replacing the physical ticket for events, restaurants and tourism. Private beta, public launch this quarter.",
     },
     fr: {
       title: "Directeur technique",
       summary:
-        "Direction technique de Yara au sein d'une équipe de trois : architecture, stack, périmètre, échéances et revue.",
+        "Direction technique de Yara sur une équipe de trois, front, back et exploitation : architecture, choix de stack, périmètre, échéances et revue de code. Une identité numérique qui remplace le billet physique pour les événements, la restauration et le tourisme. Bêta privée, lancement public ce trimestre.",
     },
   },
   {
@@ -575,12 +575,12 @@ export const entries: Seed[] = [
     en: {
       title: "Software engineer, internship",
       summary:
-        "Internal dashboards and documentation tools for a fintech running prepaid cards, mobile money and payment services.",
+        "Internal dashboards and documentation tools for a fintech running virtual and physical prepaid cards, mobile money and payment services. Responsive interfaces, user data management and technical documentation across several internal projects, in Angular and NestJS.",
     },
     fr: {
       title: "Ingénieur logiciel, stage",
       summary:
-        "Tableaux de bord internes et outils de documentation pour une fintech opérant cartes prépayées, mobile money et solutions de paiement.",
+        "Tableaux de bord internes et outils de documentation pour une fintech opérant cartes prépayées virtuelles et physiques, mobile money et solutions de paiement. Interfaces responsives, gestion des données utilisateurs et documentation technique sur plusieurs projets internes, en Angular et NestJS.",
     },
   },
   {
