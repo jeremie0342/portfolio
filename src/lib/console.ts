@@ -2,6 +2,7 @@ import "server-only";
 
 import { notFound, redirect } from "next/navigation";
 import { hasSession, isGate } from "./auth";
+import { mustChangePassword } from "./account";
 
 /**
  * The guard every console page past the door runs.
@@ -14,13 +15,20 @@ import { hasSession, isGate } from "./auth";
  * Pages guard the view. The actions guard themselves, separately, because a
  * server action is a public endpoint whatever page renders the form.
  */
-export async function requireConsole(gate: string) {
+export async function requireConsole(gate: string, { changing = false } = {}) {
   if (!isGate(gate)) {
     notFound();
   }
 
   if (!(await hasSession())) {
     redirect(`/console/${gate}`);
+  }
+
+  /* A password that has never been changed leads nowhere but the screen that
+     changes it. The exception is that screen itself, which would otherwise
+     redirect to itself for ever. */
+  if (!changing && (await mustChangePassword())) {
+    redirect(`/console/${gate}/password`);
   }
 }
 

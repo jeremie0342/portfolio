@@ -12,7 +12,8 @@
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
     "db:seed": "tsx --env-file=.env prisma/seed.ts",
-    "console:secrets": "tsx scripts/console-secrets.ts"
+    "console:secrets": "tsx scripts/console-secrets.ts",
+    "test:e2e": "node --env-file=.env tests/e2e.mjs"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.0",

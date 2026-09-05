@@ -160,7 +160,7 @@ model EntryTranslation {
 
 model Project {
   entryId String @id
-  entry   Entry  @relation(fields: [entryId], references: [id], map: "project_entry_fkey")
+  entry   Entry  @relation(fields: [entryId], references: [id], map: "project_entry_fkey", onDelete: Cascade)
 
   repositoryUrl String?
   liveUrl       String?
@@ -169,7 +169,7 @@ model Project {
 
 model World {
   entryId String @id
-  entry   Entry  @relation(fields: [entryId], references: [id], map: "world_entry_fkey")
+  entry   Entry  @relation(fields: [entryId], references: [id], map: "world_entry_fkey", onDelete: Cascade)
 
   /// In-fiction dating, left as free text: invented calendars do not reduce
   /// to a date.
@@ -188,7 +188,7 @@ model Organization {
 
 model Credential {
   entryId String @id
-  entry   Entry  @relation(fields: [entryId], references: [id], map: "credential_entry_fkey")
+  entry   Entry  @relation(fields: [entryId], references: [id], map: "credential_entry_fkey", onDelete: Cascade)
 
   kind     CredentialKind
   issuerId String
@@ -207,7 +207,7 @@ model Credential {
 
 model Position {
   entryId String @id
-  entry   Entry  @relation(fields: [entryId], references: [id], map: "position_entry_fkey")
+  entry   Entry  @relation(fields: [entryId], references: [id], map: "position_entry_fkey", onDelete: Cascade)
 
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
@@ -330,4 +330,26 @@ model Profile {
   updatedAt DateTime @updatedAt
 
   @@index([listed, rank])
+}
+
+/// The single console account.
+///
+/// The password moved out of the environment and into a row so that it can be
+/// changed from the console rather than from a deployment. The environment
+/// keeps a bootstrap digest, used once: the first successful login with it
+/// creates this row and marks it as needing a change, after which the row is
+/// the only credential that matters.
+///
+/// There is one of these. A table is still the right shape, since a column
+/// somewhere else would make every other model carry a field it has nothing to
+/// do with.
+model Account {
+  id           String  @id @default("console")
+  passwordHash String
+  /// Set on creation and cleared by the first change. While it is true every
+  /// console page leads to the password screen and nowhere else.
+  mustChange   Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

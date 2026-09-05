@@ -111,6 +111,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   surfaces. The archive now speaks in the same hand it uses to label itself,
   while the front page and long-form bodies stay in Author.
 
+- The console password moves into the database on first use. The digest in the
+  environment is a bootstrap: the first login with it creates the account and
+  the console refuses every page but the password screen until a new one is
+  chosen, shown or hidden as the reader prefers and confirmed twice. A new
+  password is refused if it is under twelve characters, if the confirmation
+  differs, or if it is the one being replaced.
+- End to end tests, run against a built server and the real database. They
+  drive the site as a browser without JavaScript does, posting the forms the
+  pages render, and cover the public routes in both languages, the login and
+  the forced password change, and the full create, read, update and delete
+  cycle for every record the console manages.
+
+### Fixed
+
+- Deleting an entry no longer fails when it carries a project, world, position
+  or credential. The satellite rows are removed with it rather than holding a
+  foreign key against the deletion.
+- Positions and credentials no longer answer at an archive address. Only the
+  kinds the archive lists have a page, matching the slugs that get one
+  generated and the sitemap that announces them.
+
 ### Notes
 
 - ESLint is held at 9.x. The 10.x release breaks `eslint-plugin-react` as

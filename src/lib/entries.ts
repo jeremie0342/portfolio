@@ -130,7 +130,10 @@ export const listSelected = cache(
 export const getEntry = cache(
   async (locale: Locale, slug: string): Promise<ArchiveEntry | null> => {
     const row = await db.entry.findFirst({
-      where: { ...published, slug },
+      /* Restricted to the kinds the archive holds, matching the slugs that get
+         a page generated. A position reachable at an address nothing links to
+         is a page that only a crawler and an accident ever see. */
+      where: { ...published, slug, kind: archiveKinds },
       include: {
         ...shape(locale),
         children: {

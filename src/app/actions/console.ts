@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { closeSession, hasSession, isGate, openSession } from "@/lib/auth";
-import { verifyPassword } from "@/lib/password";
+import { attempt, changePassword } from "@/lib/account";
 import { sendReply } from "@/lib/mail";
 import { db } from "@/lib/db";
 
@@ -53,13 +53,12 @@ export async function signIn(
 ): Promise<SignInState> {
   const gate = String(form.get("gate") ?? "");
   const password = String(form.get("password") ?? "");
-  const stored = process.env.ADMIN_PASSWORD_HASH;
 
   if (!isGate(gate)) {
     return { status: "wrong" };
   }
 
-  if (!stored || !process.env.AUTH_SECRET) {
+  if (!process.env.AUTH_SECRET) {
     return { status: "unconfigured" };
   }
 
@@ -67,14 +66,28 @@ export async function signIn(
     return { status: "wrong" };
   }
 
-  if (!(await verifyPassword(password, stored))) {
+  const outcome = await attempt(password);
+
+  if (!outcome.ok) {
+    if (outcome.reason === "unconfigured") {
+      return { status: "unconfigured" };
+    }
+
     recordAttempt(gate);
     return { status: "wrong" };
   }
 
   attempts.delete(gate);
   await openSession();
-  redirect(`/console/${gate}`);
+
+  /* Straight to the password screen on a first login. The guard would send
+     them there anyway; going directly avoids a redirect that looks like the
+     console refusing to open. */
+  redirect(
+    outcome.mustChange
+      ? `/console/${gate}/password`
+      : `/console/${gate}`,
+  );
 }
 
 export async function signOut(form: FormData) {
@@ -169,4 +182,27 @@ export async function replyTo(
   /* Saved either way, and the console says which happened, so nothing has to
      be rewritten if the send is the part that failed. */
   return { status: "saved" };
+}
+
+export type PasswordState = {
+  status: "idle" | "changed" | "tooShort" | "mismatch" | "reused" | "missing";
+};
+
+export async function setPassword(
+  _previous: PasswordState,
+  form: FormData,
+): Promise<PasswordState> {
+  const gate = String(form.get("gate") ?? "");
+  await guard(gate);
+
+  const outcome = await changePassword(
+    String(form.get("password") ?? ""),
+    String(form.get("confirmation") ?? ""),
+  );
+
+  if (outcome !== "changed") {
+    return { status: outcome };
+  }
+
+  redirect(`/console/${gate}`);
 }

@@ -43,6 +43,13 @@ export function Shell({
             </Link>
           ))}
 
+          <Link
+            href={`/console/${gate}/password`}
+            className="t-meta text-content-muted hover:text-content transition-colors"
+          >
+            Mot de passe
+          </Link>
+
           <form action={signOut}>
             <input type="hidden" name="gate" value={gate} />
             <button

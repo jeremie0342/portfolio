@@ -51,6 +51,7 @@ The site is served at `http://localhost:3000/en` and
 | `npm run db:generate` | Regenerate the Prisma client |
 | `npm run db:migrate` | Create and apply a migration |
 | `npm run db:studio` | Browse the database |
+| `npm run test:e2e` | End to end tests against a running server |
 
 ## Search
 
@@ -96,10 +97,17 @@ and the signed session hold the door. A wrong path answers 404 rather than
 showing a login form, since a scanner that finds one knows there is something
 behind it.
 
-The password is stored only as a scrypt digest, in the environment rather than
-in the database, so a stolen dump of this database contains messages from
-strangers and no way in. Sessions last twelve hours and are signed with
-`AUTH_SECRET`; changing that value closes every open session at once.
+`ADMIN_PASSWORD_HASH` is a bootstrap. The first login with it creates the
+account row, and the console then refuses to go anywhere but the password
+screen until a new one is chosen: the value in `.env` has been copied, pasted
+and left on screen in a terminal, so it is treated as temporary rather than as
+the credential. From then on the row is the only password that counts and the
+environment value is dead. Both are scrypt digests, never the password itself,
+and the new one is refused if it is shorter than twelve characters, if the
+confirmation differs, or if it is the one being replaced.
+
+Sessions last twelve hours and are signed with `AUTH_SECRET`; changing that
+value closes every open session at once.
 
 The console manages the messages and everything the site reads from the
 database: archive entries with both translations and their kind specific
@@ -118,6 +126,32 @@ reads, files and records replies, and the reply is sent by hand from any mail
 client. With them it leaves from here. The reply is written to the database
 before it is sent either way, because a reply lost to a mail provider's bad
 afternoon is worse than one saved and not yet delivered.
+
+## Tests
+
+```bash
+npm run build && npm run start
+E2E_PASSWORD=<the bootstrap password> npm run test:e2e
+```
+
+The suite drives the site the way a browser without JavaScript does: it reads
+each page, takes the fields the markup renders, fills the ones it is about and
+posts them back. Every console form is a server action reached by a plain
+multipart POST, so nothing has to be simulated and nothing is mocked. A test
+that posted a hand written body would keep passing after a field was renamed in
+the page and dropped from the action, which is the failure worth catching.
+
+It covers the public routes in both languages, the sitemap, a missing entry, a
+wrong console path, the login, the forced first password and each of its
+refusals, and a full create, read, update and delete cycle for entries,
+organisations, profiles, media and messages, including the edit reaching the
+public page and the deletion the console is supposed to refuse.
+
+It runs against the real database. The account row is emptied at the start, so
+the password flow is tested from its first state, and again at the end, so the
+bootstrap digest keeps working. Everything else the run creates is deleted by
+the end, which is also how the deletes are tested. Media is skipped when there
+is no object store configured.
 
 ## Content model
 
