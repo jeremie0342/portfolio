@@ -144,9 +144,13 @@ Contrast against `#0b0a0c`:
 Crimson can therefore only live in Redaction, never in Author or Sligoil,
 which makes it mechanically a title colour.
 
-Against the light ground the relationship inverts: crimson reaches 6.1:1 and
-violet 10.2:1, so both become usable ink, while gold falls to 2.3:1 and hands
-over to its deeper cut `#7e5f28`.
+Light is now the default ground, and against it the relationship inverts:
+crimson reaches 6.1:1 and violet 10.2:1, so both become usable ink, while gold
+falls to 2.3:1 and hands over to its deeper cut `#7e5f28`.
+
+The components keep the stricter rule in both themes rather than changing
+behaviour halfway. A headline that only holds in one of the two is a headline
+someone will find broken the first time they use the switch.
 
 **Worn Redaction in crimson is forbidden.** The halftone already fragments the
 outlines and effective contrast drops below 2:1. Degree 50 stays ivory or

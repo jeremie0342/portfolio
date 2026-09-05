@@ -4,51 +4,37 @@ import { useEffect, useSyncExternalStore } from "react";
 
 type Theme = "dark" | "light";
 
-const query = "(prefers-color-scheme: light)";
 const storageKey = "theme";
 
 /**
- * Reflects and flips the active theme, and applies a stored override.
+ * Reflects and flips the active theme, and applies a stored choice.
  *
- * The system preference is answered in CSS alone, so a visitor who never
- * touched this control gets the right ground on the first paint with no
- * JavaScript involved. What remains is the minority who chose a theme that
- * differs from their system, and that override is applied here on mount.
+ * The site opens light and turns dark only when asked, so the document element
+ * is the single source of truth: no attribute means light. The system
+ * preference is not consulted here because the stylesheet does not consult it
+ * either, and a control that disagreed with the page would be worse than no
+ * control at all.
  *
- * Those visitors see one frame of their system theme before the override
- * lands. The alternatives were worse: an inline script that React refuses to
- * run on client navigation, a render-blocking request on the critical path for
- * every visitor, or reading a cookie on the server, which would opt every page
- * out of static rendering to serve a preference most people never set.
- *
- * The effective theme has two possible sources, an explicit attribute or the
- * system query, so both are read and both are subscribed to. Reading only the
- * attribute would label this control "Dark" while the page renders light.
+ * A stored choice is applied on mount, so a reader who chose dark sees one
+ * frame of light first. The alternatives were worse: an inline script React
+ * refuses to run on client navigation, a render-blocking request on the
+ * critical path for everyone, or reading a cookie on the server, which would
+ * opt every page out of static rendering to serve a preference most people
+ * never set.
  */
 function subscribe(onChange: () => void) {
   const observer = new MutationObserver(onChange);
+
   observer.observe(document.documentElement, {
     attributes: true,
     attributeFilter: ["data-theme"],
   });
 
-  const media = window.matchMedia(query);
-  media.addEventListener("change", onChange);
-
-  return () => {
-    observer.disconnect();
-    media.removeEventListener("change", onChange);
-  };
+  return () => observer.disconnect();
 }
 
 function readTheme(): Theme {
-  const chosen = document.documentElement.dataset.theme;
-
-  if (chosen === "light" || chosen === "dark") {
-    return chosen;
-  }
-
-  return window.matchMedia(query).matches ? "light" : "dark";
+  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
 }
 
 /* Nothing is resolved on the server, and rendering a guess would only produce
@@ -62,7 +48,7 @@ function readStored(): Theme | null {
     const stored = localStorage.getItem(storageKey);
     return stored === "light" || stored === "dark" ? stored : null;
   } catch {
-    /* Private browsing and blocked storage both throw. The CSS default already
+    /* Private browsing and blocked storage both throw. The default already
        renders correctly, so there is nothing to recover from. */
     return null;
   }
@@ -80,7 +66,7 @@ export function ThemeToggle({ label }: { label: string }) {
   }, []);
 
   function toggle() {
-    const next: Theme = theme === "light" ? "dark" : "light";
+    const next: Theme = theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
 
     try {

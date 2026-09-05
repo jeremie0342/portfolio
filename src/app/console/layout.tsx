@@ -25,7 +25,7 @@ export default function ConsoleLayout({
   children,
 }: LayoutProps<"/console">) {
   return (
-    <html lang="fr" className={`${fontVariables} h-full`} data-theme="dark">
+    <html lang="fr" className={`${fontVariables} h-full`}>
       <body className="min-h-full">{children}</body>
     </html>
   );

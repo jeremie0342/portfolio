@@ -17,9 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   Sligoil for archive punctuation.
 - English and French localisation with prefixed routes, per-locale metadata
   and alternate language tags.
-- The system colour preference is honoured in CSS alone, so a visitor who never
-  touched the control gets the right ground on the first paint with no script
-  involved. Only an explicit override is applied from JavaScript.
+- Light is the default ground and English the default language. The root always
+  leads to English rather than negotiating, and dark is reached through the
+  switch rather than through the system preference.
 - Prisma schema for the archive: a single numbered entry with satellite
   tables for projects, worlds, credentials and positions, and dedicated
   translation tables.

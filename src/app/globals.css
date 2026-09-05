@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
-
 /* ============================================================
    Archive Nocturne design tokens
    ------------------------------------------------------------
@@ -87,73 +85,55 @@
 }
 
 /* ============================================================
-   Roles, dark theme
+   Roles, default
    ------------------------------------------------------------
-   Ratios measured against the #0b0a0c ground:
-     ivory 16.3:1, gold 7.6:1, crimson 2.8:1, violet 1.7:1.
+   Light is the ground the site now opens on, so it is the one
+   written into the theme itself and the one a visitor gets with
+   no script, no preference and no stored choice.
 
-   Two rules follow from that, and neither is a matter of taste:
-   crimson can only carry very large text, and violet cannot be
-   ink at all. It becomes a surface instead.
+   Ratios measured against the #f3efe6 ground:
+     black 16.3:1, crimson 6.1:1, violet 10.2:1, gold 2.3:1.
+
+   Crimson and violet are both usable as ink here, which they are
+   not on the dark ground. Gold is what breaks, and hands over to
+   its deeper cut. The components keep the stricter rule in both
+   themes rather than changing behaviour halfway: a headline that
+   only works in one of the two is a headline that will be found
+   broken by whoever switches.
    ============================================================ */
 
 @theme {
-  --color-surface: var(--color-black);
-  --color-surface-raised: var(--color-black-violet);
-  --color-surface-imagined: var(--color-violet);
-
-  --color-content: var(--color-ivory);
-  --color-content-bright: var(--color-white);
-  --color-content-muted: var(--color-warm-grey);
-
-  --color-accent: var(--color-gold);
-  --color-energy: var(--color-crimson);
-  --color-rule: color-mix(in oklab, var(--color-ivory) 15%, transparent);
-}
-
-/* ============================================================
-   Roles, light theme
-   ------------------------------------------------------------
-   The relationship inverts, and not only in value. Against ivory,
-   crimson reaches 6.1:1 and violet 10.2:1, so both become usable
-   ink again. Gold is what breaks, at 2.3:1, and hands over to its
-   deeper cut.
-
-   Three states, and the order is what makes them work.
-
-   The system preference is honoured in CSS alone, so a visitor who
-   never touched the toggle gets the right ground on the very first
-   paint, with no script involved. The stored choice then overrides
-   it in either direction, which is why the media query excuses an
-   explicit dark and a separate rule restates dark on demand.
-
-   The values are written twice on purpose. CSS has no way to share
-   a declaration block between a media query and a selector, and the
-   alternative, a second layer of indirection through intermediate
-   variables, costs more to read than it saves to write.
-   ============================================================ */
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --color-surface: var(--color-ivory);
-    --color-surface-raised: #e9e3d6;
-    --color-content: var(--color-black);
-    --color-content-bright: var(--color-black);
-    --color-content-muted: var(--color-stone);
-    --color-accent: var(--color-gold-deep);
-    --color-rule: color-mix(in oklab, var(--color-black) 18%, transparent);
-  }
-}
-
-:root[data-theme="light"] {
   --color-surface: var(--color-ivory);
   --color-surface-raised: #e9e3d6;
+  --color-surface-imagined: var(--color-violet);
+
   --color-content: var(--color-black);
   --color-content-bright: var(--color-black);
   --color-content-muted: var(--color-stone);
+
   --color-accent: var(--color-gold-deep);
+  --color-energy: var(--color-crimson);
   --color-rule: color-mix(in oklab, var(--color-black) 18%, transparent);
 }
+
+/* ============================================================
+   Roles, dark
+   ------------------------------------------------------------
+   Ratios against #0b0a0c: ivory 16.3:1, gold 7.6:1, crimson
+   2.8:1, violet 1.7:1. Crimson can only carry very large text
+   here and violet cannot be ink at all, which is where the rules
+   the components follow come from.
+
+   Reached by choice alone. The system preference is deliberately
+   not consulted: the site opens light for everyone and turns dark
+   when the reader asks it to, which is what makes light the
+   default rather than merely one of two possibilities.
+
+   The cost is real and worth naming. Someone who set their system
+   to dark did so for a reason, sometimes a medical one, and this
+   ignores it until they find the control in the masthead. Putting
+   prefers-color-scheme back is one media query.
+   ============================================================ */
 
 :root[data-theme="dark"] {
   --color-surface: var(--color-black);
@@ -165,20 +145,21 @@
   --color-rule: color-mix(in oklab, var(--color-ivory) 15%, transparent);
 }
 
+/* There is deliberately no rule for an explicit light. The attribute is still
+   written when a reader switches back, and it matches nothing, which is
+   correct: light is what the theme block above already says. Restating those
+   seven values here would be seven values to keep in step, and the day they
+   drifted only a reader who had once chosen dark and changed their mind would
+   see it. */
+
 @layer base {
   html {
     background-color: var(--color-surface);
-    color-scheme: dark;
-  }
-
-  @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) {
-      color-scheme: light;
-    }
-  }
-
-  :root[data-theme="light"] {
     color-scheme: light;
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
   }
 
   body {
@@ -190,26 +171,13 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Light text irradiates against a very dark ground and reads heavier
-     than it is. The correction belongs on the weight axis rather than on
-     smoothing, which would have no equivalent effect in the light theme. */
-  body {
+  /* Light text irradiates against a very dark ground and reads heavier than it
+     is, so the dark theme alone drops the weight. The correction belongs on
+     the weight axis rather than on smoothing, which would have no equivalent
+     effect the other way round. */
+  :root[data-theme="dark"] body {
     font-variation-settings: "wght" 380;
     -webkit-font-smoothing: antialiased;
-  }
-
-  /* The correction exists for light text on a dark ground. In the light
-     theme it would only thin the type for no reason. */
-  @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) body {
-      font-variation-settings: "wght" 400;
-      -webkit-font-smoothing: auto;
-    }
-  }
-
-  :root[data-theme="light"] body {
-    font-variation-settings: "wght" 400;
-    -webkit-font-smoothing: auto;
   }
 
   ::selection {

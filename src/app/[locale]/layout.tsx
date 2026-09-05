@@ -74,11 +74,12 @@ export async function generateMetadata(
   };
 }
 
+/* One colour, because the site has one default. It cannot follow the toggle:
+   a theme colour is declared in the document head and the choice lives in an
+   attribute, so announcing two would leave a dark reader with a light browser
+   chrome half the time. */
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0B0A0C" },
-    { media: "(prefers-color-scheme: light)", color: "#F3EFE6" },
-  ],
+  themeColor: "#F3EFE6",
 };
 
 export default async function LocaleLayout({
