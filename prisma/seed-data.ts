@@ -55,11 +55,14 @@ export const profiles = [
     rank: 2,
   },
   { label: "X", handle: "@jeremy0342", url: "https://x.com/jeremy0342", rank: 3 },
+  /* Not listed: the account exists but has nothing on it yet, and the page
+     answers 404. It comes back on from the console the day it does not. */
   {
     label: "dev.to",
     handle: "jeremie0342",
     url: "https://dev.to/jeremie0342",
     rank: 4,
+    listed: false,
   },
 ] as const;
 
@@ -88,13 +91,13 @@ export const entries: Seed[] = [
     en: {
       title: "Skilluv",
       summary:
-        "A skill platform for the African tech ecosystem, built solo as a polyglot architecture with a public governance layer around it. Open beta January 2027.",
+        "A skill platform built solo as a polyglot architecture, with a public governance layer around it. Open beta January 2027.",
       body: "Skilluv is the largest body of work in this archive and the only one that spans every dimension of it. A Rust backend, a Svelte frontend and admin, and a Python AI service that talks to the Rust core over gRPC when an answer is needed now and over a Redis queue when it is not.\n\nThe AI service does the work that makes the platform more than a course catalogue: challenge generation through an LLM, plagiarism detection that combines syntax trees with embeddings across eight languages, scored matching between talent and companies, and media processing for replays.\n\nSplitting the admin panel out from the product is the decision that shaped the rest. An operations team and a learner have almost nothing in common in what they need to see, and merging them would have produced one interface permanently compromised for both.\n\nThe governance repositories matter as much as the code. A community becomes governable at the point where its decisions stop living in private conversations.",
     },
     fr: {
       title: "Skilluv",
       summary:
-        "Une plateforme de compétences pour l'écosystème tech africain, construite en solo sur une architecture polyglotte, entourée d'une gouvernance publique. Bêta ouverte en janvier 2027.",
+        "Une plateforme de compétences construite en solo sur une architecture polyglotte, entourée d’une gouvernance publique. Bêta ouverte en janvier 2027.",
       body: "Skilluv est l'ensemble le plus vaste de cette archive, et le seul qui en traverse toutes les dimensions. Un backend Rust, un front et une administration en Svelte, et un service IA Python qui parle au cœur Rust en gRPC quand la réponse doit arriver tout de suite, et par une file Redis quand elle peut attendre.\n\nLe service IA fait le travail qui distingue la plateforme d'un catalogue de cours : génération de défis par un LLM, détection de plagiat combinant arbres syntaxiques et embeddings sur huit langages, appariement noté entre talents et entreprises, et traitement des rediffusions.\n\nSéparer l'administration du produit est la décision qui a structuré le reste. Une équipe d'exploitation et un apprenant n'ont presque rien en commun dans ce qu'ils ont besoin de voir, et les réunir aurait produit une interface durablement médiocre pour les deux.\n\nLes dépôts de gouvernance comptent autant que le code. Une communauté devient gouvernable à partir du moment où ses décisions cessent de vivre dans des conversations privées.",
     },
   },
@@ -362,13 +365,13 @@ export const entries: Seed[] = [
     en: {
       title: "TrackMyWeight",
       summary:
-        "A local-first fitness and nutrition tracker for Android, built around West African cooking rather than translated for it.",
+        "A local-first fitness and nutrition tracker for Android, built on a food database written for the people using it rather than translated for them.",
       body: "Nutrition trackers assume a food database that does not contain what most of the world eats. This one is built around Benin and West African cuisine from the start, which is a data problem before it is an interface problem.\n\nThe app is fully usable with no network. That is not a line on a specification sheet but the condition for it being used at all.",
     },
     fr: {
       title: "TrackMyWeight",
       summary:
-        "Un suivi de forme et de nutrition local-first pour Android, conçu autour de la cuisine ouest-africaine plutôt que traduit vers elle.",
+        "Un suivi de forme et de nutrition local-first pour Android, construit sur une base d’aliments écrite pour ceux qui s’en servent plutôt que traduite pour eux.",
       body: "Les applications de nutrition supposent une base d'aliments qui ne contient pas ce que mange la majeure partie du monde. Celle-ci est construite dès le départ autour de la cuisine béninoise et ouest-africaine, ce qui est un problème de données avant d'être un problème d'interface.\n\nL'application reste entièrement utilisable sans réseau. Ce n'est pas une ligne de spécification, c'est la condition pour qu'elle serve.",
     },
   },
@@ -415,14 +418,14 @@ export const entries: Seed[] = [
     en: {
       title: "UBBFY",
       summary:
-        "Lead architect on a multi-tenant ERP, CRM and HR platform serving five live client tenants.",
-      body: "Eight backend modules, more than a hundred API endpoints, forty-odd frontend pages, and five tenants in production: KPS, Planus, Flowplan, Gotolearn and People&Skill.\n\nThe parts that decided the architecture were the ones nobody sees. Role-based access built to be configured rather than coded, so a new tenant does not mean a new deployment. An event bus on Celery, so a module can react to another without importing it. An audit trail, because a platform holding several companies' operations has to be able to answer what happened and who did it.\n\nBilling runs through Stripe and FedaPay together, which is what serving both European and West African clients actually requires.",
+        "Lead architect on a multi-tenant ERP, CRM and HR platform in production for many clients.",
+      body: "Eight backend modules, more than a hundred API endpoints, forty-odd frontend pages, and the tenants in production: KPS, Planus, Flowplan, Gotolearn and People&Skill.\n\nThe parts that decided the architecture were the ones nobody sees. Role-based access built to be configured rather than coded, so a new tenant does not mean a new deployment. An event bus on Celery, so a module can react to another without importing it. An audit trail, because a platform holding several companies' operations has to be able to answer what happened and who did it.\n\nBilling runs through Stripe and FedaPay together, which is what serving both European and West African clients actually requires.",
     },
     fr: {
       title: "UBBFY",
       summary:
-        "Architecte principal d'une plateforme ERP, CRM et RH multi-tenant, en production chez cinq clients.",
-      body: "Huit modules backend, plus de cent points d'API, une quarantaine de pages front, et cinq tenants en production : KPS, Planus, Flowplan, Gotolearn et People&Skill.\n\nCe qui a décidé de l'architecture, ce sont les parties que personne ne voit. Des droits d'accès conçus pour être configurés plutôt que codés, de sorte qu'un nouveau tenant n'implique pas un nouveau déploiement. Un bus d'événements sur Celery, pour qu'un module puisse réagir à un autre sans l'importer. Une piste d'audit, parce qu'une plateforme qui héberge l'exploitation de plusieurs entreprises doit pouvoir dire ce qui s'est passé et qui l'a fait.\n\nLa facturation passe par Stripe et FedaPay ensemble, ce qu'exige réellement le fait de servir des clients européens et ouest-africains.",
+        "Architecte principal d’une plateforme ERP, CRM et RH multi-tenant, en production chez de nombreux clients.",
+      body: "Huit modules backend, plus de cent points d'API, une quarantaine de pages front, et les tenants en production : KPS, Planus, Flowplan, Gotolearn et People&Skill.\n\nCe qui a décidé de l'architecture, ce sont les parties que personne ne voit. Des droits d'accès conçus pour être configurés plutôt que codés, de sorte qu'un nouveau tenant n'implique pas un nouveau déploiement. Un bus d'événements sur Celery, pour qu'un module puisse réagir à un autre sans l'importer. Une piste d'audit, parce qu'une plateforme qui héberge l'exploitation de plusieurs entreprises doit pouvoir dire ce qui s'est passé et qui l'a fait.\n\nLa facturation passe par Stripe et FedaPay ensemble, ce qu'exige réellement le fait de servir des clients européens et ouest-africains.",
     },
   },
   {
@@ -520,7 +523,7 @@ export const entries: Seed[] = [
     en: {
       title: "Yara",
       summary:
-        "Technical direction of a cultural and tourism platform: one digital identity replacing the physical ticket for events, restaurants and tourism. Private beta, public launch Q4 2026.",
+        "Technical direction of a cultural and tourism platform: one digital identity replacing the physical ticket for events, restaurants and tourism. Private beta, public launch in Q4 2026.",
       body: "The role here is not writing the code. It is owning the architecture, the stack decisions, the scope, the deadlines and the review across a team of three.\n\nWhat makes it worth an entry is the product idea rather than the stack. Replacing a physical ticket with an identity changes what the platform is: not a booking tool but the thing a visitor carries between a concert, a meal and a museum.",
     },
     fr: {
@@ -547,12 +550,12 @@ export const entries: Seed[] = [
     en: {
       title: "Full-stack developer and backend architect",
       summary:
-        "Lead architect on UBBFY, a multi-tenant SaaS platform in production for several companies: eight backend modules, more than a hundred API endpoints, configurable access rights, an event bus on Celery, an audit trail, forty odd frontend pages, a real time layer over WebSocket, two factor authentication, and billing through Stripe and FedaPay. Three further production systems delivered across the same period, among them a civic platform and an ETL pipeline. 375 structuring commits over six months across four codebases.",
+        "Lead architect on UBBFY, a multi-tenant SaaS platform in production for many clients: eight backend modules, more than a hundred API endpoints, configurable access rights, an event bus on Celery, an audit trail, forty odd frontend pages, a real time layer over WebSocket, two factor authentication, and billing through Stripe and FedaPay. Three further production systems delivered across the same period, among them a civic platform and an ETL pipeline. 375 structuring commits over six months across four codebases.",
     },
     fr: {
       title: "Développeur full-stack et architecte backend",
       summary:
-        "Architecte principal d'UBBFY, plateforme SaaS multi-tenant en production chez plusieurs entreprises : huit modules backend, plus de cent points d'API, droits d'accès configurables, bus d'événements sur Celery, piste d'audit, une quarantaine de pages front, couche temps réel en WebSocket, double authentification, et facturation par Stripe et FedaPay. Trois autres systèmes en production livrés sur la même période, dont une plateforme civique et un pipeline ETL. 375 commits structurants en six mois sur quatre bases de code.",
+        "Architecte principal d'UBBFY, plateforme SaaS multi-tenant en production chez de nombreux clients : huit modules backend, plus de cent points d'API, droits d'accès configurables, bus d'événements sur Celery, piste d'audit, une quarantaine de pages front, couche temps réel en WebSocket, double authentification, et facturation par Stripe et FedaPay. Trois autres systèmes en production livrés sur la même période, dont une plateforme civique et un pipeline ETL. 375 commits structurants en six mois sur quatre bases de code.",
     },
   },
   {
@@ -572,12 +575,12 @@ export const entries: Seed[] = [
     en: {
       title: "Chief technical officer",
       summary:
-        "Technical direction of Yara across a team of three, covering frontend, backend and operations: architecture, stack decisions, scope, deadlines and code review. One digital identity replacing the physical ticket for events, restaurants and tourism. Private beta, public launch this quarter.",
+        "Technical direction of Yara across a team of three, covering frontend, backend and operations: architecture, stack decisions, scope, deadlines and code review. One digital identity replacing the physical ticket for events, restaurants and tourism. Private beta, public launch in Q4 2026.",
     },
     fr: {
       title: "Directeur technique",
       summary:
-        "Direction technique de Yara sur une équipe de trois, front, back et exploitation : architecture, choix de stack, périmètre, échéances et revue de code. Une identité numérique qui remplace le billet physique pour les événements, la restauration et le tourisme. Bêta privée, lancement public ce trimestre.",
+        "Direction technique de Yara sur une équipe de trois, front, back et exploitation : architecture, choix de stack, périmètre, échéances et revue de code. Une identité numérique qui remplace le billet physique pour les événements, la restauration et le tourisme. Bêta privée, lancement public au quatrième trimestre 2026.",
     },
   },
   {

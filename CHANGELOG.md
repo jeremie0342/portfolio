@@ -125,6 +125,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- One figure for the same fact across the site. The client count, the launch
+  date for Yara and the spelling of the name no longer differ between the front
+  page, the career page and the archive.
+- French apostrophes are typographic in the content as well as in the
+  interface, which is where they were still straight.
+- Skilluv and TrackMyWeight are described by what they are rather than by where
+  they are aimed.
+- The dev.to profile is no longer listed while its page answers 404.
+
 - Deleting an entry no longer fails when it carries a project, world, position
   or credential. The satellite rows are removed with it rather than holding a
   foreign key against the deletion.

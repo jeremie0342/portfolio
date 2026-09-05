@@ -1,7 +1,7 @@
 {
   "site": {
     "name": "Zardonis",
-    "person": "Zardonis Jeremie ZITTI"
+    "person": "Zardonis Jérémie ZITTI"
   },
   "nav": {
     "home": "Front",
@@ -12,8 +12,8 @@
     "localeToggle": "Read in French"
   },
   "home": {
-    "metaTitle": "Zardonis Jeremie ZITTI, product engineer",
-    "metaDescription": "Zardonis Jeremie ZITTI, product engineer. I design and ship systems end to end, and keep everything I make as a single numbered archive.",
+    "metaTitle": "Zardonis Jérémie ZITTI, product engineer",
+    "metaDescription": "Zardonis Jérémie ZITTI, product engineer. I design and ship systems end to end, and keep everything I make as a single numbered archive.",
     "statement": "I <mark>build</mark> <cycle></cycle>, <mark>decide</mark> where they go, and <mark>imagine</mark> what surrounds them.",
     "intro": "Product engineer. I design and ship systems end to end, and what I build has no sector: a company's operations, an election, a cultural product, a learning platform. What interests me sits where a product decision and a technical decision turn out to be the same decision.\n\nOver the past year: a multi-tenant SaaS platform in production for many clients, a civic platform, fourteen reference implementations for people learning to ship, and technical direction of a cultural product.",
     "evidence": {
@@ -77,7 +77,7 @@
     "who": {
       "label": "Who",
       "lead": "I design and build production systems, from the architecture through to running them.",
-      "body": "What draws me is design and solving complex problems: the point where a system has too many pieces to hold in one head, and someone has to find the division that makes it readable again.\n\nSo what I do rarely fits one box. Within the same year: a multi-tenant ERP running the operations of several companies, a civic platform delivered inside a window that would not move, a mobile application built to work without a network, and a learning platform I carry on my own.\n\nI work on both sides at once. The same day can go from an event bus to a typographic scale, and I do not consider those two jobs. A visual hierarchy and a data model describe the same product in two different places. When they are decided separately, it shows.\n\nI am looking for a position, and I stay open to collaborations and to contract work. What I turn down: a product nobody will be able to say worked or not, work with no access to the people using it, and a scope that widens while the date stays where it was.\n\nOutside of it I write, I read a great deal, I play the piano and I train. I build worlds and I play chess, which accounts for two of the entries in this archive.",
+      "body": "What draws me is design and solving complex problems: the point where a system has too many pieces to hold in one head, and someone has to find the division that makes it readable again.\n\nSo what I do rarely fits one box. Within the same year: a multi-tenant ERP running the operations of many companies, a civic platform delivered inside a window that would not move, a mobile application built to work without a network, and a learning platform I carry on my own.\n\nI work on both sides at once. The same day can go from an event bus to a typographic scale, and I do not consider those two jobs. A visual hierarchy and a data model describe the same product in two different places. When they are decided separately, it shows.\n\nI am looking for a position, and I stay open to collaborations and to contract work. What I turn down: a product nobody will be able to say worked or not, work with no access to the people using it, and a scope that widens while the date stays where it was.\n\nOutside of it I write, I read a great deal, I play the piano and I train. I build worlds and I play chess, which accounts for two of the entries in this archive.",
       "facts": {
         "now": "Today",
         "building": "Building",
@@ -88,7 +88,7 @@
         "education": "Education"
       },
       "more": "Read the full career",
-      "portrait": "Portrait of Zardonis Jeremie ZITTI"
+      "portrait": "Portrait of Zardonis Jérémie ZITTI"
     },
     "reach": {
       "label": "Get in touch",
@@ -134,9 +134,9 @@
   },
   "about": {
     "metaTitle": "About",
-    "metaDescription": "Career, experience and education of Zardonis Jeremie ZITTI, full-stack engineer in Cotonou, Benin.",
+    "metaDescription": "Career, experience and education of Zardonis Jérémie ZITTI, full-stack engineer in Cotonou, Benin.",
     "title": "About",
-    "intro": "Product engineer. I work from framing through to running it, and I carry together the two decisions usually kept apart: what the product has to do, and what will make it hold.\n\nCurrently lead architect on a multi-tenant SaaS platform in production for several companies, and technical director of a cultural product across a team of three. Two roles that have little in common: the first asks you to hold up a system other people rely on every day, the second to decide what gets built and in what order, knowing the team will move while you are looking elsewhere.\n\nAnd sole builder of Skilluv, whose Rust backend, Svelte frontend and Python AI service I write. Working alone on a polyglot architecture has a discipline of its own: nothing can rest on my remembering it, so everything is decided in writing.\n\nThe rest runs from a civic platform deployed during a campaign to a mobile application usable with no network, by way of a production ETL pipeline. That spread is the point: the constraints change from one project to the next, the method does not.",
+    "intro": "Product engineer. I work from framing through to running it, and I carry together the two decisions usually kept apart: what the product has to do, and what will make it hold.\n\nCurrently lead architect on a multi-tenant SaaS platform in production for many clients, and technical director of a cultural product across a team of three. Two roles that have little in common: the first asks you to hold up a system other people rely on every day, the second to decide what gets built and in what order, knowing the team will move while you are looking elsewhere.\n\nAnd sole builder of Skilluv, whose Rust backend, Svelte frontend and Python AI service I write. Working alone on a polyglot architecture has a discipline of its own: nothing can rest on my remembering it, so everything is decided in writing.\n\nThe rest runs from a civic platform deployed during a campaign to a mobile application usable with no network, by way of a production ETL pipeline. That spread is the point: the constraints change from one project to the next, the method does not.",
     "experience": "Experience",
     "education": "Education",
     "skills": "Skills",
@@ -165,7 +165,7 @@
   },
   "contact": {
     "metaTitle": "Contact",
-    "metaDescription": "Write to Zardonis Jeremie ZITTI: form, email, phone and public profiles.",
+    "metaDescription": "Write to Zardonis Jérémie ZITTI: form, email, phone and public profiles.",
     "title": "Contact",
     "intro": "The form goes straight to my inbox. If you would rather use email or the phone, everything is below.",
     "direct": "Direct",
