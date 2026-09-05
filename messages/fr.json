@@ -190,5 +190,161 @@
       "failed": "L’envoi a échoué. Écrivez-moi directement à jeremie@skill-uv.com.",
       "privacy": "Votre message et votre adresse sont conservés uniquement pour vous répondre. Ils ne sont ni revendus ni utilisés pour autre chose, et je les supprime sur simple demande."
     }
+  },
+  "diagrams": {
+    "ubbfy": {
+      "title": "Architecture",
+      "tiers": [
+        {
+          "nodes": [
+            {
+              "label": "Application métier",
+              "note": "Vue 3, 35 modules, près de quatre cents écrans"
+            },
+            {
+              "label": "Administration de la plateforme",
+              "note": "Vue 3, tenants, rôles, réglages"
+            }
+          ],
+          "link": "HTTPS, jeton en cookie HttpOnly"
+        },
+        {
+          "nodes": [
+            {
+              "label": "API Django REST",
+              "note": "33 modules, 338 modèles, droits par module configurés plutôt que codés",
+              "lead": true
+            }
+          ],
+          "link": "événements publiés"
+        },
+        {
+          "nodes": [
+            {
+              "label": "Bus Celery et Redis",
+              "note": "un module réagit à un autre sans l’importer"
+            },
+            {
+              "label": "Piste d’audit",
+              "note": "ancienne et nouvelle valeur, à chaque écriture"
+            }
+          ],
+          "link": "écritures"
+        },
+        {
+          "nodes": [
+            {
+              "label": "PostgreSQL"
+            },
+            {
+              "label": "MinIO",
+              "note": "objets, URL signées"
+            },
+            {
+              "label": "Stripe et FedaPay",
+              "note": "Europe et Afrique de l’Ouest"
+            }
+          ]
+        }
+      ],
+      "caption": "Deux applications distinctes devant une seule API : une équipe d’exploitation et un utilisateur métier n’ont pas les mêmes écrans, et les réunir aurait produit une interface médiocre pour les deux. Les modules se parlent par le bus au lieu de s’importer, ce qui permet d’en ajouter un sans toucher aux autres, et chaque écriture laisse sa trace."
+    },
+    "skilluv": {
+      "title": "Architecture",
+      "tiers": [
+        {
+          "nodes": [
+            {
+              "label": "Apprenant",
+              "note": "SvelteKit"
+            },
+            {
+              "label": "Administration",
+              "note": "SvelteKit, build séparé"
+            }
+          ],
+          "link": "HTTP"
+        },
+        {
+          "nodes": [
+            {
+              "label": "Cœur Rust et Axum",
+              "note": "183 000 lignes, 4 544 tests, 468 migrations",
+              "lead": true
+            }
+          ],
+          "link": "gRPC quand la réponse doit arriver tout de suite, file Redis quand elle peut attendre"
+        },
+        {
+          "nodes": [
+            {
+              "label": "Service IA Python",
+              "note": "défis, plagiat sur huit langages, appariement, rediffusions"
+            }
+          ],
+          "link": "état et fichiers"
+        },
+        {
+          "nodes": [
+            {
+              "label": "PostgreSQL"
+            },
+            {
+              "label": "Redis"
+            },
+            {
+              "label": "Stockage objet"
+            }
+          ]
+        }
+      ],
+      "caption": "Le chemin immédiat et le chemin différé sont deux chemins, pas un seul avec un délai d’attente. Une revue de code prend une dizaine de secondes et quelqu’un l’attend devant son écran ; le traitement d’une rediffusion prend des minutes et personne ne doit attendre. Chaque méthode a un budget de latence écrit avant d’être servie, et un dépassement bloque la mise en ligne."
+    },
+    "pipeline": {
+      "title": "Les cinq étages",
+      "tiers": [
+        {
+          "nodes": [
+            {
+              "label": "Collecte",
+              "note": "Selenium, trois plateformes"
+            }
+          ]
+        },
+        {
+          "nodes": [
+            {
+              "label": "Nettoyage",
+              "note": "dates, salaires, contrats, lieux"
+            }
+          ]
+        },
+        {
+          "nodes": [
+            {
+              "label": "Enrichissement",
+              "note": "technologies reconnues sur le référentiel"
+            }
+          ]
+        },
+        {
+          "nodes": [
+            {
+              "label": "Contrôle",
+              "note": "schéma, doublons, valeurs"
+            }
+          ]
+        },
+        {
+          "nodes": [
+            {
+              "label": "Chargement",
+              "note": "entrepôt, offres et sociétés"
+            }
+          ]
+        }
+      ],
+      "caption": "Cinq étages isolés plutôt qu’un script : une défaillance à la collecte ne corrompt pas l’entrepôt, et chaque exécution porte un identifiant qu’on retrouve dans les journaux d’un bout à l’autre. C’est ce qui permet de répondre, à trois heures du matin, à la seule question qui se pose : quelle exécution, quel étage."
+    }
   }
 }

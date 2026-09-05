@@ -71,6 +71,7 @@ async function main() {
         rank: entry.rank ?? 0,
         startedOn: new Date(entry.startedOn),
         endedOn: entry.endedOn ? new Date(entry.endedOn) : null,
+        diagram: entry.diagram ?? null,
         publishedAt: entry.status === "PUBLISHED" ? new Date() : null,
       },
       update: {
@@ -84,6 +85,7 @@ async function main() {
         rank: entry.rank ?? 0,
         startedOn: new Date(entry.startedOn),
         endedOn: entry.endedOn ? new Date(entry.endedOn) : null,
+        diagram: entry.diagram ?? null,
         publishedAt: entry.status === "PUBLISHED" ? new Date() : null,
       },
     });

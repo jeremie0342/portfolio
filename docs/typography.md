@@ -106,6 +106,18 @@ monospace is a texture, and eight hundred words of texture is a wall.
 Lowercase, unlike the meta role, since uppercase stops being readable the
 moment a line becomes a sentence.
 
+### Annotation, meta size, lowercase
+
+Architecture diagrams are the exception to the uppercase rule at meta size. A
+node carries its name in the meta role, uppercase, the way a label is set on a
+drawing; the line under it that says what the node holds is the same face at
+the same size in lowercase, because it is a fragment rather than a title and
+uppercase would give it the weight of one.
+
+The caption under a diagram is register, like every other sentence in the
+archive. It is also the only text a screen reader gets in place of the layout,
+so it says what the drawing means rather than restating its boxes.
+
 ## Scale
 
 ```css

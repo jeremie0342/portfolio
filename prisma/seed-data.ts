@@ -20,6 +20,8 @@ export type Translation = {
 export type Seed = {
   slug: string;
   number: number;
+  /* Key of a drawn diagram, matched against the registry in the components. */
+  diagram?: string;
   parent?: string;
   rank?: number;
   kind: "PROJECT" | "WORLD" | "CREDENTIAL" | "POSITION";
@@ -76,6 +78,7 @@ export const organizations = [
 export const entries: Seed[] = [
   {
     slug: "skilluv",
+    diagram: "skilluv",
     number: 1,
     kind: "PROJECT",
     status: "PUBLISHED",
@@ -403,6 +406,7 @@ export const entries: Seed[] = [
   },
   {
     slug: "ubbfy",
+    diagram: "ubbfy",
     number: 13,
     kind: "PROJECT",
     status: "PUBLISHED",
@@ -482,6 +486,7 @@ export const entries: Seed[] = [
   },
   {
     slug: "market-demand-pipeline",
+    diagram: "pipeline",
     number: 16,
     kind: "PROJECT",
     status: "PUBLISHED",

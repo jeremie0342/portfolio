@@ -33,6 +33,7 @@ export type ArchiveEntry = {
   stack: string[];
   repositoryUrl: string | null;
   liveUrl: string | null;
+  diagram: string | null;
   children: ArchiveEntry[];
 };
 
@@ -63,6 +64,7 @@ type Row = {
   featured: boolean;
   startedOn: Date | null;
   endedOn: Date | null;
+  diagram: string | null;
   translations: { title: string; summary: string | null; body: string | null }[];
   project: {
     stack: string[];
@@ -97,6 +99,7 @@ function present(row: Row, children: ArchiveEntry[] = []): ArchiveEntry | null {
     stack: row.project?.stack ?? [],
     repositoryUrl: row.project?.repositoryUrl ?? null,
     liveUrl: row.project?.liveUrl ?? null,
+    diagram: row.diagram,
     children,
   };
 }

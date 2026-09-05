@@ -77,6 +77,7 @@ export async function saveEntry(form: FormData) {
     rank: Number(form.get("rank") ?? 0),
     parentId: text(form, "parentId"),
     coverId: text(form, "coverId"),
+    diagram: text(form, "diagram"),
     startedOn: date(form, "startedOn"),
     endedOn: date(form, "endedOn"),
     /* Stamped when it first goes public and left alone afterwards, so a later

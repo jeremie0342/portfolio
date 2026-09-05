@@ -190,5 +190,161 @@
       "failed": "Sending failed. Write to me directly at jeremie@skill-uv.com.",
       "privacy": "Your message and your address are kept only so that I can reply. They are not sold and not used for anything else, and I delete them on request."
     }
+  },
+  "diagrams": {
+    "ubbfy": {
+      "title": "Architecture",
+      "tiers": [
+        {
+          "nodes": [
+            {
+              "label": "Business application",
+              "note": "Vue 3, 35 modules, close to four hundred screens"
+            },
+            {
+              "label": "Platform administration",
+              "note": "Vue 3, tenants, roles, settings"
+            }
+          ],
+          "link": "HTTPS, token in an HttpOnly cookie"
+        },
+        {
+          "nodes": [
+            {
+              "label": "Django REST API",
+              "note": "33 modules, 338 models, per-module permissions configured rather than coded",
+              "lead": true
+            }
+          ],
+          "link": "events published"
+        },
+        {
+          "nodes": [
+            {
+              "label": "Celery and Redis bus",
+              "note": "a module reacts to another without importing it"
+            },
+            {
+              "label": "Audit trail",
+              "note": "old and new value, on every write"
+            }
+          ],
+          "link": "writes"
+        },
+        {
+          "nodes": [
+            {
+              "label": "PostgreSQL"
+            },
+            {
+              "label": "MinIO",
+              "note": "objects, signed URLs"
+            },
+            {
+              "label": "Stripe and FedaPay",
+              "note": "Europe and West Africa"
+            }
+          ]
+        }
+      ],
+      "caption": "Two separate applications in front of one API: an operations team and a business user do not need the same screens, and merging them would have produced one interface compromised for both. Modules talk through the bus instead of importing each other, so one can be added without touching the rest, and every write leaves a trace."
+    },
+    "skilluv": {
+      "title": "Architecture",
+      "tiers": [
+        {
+          "nodes": [
+            {
+              "label": "Learner",
+              "note": "SvelteKit"
+            },
+            {
+              "label": "Admin",
+              "note": "SvelteKit, separate build"
+            }
+          ],
+          "link": "HTTP"
+        },
+        {
+          "nodes": [
+            {
+              "label": "Rust and Axum core",
+              "note": "183,000 lines, 4,544 tests, 468 migrations",
+              "lead": true
+            }
+          ],
+          "link": "gRPC when the answer is needed now, a Redis queue when it can wait"
+        },
+        {
+          "nodes": [
+            {
+              "label": "Python AI service",
+              "note": "challenges, plagiarism across eight languages, matching, replays"
+            }
+          ],
+          "link": "state and files"
+        },
+        {
+          "nodes": [
+            {
+              "label": "PostgreSQL"
+            },
+            {
+              "label": "Redis"
+            },
+            {
+              "label": "Object storage"
+            }
+          ]
+        }
+      ],
+      "caption": "The immediate path and the deferred path are two paths, not one with a timeout. A code review takes ten seconds or so and somebody is waiting in front of it; processing a replay takes minutes and nobody should be. Each method has a latency budget written before it is served, and going over blocks the release."
+    },
+    "pipeline": {
+      "title": "The five stages",
+      "tiers": [
+        {
+          "nodes": [
+            {
+              "label": "Collect",
+              "note": "Selenium, three platforms"
+            }
+          ]
+        },
+        {
+          "nodes": [
+            {
+              "label": "Clean",
+              "note": "dates, salaries, contracts, places"
+            }
+          ]
+        },
+        {
+          "nodes": [
+            {
+              "label": "Enrich",
+              "note": "technologies matched against the reference list"
+            }
+          ]
+        },
+        {
+          "nodes": [
+            {
+              "label": "Control",
+              "note": "schema, duplicates, values"
+            }
+          ]
+        },
+        {
+          "nodes": [
+            {
+              "label": "Load",
+              "note": "warehouse, roles and companies"
+            }
+          ]
+        }
+      ],
+      "caption": "Five isolated stages rather than one script: a failure while collecting does not corrupt the warehouse, and every run carries an identifier that follows it through the logs end to end. That is what answers the only question anyone asks at three in the morning: which run, which stage."
+    }
   }
 }

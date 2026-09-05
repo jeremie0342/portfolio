@@ -8,6 +8,7 @@ import { getEntry, listSlugs, type ArchiveEntry } from "@/lib/entries";
 import { displayWorn } from "@/lib/fonts";
 import { SiteHeader } from "@/components/site-header";
 import { JsonLd } from "@/components/json-ld";
+import { Diagram } from "@/components/diagrams";
 import { languageAlternates } from "@/lib/site";
 import { breadcrumbSchema, entrySchema, graph } from "@/lib/schema";
 
@@ -210,6 +211,11 @@ export default async function EntryPage({
               {paragraph}
             </p>
           ))}
+
+          {/* After the prose rather than before it. The drawing answers a
+              question the text has already raised; shown first it is a
+              diagram of nothing in particular. */}
+          <Diagram name={entry.diagram} />
         </section>
       ) : null}
 

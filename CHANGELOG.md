@@ -129,6 +129,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   that was taken back. The career page separates the size of the platform from
   the part of it that is mine.
 
+- Architecture diagrams on the entries that have one, drawn in HTML and CSS
+  rather than uploaded as images: they follow the theme, are set in the site's
+  own faces, translate with everything else and can be read aloud. An entry
+  names one from the console.
+
 ### Fixed
 
 - One figure for the same fact across the site. The client count, the launch

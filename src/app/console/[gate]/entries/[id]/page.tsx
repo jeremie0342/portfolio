@@ -4,6 +4,7 @@ import { deleteEntry, saveEntry } from "@/app/actions/records";
 import { db } from "@/lib/db";
 import { Shell, Head } from "@/components/console/shell";
 import { Area, Choice, Switch, Text, day } from "@/components/console/fields";
+import { diagramKeys } from "@/components/diagrams";
 
 /**
  * One entry, whole.
@@ -189,6 +190,18 @@ export default async function Entry({
                   item.translations[0]?.alt ||
                   `${item.path} (${item.width} × ${item.height})`,
               })),
+            ]}
+          />
+        </div>
+
+        <div className="mt-8">
+          <Choice
+            name="diagram"
+            label="Schéma"
+            value={entry?.diagram ?? ""}
+            options={[
+              { value: "", label: "Aucun" },
+              ...diagramKeys.map((key) => ({ value: key, label: key })),
             ]}
           />
         </div>

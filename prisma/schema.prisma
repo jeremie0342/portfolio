@@ -105,6 +105,12 @@ model Entry {
   coverId String?
   cover   Media?  @relation(fields: [coverId], references: [id], onDelete: SetNull)
 
+  /// Key of a drawn architecture diagram, when the entry has one. The drawing
+  /// itself is code rather than content: it is typeset in the site's own
+  /// faces, follows the theme, and stays readable when a screen reader walks
+  /// it, none of which survives being uploaded as an image.
+  diagram String?
+
   /// Entries nest one level deep in practice: a body of work such as a
   /// platform holds the services, starters and governance repositories that
   /// make it up. The relation is self referential rather than a fixed depth,
