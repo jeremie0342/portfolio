@@ -84,6 +84,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Public profiles move from a constant into the database, so opening an account
   no longer needs a deployment, and the structured data reads the same table the
   contact page lists.
+- Media stored in MinIO, with dimensions and a blur placeholder measured on
+  upload and alternative text asked for in both languages straight away.
 - The console manages the archive as well as the messages: entries with both
   translations and their kind specific fields, organisations, and profiles.
 - A console for the messages, behind a generated path, a single scrypt hashed

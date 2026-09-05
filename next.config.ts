@@ -3,7 +3,25 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
+/* The bucket's public origin, read once so a missing variable is a build that
+   simply serves no remote images rather than one that throws. */
+const media = process.env.MINIO_PUBLIC_URL
+  ? new URL(process.env.MINIO_PUBLIC_URL)
+  : null;
+
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: media
+      ? [
+          {
+            protocol: media.protocol.replace(":", "") as "http" | "https",
+            hostname: media.hostname,
+            port: media.port,
+            pathname: "/**",
+          },
+        ]
+      : [],
+  },
   reactCompiler: true,
   poweredByHeader: false,
   /**

@@ -103,8 +103,15 @@ strangers and no way in. Sessions last twelve hours and are signed with
 
 The console manages the messages and everything the site reads from the
 database: archive entries with both translations and their kind specific
-fields, organisations, and the public profiles. Media is not there yet, since
-managing images needs a file store and none is configured.
+fields, organisations, media, and the public profiles.
+
+Media is stored in MinIO and is optional: without the variables the section
+still lists and edits existing records and refuses uploads, rather than writing
+a row that points at a file nobody wrote. On upload the image is measured and a
+twenty pixel placeholder is generated, both stored beside the object key, and
+the filename is generated rather than taken from the upload. Alternative text
+is asked for in both languages on the same screen as the file, because it is
+the field everyone means to fill in later.
 
 Mail is optional. Without `RESEND_API_KEY` and `MAIL_FROM` the console still
 reads, files and records replies, and the reply is sent by hand from any mail

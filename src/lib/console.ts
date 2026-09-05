@@ -29,5 +29,6 @@ export const resources = [
   { slug: "messages", label: "Messages" },
   { slug: "entries", label: "Archive" },
   { slug: "organizations", label: "Organisations" },
+  { slug: "media", label: "Médias" },
   { slug: "profiles", label: "Profils" },
 ] as const;

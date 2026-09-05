@@ -47,6 +47,11 @@ export default async function Entry({
     db.entry.aggregate({ _max: { number: true } }),
   ]);
 
+  const media = await db.media.findMany({
+    orderBy: { id: "desc" },
+    include: { translations: { where: { locale: "FR" } } },
+  });
+
   if (!creating && !entry) {
     notFound();
   }
@@ -168,6 +173,23 @@ export default async function Entry({
             label="Fin"
             type="date"
             value={day(entry?.endedOn)}
+          />
+        </div>
+
+        <div className="mt-8">
+          <Choice
+            name="coverId"
+            label="Couverture"
+            value={entry?.coverId ?? ""}
+            options={[
+              { value: "", label: "Aucune" },
+              ...media.map((item) => ({
+                value: item.id,
+                label:
+                  item.translations[0]?.alt ||
+                  `${item.path} (${item.width} × ${item.height})`,
+              })),
+            ]}
           />
         </div>
 

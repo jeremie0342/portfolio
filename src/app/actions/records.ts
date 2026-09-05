@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { hasSession, isGate } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { discard, store } from "@/lib/media";
 
 /**
  * Writes for everything the console manages.
@@ -75,6 +76,7 @@ export async function saveEntry(form: FormData) {
     featured: form.get("featured") === "on",
     rank: Number(form.get("rank") ?? 0),
     parentId: text(form, "parentId"),
+    coverId: text(form, "coverId"),
     startedOn: date(form, "startedOn"),
     endedOn: date(form, "endedOn"),
     /* Stamped when it first goes public and left alone afterwards, so a later
@@ -334,4 +336,95 @@ export async function deleteProfile(form: FormData) {
 
   refresh();
   redirect(`/console/${gate}/profiles`);
+}
+
+// ---------------------------------------------------------------------------
+// Media
+// ---------------------------------------------------------------------------
+
+export async function uploadMedia(form: FormData) {
+  const gate = String(form.get("gate") ?? "");
+  await guard(gate);
+
+  const file = form.get("file");
+
+  if (!(file instanceof File)) {
+    return;
+  }
+
+  const stored = await store(file);
+
+  if (!stored) {
+    return;
+  }
+
+  const media = await db.media.create({ data: stored });
+
+  /* An image with no alternative text is an image a screen reader announces as
+     a filename, so a row is created for each language straight away and the
+     console asks for the words. */
+  for (const locale of ["EN", "FR"] as const) {
+    await db.mediaTranslation.create({
+      data: { mediaId: media.id, locale, alt: "" },
+    });
+  }
+
+  refresh();
+  redirect(`/console/${gate}/media`);
+}
+
+export async function saveMedia(form: FormData) {
+  const gate = String(form.get("gate") ?? "");
+  await guard(gate);
+
+  const id = text(form, "id");
+
+  if (!id) {
+    return;
+  }
+
+  for (const locale of ["EN", "FR"] as const) {
+    const key = locale.toLowerCase();
+    const payload = {
+      alt: String(form.get(`${key}Alt`) ?? "").trim(),
+      caption: text(form, `${key}Caption`),
+    };
+
+    await db.mediaTranslation.upsert({
+      where: { mediaId_locale: { mediaId: id, locale } },
+      create: { mediaId: id, locale, ...payload },
+      update: payload,
+    });
+  }
+
+  refresh();
+  redirect(`/console/${gate}/media`);
+}
+
+export async function deleteMedia(form: FormData) {
+  const gate = String(form.get("gate") ?? "");
+  await guard(gate);
+
+  const id = text(form, "id");
+
+  if (!id) {
+    return;
+  }
+
+  const media = await db.media.findUnique({
+    where: { id },
+    include: { _count: { select: { coverOf: true, usedIn: true } } },
+  });
+
+  /* Checked here and not only in the page. Hiding a button is a courtesy to
+     the reader; refusing the write is the part that holds. */
+  if (media && media._count.coverOf + media._count.usedIn === 0) {
+    /* The row goes first. If the object survives, it is an orphan nobody sees;
+       if the row survived a failed delete, every page using it would break. */
+    await db.media.delete({ where: { id } });
+    await discard(media.path);
+  }
+
+  refresh();
+  redirect(`/console/${gate}/media`);
 }
