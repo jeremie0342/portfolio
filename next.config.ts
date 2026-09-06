@@ -56,6 +56,44 @@ const nextConfig: NextConfig = {
   experimental: {
     cpus: 2,
   },
+  /**
+   * Headers the site was serving none of.
+   *
+   * Each one closes a specific hole rather than being here for a score.
+   * Strict transport tells a browser never to try this host over plain HTTP
+   * again, which removes the one request an interceptor on a public network
+   * gets to answer. Nosniff stops a browser from deciding for itself that a
+   * text file is a script. The referrer policy keeps the path of the page
+   * someone came from off third party servers, which matters on a site whose
+   * paths name the work. Framing is refused outright: nothing here is meant to
+   * be embedded, and clickjacking needs an iframe. The permissions list turns
+   * off hardware this site has no use for, so a future dependency cannot ask.
+   *
+   * A content security policy is deliberately absent. Doing it properly means
+   * a nonce minted per request and threaded through the streaming payload, and
+   * one written carelessly breaks the page for everyone while looking correct
+   * in a report.
+   */
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=31536000; includeSubDomains",
+          },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Frame-Options", value: "DENY" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), payment=()",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);
