@@ -15,13 +15,19 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-zardonis}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB:-zardonis}
+      # Stated rather than inherited. Postgres 18 moved the default data
+      # directory inside its image, so a volume mounted where it used to be
+      # would hold nothing and the data would live in the container, which
+      # loses it at the next deployment without a word. Naming the location
+      # makes the mount below correct whatever the image decides.
+      PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - db:/var/lib/postgresql/data
-    # Bound to the loopback address and not to the machine's public one, so
-    # that pg_dump and psql work from a shell on the server and nothing
-    # outside it can connect.
-    ports:
-      - "127.0.0.1:5432:5432"
+    # No published port. The build stopped needing one when it stopped reading
+    # the database, and pg_dump reaches it through `docker compose exec`, which
+    # goes in the side rather than over the network. A port bound on the host
+    # is one more thing that can already be taken by something else on a
+    # machine that runs other projects.
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-zardonis}"]
       interval: 5s
