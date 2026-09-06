@@ -132,7 +132,9 @@ They are different on purpose.
 2. Paste the environment above. Mark the two build variables.
 3. Point the domain at the `app` service, port 3000, and
    `media.zardonis.skill-uv.com` at the `minio` service, port 9000.
-4. Deploy. The order is enforced by the file itself: Postgres starts, the
+4. Deploy. Postgres publishes no port on the host: everything that needs it
+   is inside the project, and `docker compose exec db …` is how a shell
+   reaches it. The order is enforced by the file itself: Postgres starts, the
    `migrate` container applies the migrations and exits, the `bucket` container
    creates the bucket and opens it for reading, and only then does the server
    start.
