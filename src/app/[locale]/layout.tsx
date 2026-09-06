@@ -5,8 +5,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { fontVariables } from "@/lib/fonts";
 import { wearVariables } from "@/lib/wear-fonts";
-import { archiveSize } from "@/lib/entries";
-import { Loader } from "@/components/loader";
 import { languageAlternates, siteName, siteUrl } from "@/lib/site";
 import "../globals.css";
 
@@ -114,8 +112,6 @@ export default async function LocaleLayout({
    */
   setRequestLocale(locale);
 
-  const count = await archiveSize();
-
   return (
     <html
       lang={locale}
@@ -126,7 +122,6 @@ export default async function LocaleLayout({
           loads, which React then reports as a hydration mismatch it cannot
           patch. The warning is about the extension rather than this markup. */}
       <body className="min-h-full" suppressHydrationWarning>
-        <Loader count={count} />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>

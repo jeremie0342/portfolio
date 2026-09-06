@@ -205,10 +205,21 @@ The sequence runs 2.2 seconds: six wear steps at 190 ms, a hold, then the
 travel onto the masthead. It earns that length once, because it is how the
 wordmark is introduced, and a reader meeting the site should watch it arrive.
 
-On any later load in the same tab it runs at half pace, which the layout effect
-decides from session storage before the first paint. Halved rather than
-dropped: a page that appears with no transition at all reads as a different
-site than the one the reader just left.
+Three limits on where it earns it.
+
+It plays on the front page and nowhere else. It introduces the wordmark, which
+is worth doing on arrival and not again on every page opened in a new tab; the
+other pages never write the attribute that holds them back, so they are visible
+as soon as they arrive.
+
+It runs at 0.63 of that pace below 48rem, which brings it to about 1.4 seconds.
+The sequence holds the page back while it plays, so on a phone it is the entire
+delay in front of the name, and a phone is where a reader is least patient.
+
+It runs at half on any later load in the same tab, and the two compound: a
+second arrival on a phone gets the shortest version of all. Shortened rather
+than dropped, because a page that appears with no transition reads as a
+different site than the one the reader just left.
 
 ## Forbidden
 
