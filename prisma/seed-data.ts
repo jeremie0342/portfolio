@@ -440,7 +440,7 @@ export const entries: Seed[] = [
     dimension: "BUILD",
     accent: "CRIMSON",
     wear: "CLEAN",
-    featured: false,
+    featured: true,
     startedOn: "2026-03-07",
     endedOn: "2026-03-23",
     repositoryUrl: null,
@@ -519,7 +519,7 @@ export const entries: Seed[] = [
     dimension: "LEAD",
     accent: "VIOLET",
     wear: "CLEAN",
-    featured: false,
+    featured: true,
     startedOn: "2025-01-01",
     endedOn: null,
     repositoryUrl: null,
@@ -536,6 +536,33 @@ export const entries: Seed[] = [
       summary:
         "Direction technique d’une plateforme culturelle et touristique : une identité numérique qui remplace le billet physique pour les événements, la restauration et le tourisme. Bêta privée, lancement public au quatrième trimestre 2026.",
       body: "Le rôle ici n’est pas d’écrire le code. C’est de porter l’architecture, les choix de stack, le périmètre, les échéances et la revue au sein d’une équipe de trois.\n\nCe qui en fait une entrée, c’est l’idée produit plutôt que la stack. Remplacer un billet physique par une identité change la nature de la plateforme : ce n’est plus un outil de réservation, c’est ce qu’un visiteur porte avec lui entre un concert, un repas et un musée.",
+    },
+  },
+  {
+    slug: "ubbfy-roadmap",
+    number: 22,
+    parent: "ubbfy",
+    rank: 1,
+    kind: "PROJECT",
+    status: "PUBLISHED",
+    dimension: "LEAD",
+    accent: "CRIMSON",
+    wear: "CLEAN",
+    featured: false,
+    startedOn: "2026-06-12",
+    endedOn: null,
+    repositoryUrl: null,
+    en: {
+      title: "UBBFY v2, the plan",
+      summary:
+        "Five workstreams that carry the platform into 2027, estimated in days and ordered by what depends on what.",
+      body: "Written in June 2026 for a management that asked what the digital service would deliver in the second half of the year. It puts a number on five workstreams: stock, 34 to 43 days; logistics, 27 to 34; accounting, 50 to 62; the extension of documents, 22 to 27; and the administration layer that carries internationalisation, configurable workflows, backup and the shop, 48 to 63. Between a hundred and eighty-one and two hundred and twenty-nine days in total.\n\nThe order is not a preference, it is a dependency chain. The catalogue, already delivered, unblocks stock; stock unblocks logistics; accounting consumes invoicing, payroll and stock movements to produce entries, so it cannot come first however much anyone would like it to. Writing that down is what stops a roadmap from being reordered by whoever asks last.\n\nAccounting is designed for two markets at once, France and the OHADA zone, which is a product decision before it is a technical one. A single chart of accounts would have made the platform sellable in one of them and useless in the other, and that choice is far cheaper to make before the module exists.\n\nEstimates are ranges rather than figures, and the ranges widen with what is least understood. A plan that gives one number per line is a plan whose author stopped reading halfway down it.",
+    },
+    fr: {
+      title: "UBBFY v2, le plan",
+      summary:
+        "Cinq chantiers qui portent la plateforme jusqu’en 2027, chiffrés en jours et ordonnés par ce qui dépend de quoi.",
+      body: "Rédigé en juin 2026 pour une direction qui demandait ce que le service digital livrerait au second semestre. Il chiffre cinq chantiers : les stocks, 34 à 43 jours ; la logistique, 27 à 34 ; la comptabilité, 50 à 62 ; l’extension des documents, 22 à 27 ; et la couche d’administration qui porte l’internationalisation, les workflows configurables, la sauvegarde et la boutique, 48 à 63. Entre cent quatre-vingt-un et deux cent vingt-neuf jours au total.\n\nL’ordre n’est pas une préférence, c’est une chaîne de dépendances. Le catalogue, déjà livré, débloque les stocks ; les stocks débloquent la logistique ; la comptabilité consomme la facturation, la paie et les mouvements de stock pour produire ses écritures, donc elle ne peut pas passer en premier, quelle que soit l’envie qu’on en a. L’écrire est ce qui empêche une feuille de route d’être réordonnée par celui qui demande en dernier.\n\nLa comptabilité est conçue pour deux marchés à la fois, la France et la zone OHADA, ce qui est une décision produit avant d’être une décision technique. Un plan comptable unique aurait rendu la plateforme vendable dans l’un et inutile dans l’autre, et cet arbitrage coûte infiniment moins cher avant que le module existe.\n\nLes estimations sont des fourchettes et non des chiffres, et les fourchettes s’élargissent avec ce qu’on comprend le moins. Un plan qui donne un nombre par ligne est un plan dont l’auteur s’est arrêté de lire à la moitié.",
     },
   },
   {
