@@ -47,7 +47,7 @@ FROM node:24-alpine AS migrator
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=deps /app/node_modules ./node_modules
-COPY package.json ./
+COPY package.json prisma.config.ts ./
 COPY prisma ./prisma
 CMD ["npx", "prisma", "migrate", "deploy"]
 
