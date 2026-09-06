@@ -190,6 +190,30 @@ in, which pages Google chose not to index and the reason it gives, and the
 field measurements of loading, which are the only ones taken on real phones on
 real networks rather than in a simulator.
 
+## Announcing changes
+
+With `INDEXNOW_KEY` set, saving anything in the console tells the engines that
+implement IndexNow which addresses changed, and they come within minutes rather
+than whenever a crawler next decides to. Bing implements it, and Bing is what
+answers when an assistant searches the web.
+
+```bash
+node -e "console.log(require('crypto').randomBytes(16).toString('hex'))"
+```
+
+Put it in the environment, redeploy, and check the file is served:
+
+```bash
+curl https://zardonis.skill-uv.com/indexnow.txt
+```
+
+The key is public on purpose: an engine reads it back to confirm the
+announcement came from someone who controls the host. Without the variable the
+address answers 404 and nothing is announced, which is what a laptop wants.
+
+Nothing announces from an origin containing `localhost`, whatever is
+configured.
+
 ## Afterwards
 
 **Updating.** Push, redeploy. Migrations run on their own before the new server

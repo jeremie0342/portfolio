@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { hasSession, isGate } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { discard, store } from "@/lib/media";
+import { announce } from "@/lib/indexnow";
 
 /**
  * Writes for everything the console manages.
@@ -29,6 +30,18 @@ async function guard(gate: string) {
 
 function refresh() {
   revalidatePath("/", "layout");
+}
+
+/**
+ * Tells the engines which pages just changed.
+ *
+ * Revalidating rebuilds the page here; this says so out loud, so that a change
+ * made in the console is looked at in minutes rather than whenever a crawler
+ * next decides to come round. The front page and the index are always in the
+ * list because every write moves something on them.
+ */
+function announceChange(...paths: string[]) {
+  void announce(["", "/archive", ...paths]);
 }
 
 function text(form: FormData, key: string) {
@@ -213,6 +226,7 @@ export async function saveEntry(form: FormData) {
   }
 
   refresh();
+  announceChange(`/archive/${entry.slug}`);
   redirect(`/console/${gate}/entries/${entry.id}`);
 }
 
@@ -234,6 +248,7 @@ export async function deleteEntry(form: FormData) {
   }
 
   refresh();
+  announceChange();
   redirect(`/console/${gate}/entries`);
 }
 
@@ -263,6 +278,7 @@ export async function saveOrganization(form: FormData) {
   }
 
   refresh();
+  announceChange("/about");
   redirect(`/console/${gate}/organizations`);
 }
 
@@ -291,6 +307,7 @@ export async function deleteOrganization(form: FormData) {
   }
 
   refresh();
+  announceChange("/about");
   redirect(`/console/${gate}/organizations`);
 }
 
@@ -322,6 +339,7 @@ export async function saveProfile(form: FormData) {
   }
 
   refresh();
+  announceChange("/contact");
   redirect(`/console/${gate}/profiles`);
 }
 
@@ -336,6 +354,7 @@ export async function deleteProfile(form: FormData) {
   }
 
   refresh();
+  announceChange("/contact");
   redirect(`/console/${gate}/profiles`);
 }
 

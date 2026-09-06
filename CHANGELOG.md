@@ -196,6 +196,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Optional support for a Search Console meta tag, for the case where the zone
   cannot be reached to add a record.
 
+- IndexNow: a write from the console announces the addresses it changed, so a
+  published entry is looked at in minutes rather than on a crawler's own
+  schedule. Off without a key, and silent from a laptop.
+
 ### Fixed
 
 - Three accessibility defects a Lighthouse audit of the deployed site found:
