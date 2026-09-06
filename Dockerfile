@@ -49,6 +49,13 @@ ENV NODE_ENV=production
 COPY --from=deps /app/node_modules ./node_modules
 COPY package.json prisma.config.ts ./
 COPY prisma ./prisma
+
+# The seed writes through the generated client, which lives outside the prisma
+# directory and is produced by the generator rather than committed. Generating
+# it here rather than copying it from the builder keeps this stage independent
+# of the one that compiles the site.
+RUN npx prisma generate
+
 CMD ["npx", "prisma", "migrate", "deploy"]
 
 # ---------------------------------------------------------------------------
