@@ -187,6 +187,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   whether to write precisely nothing, and the line above it already says the
   work is current.
 
+- A content security policy, written without a nonce on purpose: a nonce has to
+  be minted per request and matched by the markup, which requires dynamic
+  rendering, and every page here is kept for an hour. It refuses scripts from
+  any other origin, framing, a rewritten base address, a form posting elsewhere,
+  plugins and plain HTTP. It cannot refuse an inline script, because Next writes
+  its own into every page.
+- Optional support for a Search Console meta tag, for the case where the zone
+  cannot be reached to add a record.
+
 ### Fixed
 
 - Three accessibility defects a Lighthouse audit of the deployed site found:

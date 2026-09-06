@@ -168,6 +168,28 @@ only and the build has to be run again. Nothing else fixes it.
 Then, in a browser: open `/console/<CONSOLE_PATH>`, sign in with the bootstrap
 password, and change it. The console refuses to go anywhere else until you do.
 
+## Search Console
+
+Verify the **domain** rather than the URL prefix: one record covers
+`zardonis.skill-uv.com`, the media subdomain and anything added later, and it
+survives every redeployment.
+
+1. [search.google.com/search-console](https://search.google.com/search-console)
+   → add a property → **Domain** → `skill-uv.com`.
+2. It gives a TXT record. In Cloudflare, zone `skill-uv.com`, add it with the
+   Name field left as `@`, DNS only. Verification usually passes in minutes.
+3. Submit the sitemap once verified: `sitemap.xml` under Sitemaps.
+4. Ask for indexing of the front page. The rest follows from the sitemap.
+
+`GOOGLE_SITE_VERIFICATION` exists for the case where the zone is out of reach:
+set it and the meta tag appears, leave it unset and nothing is written into the
+markup.
+
+What to read there, once there is anything to read: which queries bring people
+in, which pages Google chose not to index and the reason it gives, and the
+field measurements of loading, which are the only ones taken on real phones on
+real networks rather than in a simulator.
+
 ## Afterwards
 
 **Updating.** Push, redeploy. Migrations run on their own before the new server

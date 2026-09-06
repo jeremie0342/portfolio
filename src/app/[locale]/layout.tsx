@@ -85,6 +85,14 @@ export async function generateMetadata(
         "max-video-preview": -1,
       },
     },
+    /* Search Console offers two ways to prove the site is yours. A record in
+       the zone covers every subdomain and survives a redeployment; this tag
+       covers one origin and disappears the day the variable is forgotten. The
+       record is the better answer, so this exists for the case where the zone
+       is not reachable, and stays out of the markup entirely when unset. */
+    verification: process.env.GOOGLE_SITE_VERIFICATION
+      ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+      : undefined,
   };
 }
 
