@@ -324,7 +324,12 @@
     font-size: 0.75rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    opacity: 0.75;
+    /* No opacity here, and the reason is measurable. Dimming twelve pixel type
+       to three quarters took it to 3.7:1 on the solid stamp and 3.2:1 on the
+       outlined one, against the 4.5:1 that text this size has to reach. At
+       full strength the same pair measures 5.15:1 both ways, since it is the
+       same two colours swapped. The hierarchy this opacity was buying is
+       already carried by the size and the tracking. */
   }
 
   /* Sligoil holds between 11 and 13px, uppercase. This is archive

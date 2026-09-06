@@ -184,6 +184,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- Three accessibility defects a Lighthouse audit of the deployed site found:
+  the note under a stamp was dimmed below the readable ratio, the archive rows
+  jumped from a level one heading to a level three now that they open the front
+  page, and the theme and language controls carried a spoken name that did not
+  contain the word on screen, which puts them out of reach of anyone driving
+  the page by voice.
+
 - One figure for the same fact across the site. The client count, the launch
   date for Yara and the spelling of the name no longer differ between the front
   page, the career page and the archive.
