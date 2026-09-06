@@ -9,6 +9,47 @@ const media = process.env.MINIO_PUBLIC_URL
   ? new URL(process.env.MINIO_PUBLIC_URL)
   : null;
 
+/**
+ * The content security policy.
+ *
+ * Written without a nonce, and that is the whole decision. A nonce has to be
+ * minted per request and matched by the markup, which Next states plainly:
+ * adding one requires dynamic rendering. Every page here is rendered once and
+ * kept for an hour, so a nonce baked into that cached HTML would stop matching
+ * the header sent with it on the second reader, and the site would block its
+ * own scripts. The choice is between a strict policy and cached pages.
+ *
+ * What this one still refuses, which is most of what a policy is for on a site
+ * with no user generated markup: a script from any other origin, this page
+ * inside anyone's frame, a rewritten base address, a form posting anywhere but
+ * here, plugins, and anything fetched over plain HTTP.
+ *
+ * What it does not refuse: an inline script, because Next writes its own into
+ * every page. That gap is covered on this site by the thing that actually
+ * prevents injection, which is that nothing here renders markup it did not
+ * write. The one exception, the structured data block, is serialised from
+ * values in the database rather than concatenated.
+ *
+ * The image list carries the object store, because a media file uploaded from
+ * the console is fetched by the browser from its own origin.
+ */
+const mediaOrigin = media ? media.origin : "";
+
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  `img-src 'self' data: blob: ${mediaOrigin}`.trim(),
+  "font-src 'self'",
+  "connect-src 'self'",
+  "media-src 'self'",
+  "object-src 'none'",
+  "base-uri 'none'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: media
@@ -69,10 +110,7 @@ const nextConfig: NextConfig = {
    * be embedded, and clickjacking needs an iframe. The permissions list turns
    * off hardware this site has no use for, so a future dependency cannot ask.
    *
-   * A content security policy is deliberately absent. Doing it properly means
-   * a nonce minted per request and threaded through the streaming payload, and
-   * one written carelessly breaks the page for everyone while looking correct
-   * in a report.
+   * The content security policy above joins them, with its own reasoning.
    */
   async headers() {
     return [
@@ -90,6 +128,7 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=(), payment=()",
           },
+          { key: "Content-Security-Policy", value: csp },
         ],
       },
     ];
