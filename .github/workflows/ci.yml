@@ -1,0 +1,87 @@
+name: Checks
+
+# Every pull request into main, and main itself after a merge. The rule on the
+# branch says a change arrives through a pull request; this is what makes that
+# rule mean something.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    # The end to end tests drive the real site against a real database, which
+    # is the only way to prove that a form on a page still reaches the action
+    # it names. That needs Postgres, so the job gets one.
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: portfolio
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/portfolio?schema=public
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+      NEXT_TELEMETRY_DISABLED: "1"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx prisma generate
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Types
+        run: npm run typecheck
+
+      - name: Schema and content
+        run: |
+          npx prisma migrate deploy
+          npm run db:seed:deploy
+
+      # The console credentials are made here and thrown away with the runner.
+      # The digest has to be computed rather than written down, because it is
+      # the site's own hashing that the sign in checks against.
+      - name: Console credentials
+        run: |
+          CONSOLE_PASSWORD=integration-passphrase npx tsx scripts/console-secrets.ts \
+            | grep -E '^(CONSOLE_PATH|ADMIN_PASSWORD_HASH|AUTH_SECRET)=' \
+            | sed 's/"//g' >> "$GITHUB_ENV"
+          echo "E2E_PASSWORD=integration-passphrase" >> "$GITHUB_ENV"
+
+      - name: Build
+        run: npm run build
+
+      - name: End to end
+        run: |
+          npm run start &
+          for i in $(seq 1 60); do
+            curl -sf http://localhost:3000/en > /dev/null && break
+            sleep 1
+          done
+          npm run test:e2e:ci

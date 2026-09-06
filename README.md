@@ -1,10 +1,21 @@
 # Zardonis
 
 An archive of things I build, shape and imagine.
+Live at **[zardonis.skill-uv.com](https://zardonis.skill-uv.com)**.
 
 This is not a portfolio in the usual sense. It is an archive: numbered
 entries covering product work, engineering, worldbuilding, credentials and
 positions, held in one system and served in English and French.
+
+Everything that can change is in the database and edited from a console that
+ships with the site: entries and both their translations, organisations,
+credentials, positions, public profiles, media, and the messages the contact
+form collects. The code holds no content, which is the reason the site can be
+kept current without a deployment.
+
+The repository is public because the work is the argument. It is a personal
+site rather than a project looking for contributors; see
+[Contributing](#contributing) for what that means in practice.
 
 ## Stack
 
@@ -33,6 +44,7 @@ npm install
 cp .env.example .env   # then set DATABASE_URL to your local instance
 npm run db:generate
 npm run db:migrate
+npm run db:seed        # the archive contents, keyed by slug and rerunnable
 npm run dev
 ```
 
@@ -187,6 +199,33 @@ the password flow is tested from its first state, and again at the end, so the
 bootstrap digest keeps working. Everything else the run creates is deleted by
 the end, which is also how the deletes are tested. Media is skipped when there
 is no object store configured.
+
+## Repository
+
+```
+prisma/          schema, migrations, and the seed the archive starts from
+src/app/         routes: the site under [locale], the console under /console
+src/components/  the pieces the pages are made of, including the diagrams
+src/lib/         the read layer, the writes, auth, mail, media, the CV
+src/assets/      the screens shown on the entries that have shipped software
+src/fonts/       the typefaces, including the four read from disk at runtime
+src/i18n/        routing and the request configuration for next-intl
+messages/        the translations, one file per language
+docs/            typography and deployment
+tests/           the end to end suite and the browser it drives
+```
+
+## Contributing
+
+The branch `main` is protected: nothing lands on it without a pull request,
+and the checks in `.github/workflows/ci.yml` run on every one of them. That
+applies to me as much as to anyone.
+
+Only I can push branches to this repository. Anyone else is welcome to fork it
+and open a pull request from the fork, and to open an issue if something here
+is wrong or broken. What I am unlikely to merge is a change to the writing, the
+design or the content: those are the parts of a portfolio that are the point of
+having one.
 
 ## Content model
 

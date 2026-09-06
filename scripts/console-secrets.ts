@@ -14,9 +14,18 @@ import { hashPassword } from "../src/lib/password";
  * the way there, which is not.
  */
 async function main() {
-  const io = createInterface({ input: process.stdin, output: process.stdout });
-  const password = (await io.question("Mot de passe de la console : ")).trim();
-  io.close();
+  /* Asked for interactively, except where there is nobody to ask: continuous
+     integration needs a digest for a password it already knows, and there the
+     shell history argument does not apply because the password is thrown away
+     with the runner. */
+  const supplied = process.env.CONSOLE_PASSWORD?.trim();
+  let password = supplied ?? "";
+
+  if (!supplied) {
+    const io = createInterface({ input: process.stdin, output: process.stdout });
+    password = (await io.question("Mot de passe de la console : ")).trim();
+    io.close();
+  }
 
   if (password.length < 12) {
     console.error("\nTrop court. Douze caractères au minimum.");
