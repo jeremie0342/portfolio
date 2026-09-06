@@ -41,6 +41,21 @@ const CEILING_MS = 3000;
    ten minutes it is a door that sticks. Halved rather than dropped, because a
    page that appears with no transition at all reads as a different site. */
 const RETURN_PACE = 0.5;
+
+/* And what it costs on a phone.
+   The sequence holds the page back while it plays, so it is the whole of the
+   render delay in front of the largest element on the page, which is the name.
+   Measured on a throttled connection that delay was 2.28 seconds out of a 3.2
+   second paint, which puts the front page in the band Google calls "needs
+   improvement" for a reason that is entirely self inflicted. At this pace the
+   sequence lasts about 1.4 seconds and the paint lands back under the line,
+   with the same movements in the same order.
+
+   Small screens only. On a desktop the same measurement shows nine tenths of a
+   second and nothing to gain. */
+const NARROW_PACE = 0.63;
+const NARROW = "(max-width: 48rem)";
+
 const SEEN = "opening";
 
 type Phase = "resolving" | "travelling" | "done";
@@ -76,9 +91,15 @@ export function Loader({ count }: { count: number }) {
        a reader experiences as one visit, and tomorrow they should see the
        opening again. Wrapped, because a browser set to refuse storage throws
        on the read rather than returning nothing. */
+    if (window.matchMedia(NARROW).matches) {
+      pace.current = NARROW_PACE;
+    }
+
     try {
       if (sessionStorage.getItem(SEEN)) {
-        pace.current = RETURN_PACE;
+        /* The two compound rather than compete: a second arrival on a phone is
+           the case with the least to gain from an introduction. */
+        pace.current *= RETURN_PACE;
       }
 
       sessionStorage.setItem(SEEN, "1");

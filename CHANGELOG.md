@@ -157,6 +157,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- The opening plays on the front page only, and at two thirds of its pace on a
+  phone. It holds the page back while it runs, so it was costing every page a
+  reader opened in a new tab a delay that introduced a wordmark they had
+  already seen.
+
 - The build no longer reads the database. Nothing is prerendered from it: a
   page is rendered on its first request and kept for an hour, which is what
   already happened after the first hour anyway. Prerendering required a
