@@ -1,17 +1,15 @@
 import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
-import { getEntry, listSlugs } from "@/lib/entries";
+import { getEntry } from "@/lib/entries";
 import { shareImage, trim, size, contentType } from "@/lib/share-image";
 
 export { size, contentType };
 export const alt = "Zardonis Jérémie ZITTI";
 
-export async function generateStaticParams() {
-  const slugs = await listSlugs();
-
-  return routing.locales.flatMap((locale) =>
-    slugs.map((slug) => ({ locale, slug })),
-  );
+/* Empty, like the page it belongs to: the build reads no database, and a
+   share image is generated the first time a card is unfurled. */
+export function generateStaticParams() {
+  return [];
 }
 
 export default async function Image({

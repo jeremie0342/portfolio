@@ -13,6 +13,11 @@ import { listSitemapEntries } from "@/lib/entries";
  */
 export const revalidate = 3600;
 
+/* Generated on request rather than at build. It is the one file outside the
+   language tree that reads the archive, and prerendering it would put the
+   database back into the build on its own. */
+export const dynamic = "force-dynamic";
+
 type Alternates = Record<string, string>;
 
 function alternates(path: string): Alternates {

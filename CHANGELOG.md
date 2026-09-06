@@ -157,6 +157,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- The build no longer reads the database. Nothing is prerendered from it: a
+  page is rendered on its first request and kept for an hour, which is what
+  already happened after the first hour anyway. Prerendering required a
+  database that was migrated and filled before the deployment that creates it
+  had run, which is a circle, and it cost a first deployment.
+- The Prisma client is opened on the first query rather than when its module is
+  imported, so the code can be bundled without a database in reach.
+
 - The opening runs in full on the first arrival in a tab and at half pace on
   every load after it. It earns its length once; the fourth time in ten minutes
   it is a door that sticks.

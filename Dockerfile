@@ -20,16 +20,15 @@ RUN npm ci
 FROM node:24-alpine AS builder
 WORKDIR /app
 
-# Read at build time and baked into the output, both of them. The origin ends
-# up in every canonical URL, alternate, sitemap entry and share image; the
-# connection string is needed because the pages are prerendered from the
-# database rather than fetched in the browser.
+# The origin is baked into the output: it ends up in every canonical URL,
+# alternate, sitemap entry, share image and link inside the curriculum vitae.
+# There is deliberately no database here. Nothing is prerendered from it, so
+# the build has nothing to connect to and cannot fail for want of a service
+# that this same deployment is about to create.
 ARG NEXT_PUBLIC_SITE_URL
-ARG DATABASE_URL
 ARG GITHUB_TOKEN
 
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
-    DATABASE_URL=$DATABASE_URL \
     GITHUB_TOKEN=$GITHUB_TOKEN \
     NEXT_TELEMETRY_DISABLED=1
 
