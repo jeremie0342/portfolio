@@ -146,6 +146,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - The GitHub account and the document are reachable from the front page, and
   the document again from the foot of the career page.
 
+### Changed
+
+- The front page leads with the work and follows with the method. A reader
+  arrives asking whether the person has built anything, not how they go about
+  it, and answering the second question first asks them to take the first on
+  trust.
+- The list of recently touched branches is gone from the front page. It read as
+  a developer's own dashboard: the name of a fix tells a reader deciding
+  whether to write precisely nothing, and the line above it already says the
+  work is current.
+
 ### Fixed
 
 - One figure for the same fact across the site. The client count, the launch

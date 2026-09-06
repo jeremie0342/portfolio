@@ -150,6 +150,29 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </div>
       </section>
 
+      {/* The work first, and the method after it.
+       *
+       * A reader arrives asking whether the person has built anything, not how
+       * they go about it. Answering the second question first asks them to
+       * take the first on trust, which is an order only a name they already
+       * know can afford. */}
+      <section>
+        <p className="t-meta text-accent">{t("selected.label")}</p>
+
+        <div className="mt-8">
+          {selected.map((entry) => (
+            <EntryRow key={entry.slug} entry={entry} />
+          ))}
+        </div>
+
+        <Link
+          href="/archive"
+          className="t-meta text-accent mt-10 inline-block underline underline-offset-4"
+        >
+          {t("selected.all")}
+        </Link>
+      </section>
+
       {/*
        * Decisions rather than skills.
        *
@@ -162,7 +185,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
        * dimension survives as a label on a proof rather than as a heading
        * over an adjective.
        */}
-      <section>
+      <section className="mt-(--spacing-section)">
         <p className="t-meta text-accent">{t("decisions.label")}</p>
 
         <p className="measure t-register text-content-muted mt-6">
@@ -192,10 +215,14 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
         </div>
       </section>
 
-      {/* Figures rather than adjectives. The yearly totals are measured and
-          dated; the list underneath is read from GitHub on every revalidation,
-          so the page keeps proving the work is ongoing without anyone
-          maintaining a copy of that claim. */}
+      {/* Figures rather than adjectives, read from GitHub on every
+          revalidation, so the page keeps proving the work is ongoing without
+          anyone maintaining a copy of that claim.
+
+          The branch names that used to be listed here are gone. They read as a
+          developer's own dashboard: a reader deciding whether to write has no
+          use for the name of a fix, and the line above already says the work
+          is current. */}
       <section className="mt-(--spacing-section)">
         <p className="t-meta text-accent">
           {t("evidence.label")}{" "}
@@ -222,57 +249,8 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
                 }),
               })}
             </p>
-
-            <ul className="mt-8">
-              {activity.recent.map((touch) => (
-                <li
-                  key={`${touch.repository}#${touch.branch}`}
-                  className="grid gap-x-8 gap-y-2 border-t border-rule py-5 md:grid-cols-[18rem_1fr_auto]"
-                >
-                  <a
-                    href={touch.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="t-meta hover:text-accent transition-colors"
-                  >
-                    {touch.repository}
-                  </a>
-
-                  {/* The branch name is what the feed still carries, and it
-                      happens to say more than a commit subject would: it names
-                      the piece of work rather than one step inside it. */}
-                  <span className="t-register text-content-muted">
-                    {touch.branch}
-                  </span>
-
-                  <span className="t-meta text-content-muted">
-                    {format.dateTime(new Date(touch.at), {
-                      day: "numeric",
-                      month: "short",
-                    })}
-                  </span>
-                </li>
-              ))}
-            </ul>
           </div>
         ) : null}
-      </section>
-
-      <section className="mt-(--spacing-section)">
-        <p className="t-meta text-accent">{t("selected.label")}</p>
-
-        <div className="mt-8">
-          {selected.map((entry) => (
-            <EntryRow key={entry.slug} entry={entry} />
-          ))}
-        </div>
-
-        <Link
-          href="/archive"
-          className="t-meta text-accent mt-10 inline-block underline underline-offset-4"
-        >
-          {t("selected.all")}
-        </Link>
       </section>
 
       {/* A section of its own rather than half a row. A reader who has come

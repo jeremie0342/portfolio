@@ -4,8 +4,12 @@ import { contributions } from "./evidence";
  * Activity read from GitHub.
  *
  * Two windows, and they answer different questions. The year totals say how
- * much work there is; the recent feed says the work is still happening. Only
+ * much work there is; the last week says the work is still happening. Only
  * the second is available without authentication.
+
+ * Counts, not contents. The branches this feed carries were listed on the
+ * front page for a while and read as a developer's own dashboard: the name of
+ * a fix tells a reader deciding whether to write precisely nothing.
  *
  * Everything degrades. A front page has to render when GitHub is down, rate
  * limited or slow, and a build that fails because a third party had a bad
@@ -20,20 +24,12 @@ const headers = {
   "X-GitHub-Api-Version": "2022-11-28",
 };
 
-export type Touch = {
-  repository: string;
-  branch: string;
-  url: string;
-  at: string;
-};
-
 export type Activity = {
   pushes: number;
   merged: number;
   opened: number;
   repositories: number;
   since: string;
-  recent: Touch[];
 };
 
 type Event = {
@@ -84,41 +80,12 @@ export async function readActivity(): Promise<Activity | null> {
       event.created_at < earliest.created_at ? event : earliest,
     );
 
-    /* One line per branch rather than per push. A repository pushed to eleven
-       times in an afternoon says less than four branches across three
-       repositories, which is what the reader is actually looking at. */
-    const seen = new Set<string>();
-    const recent: Touch[] = [];
-
-    for (const event of pushes) {
-      const branch = (event.payload?.ref ?? "").replace("refs/heads/", "");
-      const key = `${event.repo.name}#${branch}`;
-
-      if (!branch || seen.has(key)) {
-        continue;
-      }
-
-      seen.add(key);
-
-      recent.push({
-        repository: event.repo.name,
-        branch,
-        url: `https://github.com/${event.repo.name}/tree/${branch}`,
-        at: event.created_at,
-      });
-
-      if (recent.length === 6) {
-        break;
-      }
-    }
-
     return {
       pushes: pushes.length,
       merged: pulls.filter((event) => event.payload?.action === "merged").length,
       opened: pulls.filter((event) => event.payload?.action === "opened").length,
       repositories: new Set(feed.map((event) => event.repo.name)).size,
       since: oldest.created_at,
-      recent,
     };
   } catch {
     return null;
