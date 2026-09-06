@@ -151,6 +151,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   that a missing address stays inside the site rather than falling out to the
   framework's own page.
 
+- Deployment: a four stage Dockerfile, a compose file describing the server,
+  Postgres and MinIO on one machine, and a runbook. The server image carries
+  neither the toolchain that built it nor the tool that migrates the database.
+
 ### Changed
 
 - The opening runs in full on the first arrival in a tab and at half pace on

@@ -1,0 +1,26 @@
+# What the image has no use for. Everything here either does not belong in a
+# container, or would invalidate the build cache on every edit.
+
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+
+node_modules
+.next
+out
+
+.claude
+.vscode
+.idea
+
+tests
+docs
+README.md
+CHANGELOG.md
+AGENTS.md
+CLAUDE.md
+
+npm-debug.log*
+*.log

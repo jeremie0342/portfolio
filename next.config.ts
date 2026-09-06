@@ -25,6 +25,24 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   poweredByHeader: false,
   /**
+   * A server that carries only what it needs.
+   *
+   * The traced output is a few dozen megabytes against a few hundred for a
+   * full install, which matters on a machine that also runs the database and
+   * the object store.
+   */
+  output: "standalone",
+  /**
+   * The two OpenType faces are read from disk at request time rather than
+   * imported, so nothing in the module graph points at them and the tracer
+   * cannot see them. They are what the share images and the curriculum vitae
+   * are set in, and a page that regenerates an hour after deployment would
+   * otherwise fail on a missing file.
+   */
+  outputFileTracingIncludes: {
+    "/*": ["src/fonts/og/**/*", "src/fonts/pdf/**/*"],
+  },
+  /**
    * Two build workers rather than one per core.
    *
    * Prerendering runs the share images through a renderer that holds a whole

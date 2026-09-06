@@ -1,0 +1,176 @@
+# Deployment
+
+The site, its database and its object store run on one machine, described by
+`compose.yaml` and built by `Dockerfile`. This document is the order to do
+things in, and the reasons for the two or three steps that are not obvious.
+
+Target: `https://zardonis.skill-uv.com`, on a VPS running Coolify.
+
+## What has to be true before anything else
+
+**The origin is decided at build time, not at run time.** `NEXT_PUBLIC_SITE_URL`
+ends up inside the built pages: every canonical URL, every language alternate,
+every entry in the sitemap, the share images and the links inside the
+curriculum vitae. Setting it only as a runtime variable produces a site whose
+every address points at `localhost`, and nothing about it looks broken until a
+search engine reads it. It is passed as a build argument in `compose.yaml`;
+in Coolify it must be marked as a **build variable**, not only a runtime one.
+
+**The build reads the database.** The pages are prerendered from it rather than
+fetched in the browser, so `next build` opens a connection. That is why there
+are two connection strings:
+
+| Variable | Used by | Points at |
+| --- | --- | --- |
+| `BUILD_DATABASE_URL` | the build | `127.0.0.1:5432`, the port Postgres binds on the host |
+| `DATABASE_URL` | the server and the migrations | `db:5432`, the service name inside the project |
+
+A build container is not attached to the project's network, which is why the
+build service uses the host network and the host-bound port. Postgres is bound
+to `127.0.0.1` and not to the machine's public address, so nothing outside the
+server can reach it either way.
+
+## DNS
+
+Two records, both pointing at the server:
+
+```
+zardonis.skill-uv.com         A     <server address>
+media.zardonis.skill-uv.com   A     <server address>
+```
+
+The second serves the object store. It is a separate name because a browser
+fetches uploaded images directly from MinIO, and the origin it fetches them
+from is not the one the server writes to.
+
+Resend adds its own records on `skill-uv.com`. They are given by its dashboard
+when the domain is added, and mail does not leave until they resolve.
+
+## Secrets
+
+Generated once, on a machine you trust, and never regenerated afterwards
+without knowing what it costs.
+
+```bash
+npm run console:secrets     # CONSOLE_PATH, ADMIN_PASSWORD_HASH, AUTH_SECRET
+openssl rand -base64 24     # POSTGRES_PASSWORD
+openssl rand -base64 24     # MINIO_ROOT_PASSWORD
+```
+
+The values in the local `.env` are for the machine they were made on. **They do
+not travel to the server.** The digest there has been pasted into a terminal, a
+console and possibly a chat window; the point of the forced password change on
+first login is that a bootstrap credential is temporary, and one that has been
+copied twice is not a credential at all.
+
+`AUTH_SECRET` signs the console session cookie. Changing it later closes every
+open session, which is the fastest way to lock everyone out on purpose.
+
+## Environment
+
+Everything below goes into Coolify's environment editor for the project.
+Mark `NEXT_PUBLIC_SITE_URL`, `BUILD_DATABASE_URL` and `GITHUB_TOKEN` as build
+variables as well as runtime ones.
+
+```bash
+# Origin, baked into the build
+NEXT_PUBLIC_SITE_URL=https://zardonis.skill-uv.com
+
+# Database
+POSTGRES_USER=zardonis
+POSTGRES_PASSWORD=<generated>
+POSTGRES_DB=zardonis
+DATABASE_URL=postgresql://zardonis:<generated>@db:5432/zardonis?schema=public
+BUILD_DATABASE_URL=postgresql://zardonis:<generated>@127.0.0.1:5432/zardonis?schema=public
+
+# Console
+CONSOLE_PATH=<generated>
+ADMIN_PASSWORD_HASH=<generated>
+AUTH_SECRET=<generated>
+
+# Mail
+RESEND_API_KEY=<from resend>
+MAIL_FROM=Zardonis <jeremie@skill-uv.com>
+MAIL_REPLY_TO=jeremie@skill-uv.com
+
+# Object store
+MINIO_ROOT_USER=zardonis
+MINIO_ROOT_PASSWORD=<generated>
+MINIO_BUCKET=media
+MINIO_ENDPOINT=minio
+MINIO_PORT=9000
+MINIO_USE_SSL=false
+MINIO_PUBLIC_URL=https://media.zardonis.skill-uv.com
+
+# Optional: contribution totals come from the GraphQL API, which needs a token.
+# Without one the yearly figures fall back to the values in src/lib/evidence.ts.
+GITHUB_TOKEN=<read-only token, no scopes>
+```
+
+`MINIO_ENDPOINT` and `MINIO_USE_SSL` describe how the **server** reaches the
+store, which is over the project network without TLS. `MINIO_PUBLIC_URL`
+describes how a **browser** reaches it, which is through the proxy over HTTPS.
+They are different on purpose.
+
+## First deployment
+
+1. Create the project in Coolify from this repository, as a **Docker Compose**
+   resource, with `compose.yaml` as the file.
+2. Paste the environment above. Mark the three build variables.
+3. Point the domain at the `app` service, port 3000, and
+   `media.zardonis.skill-uv.com` at the `minio` service, port 9000.
+4. Deploy. The order is enforced by the file itself: Postgres starts, the
+   `migrate` container applies the migrations and exits, the `bucket` container
+   creates the bucket and opens it for reading, and only then does the server
+   start.
+5. Load the content once:
+
+   ```bash
+   docker compose run --rm migrate npm run db:seed:deploy
+   ```
+
+   The seed is idempotent and keyed by slug, so running it again later updates
+   what `prisma/seed-data.ts` describes and removes entries it no longer
+   contains. Everything written from the console afterwards is yours to keep,
+   which is the reason not to run it casually.
+
+## Checks that catch the deployment mistakes
+
+Run these before telling anyone the site exists.
+
+```bash
+curl -s https://zardonis.skill-uv.com/sitemap.xml | head -20   # absolute, real domain
+curl -sI https://zardonis.skill-uv.com/en/cv.pdf               # application/pdf
+curl -sI https://zardonis.skill-uv.com/en/opengraph-image      # image/png
+curl -sI https://zardonis.skill-uv.com/nothing-here            # 404, not 200
+curl -s  https://zardonis.skill-uv.com/robots.txt              # Host and Sitemap on the real domain
+curl -sI https://zardonis.skill-uv.com/console/wrong-path      # 404
+```
+
+If the sitemap says `localhost`, the origin was set as a runtime variable
+only and the build has to be run again. Nothing else fixes it.
+
+Then, in a browser: open `/console/<CONSOLE_PATH>`, sign in with the bootstrap
+password, and change it. The console refuses to go anywhere else until you do.
+
+## Afterwards
+
+**Updating.** Push, redeploy. Migrations run on their own before the new server
+starts; if one fails the deployment fails and the old container keeps serving.
+
+**Backups.** Two things hold state: the database, and the MinIO volume.
+
+```bash
+docker compose exec db pg_dump -U zardonis zardonis | gzip > backup-$(date +%F).sql.gz
+docker run --rm -v zardonis_media:/data -v "$PWD:/out" alpine \
+  tar czf /out/media-$(date +%F).tar.gz -C /data .
+```
+
+A backup nobody has restored is a hope rather than a backup. Restore one into
+a local database once, early, while there is little to lose.
+
+**The pages refresh themselves** every hour, so an edit made in the console
+appears within the hour without a deployment. A write from the console
+revalidates the whole tree immediately, so in practice it appears at once; the
+hour is the floor for anything that changes outside it, such as the GitHub
+figures.

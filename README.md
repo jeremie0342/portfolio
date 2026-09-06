@@ -155,6 +155,13 @@ every reader with JavaScript sees the page; a reader without it sees an empty
 one. Next's `globalNotFound` would fix that at the cost of an experimental flag
 and a second, unlocalised 404 template.
 
+## Deployment
+
+`Dockerfile` and `compose.yaml` describe the whole thing: the server, Postgres
+and MinIO on one machine. The runbook, including the two connection strings and
+the reason the origin has to be a build variable, is in
+[docs/deployment.md](docs/deployment.md).
+
 ## Tests
 
 ```bash
