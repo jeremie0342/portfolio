@@ -56,9 +56,6 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Types
-        run: npm run typecheck
-
       - name: Schema and content
         run: |
           npx prisma migrate deploy
@@ -76,6 +73,13 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      # After the build, and that order is not a preference. The route helper
+      # types and the declarations for imported images are written by the build
+      # itself, into .next and next-env.d.ts, neither of which is committed.
+      # Run before it, tsc reports two dozen missing names that exist.
+      - name: Types
+        run: npm run typecheck
 
       - name: End to end
         run: |
