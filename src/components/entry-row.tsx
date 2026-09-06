@@ -45,9 +45,13 @@ export async function EntryRow({ entry }: { entry: ArchiveEntry }) {
           ) : null}
         </p>
 
-        <h3 className="t-display text-display-m mt-3 group-hover:text-accent transition-colors">
+        {/* A level two heading, not three. These rows are the first thing
+            under the page title on the front page and on the index, and a
+            document that jumps from one to three is a document a screen reader
+            announces as having a missing section. */}
+        <h2 className="t-display text-display-m mt-3 group-hover:text-accent transition-colors">
           {entry.title}
-        </h3>
+        </h2>
 
         {entry.summary ? (
           <p className="measure t-register text-content-muted mt-3">

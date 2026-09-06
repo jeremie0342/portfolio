@@ -168,6 +168,16 @@ someone will find broken the first time they use the switch.
 outlines and effective contrast drops below 2:1. Degree 50 stays ivory or
 gold.
 
+### Opacity is not a colour
+
+A colour that passes the contrast rule fails it the moment it is dimmed, and
+the ratio nobody measures is the one applied by an `opacity` further up the
+tree. The note under a stamp was set at three quarters and measured 3.2:1 on
+the light ground where the same colour at full strength measures 5.15:1.
+
+The rule that follows: hierarchy at small sizes comes from size, tracking and
+case, never from opacity. Opacity is for the things that move.
+
 ## Loading
 
 ```

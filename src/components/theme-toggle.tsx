@@ -78,12 +78,16 @@ export function ThemeToggle({ label }: { label: string }) {
   }
 
   return (
+    /* The name is built from a hidden prefix rather than replaced by a label.
+       Someone driving the page by voice says what they can see, and a control
+       whose spoken name does not contain its visible word cannot be reached
+       that way. */
     <button
       type="button"
       onClick={toggle}
-      aria-label={label}
       className="t-meta text-content-muted hover:text-accent transition-colors"
     >
+      <span className="sr-only">{label} : </span>
       {theme === "light" ? "Light" : "Dark"}
     </button>
   );

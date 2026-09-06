@@ -23,9 +23,11 @@ export function LocaleSwitch({
     <Link
       href={pathname}
       locale={target}
-      aria-label={label}
       className="t-meta text-content-muted hover:text-accent transition-colors"
     >
+      {/* Same rule as the theme control: the spoken name has to contain the
+          two letters that are on screen. */}
+      <span className="sr-only">{label} : </span>
       {target.toUpperCase()}
     </Link>
   );
