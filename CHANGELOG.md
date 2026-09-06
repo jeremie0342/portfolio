@@ -200,6 +200,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   published entry is looked at in minutes rather than on a crawler's own
   schedule. Off without a key, and silent from a laptop.
 
+- A diagram on the roadmap entry: the five workstreams in dependency order,
+  each with the days it was estimated at. The entry argued that the order was a
+  chain rather than a preference; now it shows the chain.
+
 ### Fixed
 
 - Three accessibility defects a Lighthouse audit of the deployed site found:

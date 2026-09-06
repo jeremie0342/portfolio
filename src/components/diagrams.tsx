@@ -10,7 +10,7 @@ import { SchemaFigure, type Tier } from "./schema-figure";
  * console offers a list rather than a free text field.
  */
 
-export const diagramKeys = ["ubbfy", "skilluv", "pipeline"] as const;
+export const diagramKeys = ["ubbfy", "skilluv", "pipeline", "roadmap"] as const;
 
 export type DiagramKey = (typeof diagramKeys)[number];
 
