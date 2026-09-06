@@ -176,13 +176,22 @@ starts; if one fails the deployment fails and the old container keeps serving.
 **Backups.** Two things hold state: the database, and the MinIO volume.
 
 ```bash
-docker compose exec db pg_dump -U zardonis zardonis | gzip > backup-$(date +%F).sql.gz
+docker compose exec db pg_dump -U zardonis --no-owner zardonis \
+  | gzip > backup-$(date +%F).sql.gz
 docker run --rm -v zardonis_media:/data -v "$PWD:/out" alpine \
   tar czf /out/media-$(date +%F).tar.gz -C /data .
 ```
 
-A backup nobody has restored is a hope rather than a backup. Restore one into
-a local database once, early, while there is little to lose.
+`--no-owner` is not decoration. Without it the dump names the role that owns
+the tables, and restoring it where that role does not exist stops on the first
+statement. Then copy both files off the server: a backup that lives beside the
+thing it protects covers a mistake and nothing else.
+
+A backup nobody has restored is a hope rather than a backup. This one has been:
+dumped from production, copied to a laptop, restored into a scratch database
+and counted against the original. Sixteen projects, one world, one credential,
+three positions, forty-two translations, four profiles and one console account,
+on both sides.
 
 **The pages refresh themselves** every hour, so an edit made in the console
 appears within the hour without a deployment. A write from the console
