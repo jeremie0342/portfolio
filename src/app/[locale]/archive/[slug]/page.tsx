@@ -4,7 +4,7 @@ import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { getEntry, listSlugs, type ArchiveEntry } from "@/lib/entries";
+import { getEntry, type ArchiveEntry } from "@/lib/entries";
 import { displayWorn } from "@/lib/fonts";
 import { SiteHeader } from "@/components/site-header";
 import { JsonLd } from "@/components/json-ld";
@@ -15,12 +15,10 @@ import { breadcrumbSchema, entrySchema, graph } from "@/lib/schema";
 
 export const revalidate = 3600;
 
-export async function generateStaticParams() {
-  const slugs = await listSlugs();
-
-  return routing.locales.flatMap((locale) =>
-    slugs.map((slug) => ({ locale, slug })),
-  );
+/* Empty for the reason given in the layout: the build does not read the
+   database. Entries are rendered on first request and revalidated hourly. */
+export function generateStaticParams() {
+  return [];
 }
 
 export async function generateMetadata(

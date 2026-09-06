@@ -12,8 +12,10 @@ import { buildCv } from "@/lib/cv";
  */
 export const revalidate = 3600;
 
+/* Empty, like every other route here: the document is drawn from the database
+   and the build has none. */
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return [];
 }
 
 export async function GET(

@@ -17,6 +17,26 @@ function createClient() {
 }
 
 /*
+ * Opened on the first query rather than on import.
+ *
+ * A module that connects when it is loaded makes every file that imports it,
+ * however indirectly, require a reachable database at the moment the bundle is
+ * evaluated. That includes the build. Deferring it to the first property
+ * access means the code can be loaded, analysed and bundled without a
+ * database, and the error, when there is one, names the query that wanted it.
+ */
+function lazy(): PrismaClient {
+  return new Proxy({} as PrismaClient, {
+    get(_target, property) {
+      const client = (globalForPrisma.prisma ??= createClient());
+      const value = Reflect.get(client, property);
+
+      return typeof value === "function" ? value.bind(client) : value;
+    },
+  });
+}
+
+/*
  * In development the module graph is rebuilt on every change, which would
  * otherwise open a new pool on each reload and exhaust Postgres within a few
  * dozen edits. Pinning the instance to the global object outlives those
@@ -26,8 +46,4 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
-export const db = globalForPrisma.prisma ?? createClient();
-
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = db;
-}
+export const db = lazy();

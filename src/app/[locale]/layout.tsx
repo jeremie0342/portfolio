@@ -10,8 +10,24 @@ import { Loader } from "@/components/loader";
 import { languageAlternates, siteName, siteUrl } from "@/lib/site";
 import "../globals.css";
 
+/**
+ * Deliberately empty.
+ *
+ * Every page on this site is drawn from the database, so prerendering them at
+ * build time means the build needs a database that is migrated and filled.
+ * That is a real dependency to carry: it has to exist before the image that
+ * creates it has been built, which is a circle, and it turns any deployment
+ * into an ordering problem.
+ *
+ * Nothing is prerendered instead. A page is rendered on its first request and
+ * kept for an hour, exactly as it was before; the only cost is that the first
+ * visitor after a deployment waits for a render that used to happen during the
+ * build. On a site of this size that is a fraction of a second, paid once per
+ * page per hour, in exchange for a build that cannot fail because a database
+ * was not ready.
+ */
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return [];
 }
 
 export async function generateMetadata(

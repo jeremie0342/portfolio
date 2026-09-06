@@ -16,19 +16,19 @@ every address points at `localhost`, and nothing about it looks broken until a
 search engine reads it. It is passed as a build argument in `compose.yaml`;
 in Coolify it must be marked as a **build variable**, not only a runtime one.
 
-**The build reads the database.** The pages are prerendered from it rather than
-fetched in the browser, so `next build` opens a connection. That is why there
-are two connection strings:
+**The build does not read the database.** Nothing is prerendered from it: a
+page is rendered on its first request and kept for an hour.
 
-| Variable | Used by | Points at |
-| --- | --- | --- |
-| `BUILD_DATABASE_URL` | the build | `127.0.0.1:5432`, the port Postgres binds on the host |
-| `DATABASE_URL` | the server and the migrations | `db:5432`, the service name inside the project |
+That is a deliberate reversal, and it was learned the hard way. Prerendering
+meant the build needed a database that was migrated and filled, which on a
+first deployment does not exist yet, because the deployment that would create
+it is the one waiting on the build. The way out of the circle was to take the
+database out of the build.
 
-A build container is not attached to the project's network, which is why the
-build service uses the host network and the host-bound port. Postgres is bound
-to `127.0.0.1` and not to the machine's public address, so nothing outside the
-server can reach it either way.
+What it costs: the first visitor to a page after a deployment waits for a
+render rather than receiving a file, a few hundred milliseconds, once per page
+per hour. What it buys: a build that cannot fail for want of a service, no
+ordering to respect, and one connection string instead of two.
 
 ## DNS
 
@@ -53,9 +53,14 @@ without knowing what it costs.
 
 ```bash
 npm run console:secrets     # CONSOLE_PATH, ADMIN_PASSWORD_HASH, AUTH_SECRET
-openssl rand -base64 24     # POSTGRES_PASSWORD
-openssl rand -base64 24     # MINIO_ROOT_PASSWORD
+openssl rand -hex 24        # POSTGRES_PASSWORD
+openssl rand -hex 24        # MINIO_ROOT_PASSWORD
 ```
+
+Hexadecimal rather than base64. The Postgres password travels inside a
+connection URL, where the `+` and `/` that base64 produces are ambiguous and
+produce an authentication failure that explains nothing. Avoid `$` in any of
+these for a related reason: Compose reads it as the start of a variable.
 
 The values in the local `.env` are for the machine they were made on. **They do
 not travel to the server.** The digest there has been pasted into a terminal, a
@@ -69,8 +74,9 @@ open session, which is the fastest way to lock everyone out on purpose.
 ## Environment
 
 Everything below goes into Coolify's environment editor for the project.
-Mark `NEXT_PUBLIC_SITE_URL`, `BUILD_DATABASE_URL` and `GITHUB_TOKEN` as build
-variables as well as runtime ones.
+Mark `NEXT_PUBLIC_SITE_URL` and `GITHUB_TOKEN` as build variables as well as
+runtime ones: they are read while the image is built, and a runtime-only
+origin produces a site whose every address says `localhost`.
 
 ```bash
 # Origin, baked into the build
@@ -81,7 +87,6 @@ POSTGRES_USER=zardonis
 POSTGRES_PASSWORD=<generated>
 POSTGRES_DB=zardonis
 DATABASE_URL=postgresql://zardonis:<generated>@db:5432/zardonis?schema=public
-BUILD_DATABASE_URL=postgresql://zardonis:<generated>@127.0.0.1:5432/zardonis?schema=public
 
 # Console
 CONSOLE_PATH=<generated>
@@ -90,7 +95,7 @@ AUTH_SECRET=<generated>
 
 # Mail
 RESEND_API_KEY=<from resend>
-MAIL_FROM=Zardonis <jeremie@skill-uv.com>
+MAIL_FROM=jeremie@skill-uv.com
 MAIL_REPLY_TO=jeremie@skill-uv.com
 
 # Object store
@@ -101,6 +106,10 @@ MINIO_ENDPOINT=minio
 MINIO_PORT=9000
 MINIO_USE_SSL=false
 MINIO_PUBLIC_URL=https://media.zardonis.skill-uv.com
+
+# The sending name belongs in Resend rather than here: angle brackets and a
+# space survive neither a bulk environment editor nor Compose interpolation
+# reliably.
 
 # Optional: contribution totals come from the GraphQL API, which needs a token.
 # Without one the yearly figures fall back to the values in src/lib/evidence.ts.
@@ -115,8 +124,12 @@ They are different on purpose.
 ## First deployment
 
 1. Create the project in Coolify from this repository, as a **Docker Compose**
-   resource, with `compose.yaml` as the file.
-2. Paste the environment above. Mark the three build variables.
+   resource, with `/compose.yaml` as the file. Choose that build pack when the
+   resource is created rather than switching to it afterwards: the default is
+   Nixpacks, which ignores both the Dockerfile and this file, guesses Node 22
+   and fails on Prisma, and the page that changes it has been seen to throw on
+   a resource that has no domain yet.
+2. Paste the environment above. Mark the two build variables.
 3. Point the domain at the `app` service, port 3000, and
    `media.zardonis.skill-uv.com` at the `minio` service, port 9000.
 4. Deploy. The order is enforced by the file itself: Postgres starts, the
