@@ -6,14 +6,11 @@
  */
 export const contact = {
   email: "jeremie@skill-uv.com",
-  /* The personal address stays listed: it is the one on the GitHub profile and
-     on the curriculum vitae, and a reader who found it there should not wonder
-     whether it still works. */
-  personalEmail: "jeremiezitti@gmail.com",
-  /* Kept as two fields: one for the tel: href, which must not contain spaces,
-     and one for the eye. */
-  phone: "+2290152007017",
-  phoneDisplay: "+229 01 52 00 70 17",
+  /* The number and the personal address are deliberately absent.
+     Both were printed in full on two public, indexed pages, which is the
+     shortest path a harvester takes to a phone that then rings at dinner. The
+     form is protected, the address on it is monitored, and a number can be
+     given in the first reply to a message worth answering. */
   city: "Cotonou",
   country: "Bénin",
   timezone: "GMT+1",

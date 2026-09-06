@@ -56,7 +56,6 @@ export async function personSchema(locale: Locale) {
        keeps the two from disagreeing. */
     image: `${siteUrl}${portrait.src}`,
     email: `mailto:${contact.email}`,
-    telephone: contact.phone,
     address: {
       "@type": "PostalAddress",
       addressLocality: contact.city,

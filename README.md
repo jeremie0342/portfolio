@@ -141,6 +141,20 @@ forty kilobytes. The two TrueType weights of Author are generated from the
 variable file by `scripts/pdf-fonts.py` and committed, since fontTools is not
 a build dependency.
 
+## Missing addresses
+
+`app/[locale]/not-found.tsx` answers both cases: an entry that no longer exists
+and an address that never did. The second needs the catch-all at
+`app/[locale]/[...rest]`, because an unmatched path otherwise leaves the
+localised tree and gets the framework's own page.
+
+One consequence is worth knowing. The root layout is under a dynamic segment,
+so Next has no static shell to put a not-found page in and delivers it through
+the streaming payload instead of the first HTML. The status code is 404 and
+every reader with JavaScript sees the page; a reader without it sees an empty
+one. Next's `globalNotFound` would fix that at the cost of an experimental flag
+and a second, unlocalised 404 template.
+
 ## Tests
 
 ```bash

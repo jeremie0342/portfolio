@@ -95,7 +95,6 @@
       "lead": "Designing a product, taking over a system that grew too fast, or carrying the technical side of a team that has none.",
       "body": "Write with the problem rather than with the expected solution: what does not work today, for whom, and by when. One page is enough, and a thirty minute call is usually enough to tell whether it makes sense.\n\nI reply within two working days, and I say so when it is not for me.",
       "email": "Email",
-      "phone": "Phone",
       "more": "Every way to reach me",
       "code": "Code",
       "document": "Document"
@@ -167,13 +166,11 @@
   },
   "contact": {
     "metaTitle": "Contact",
-    "metaDescription": "Write to Zardonis Jérémie ZITTI: form, email, phone and public profiles.",
+    "metaDescription": "Write to Zardonis Jérémie ZITTI: form, email and public profiles.",
     "title": "Contact",
-    "intro": "The form goes straight to my inbox. If you would rather use email or the phone, everything is below.",
+    "intro": "The form goes straight to my inbox. If you would rather use email, the address is below.",
     "direct": "Direct",
     "email": "Email",
-    "personalEmail": "Personal email",
-    "phone": "Phone",
     "location": "Location",
     "elsewhere": "Elsewhere",
     "organisations": "Organisations",
@@ -377,5 +374,12 @@
     "stamp": "Current version at {url}",
     "download": "CV as a PDF",
     "location": "Cotonou, Benin (GMT+1)"
+  },
+  "notFound": {
+    "number": "404",
+    "title": "Nothing is filed under this number",
+    "body": "The address exists, the item does not. Either it was never filed, or it has been renumbered since the link you followed was written. The index says what the archive holds today.",
+    "archive": "Enter the archive",
+    "home": "Back to the beginning"
   }
 }

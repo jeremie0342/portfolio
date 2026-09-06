@@ -399,18 +399,6 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
               </dd>
             </div>
 
-            <div className="border-t border-rule py-5">
-              <dt className="t-meta text-accent">{t("reach.phone")}</dt>
-              <dd className="t-register mt-2">
-                <a
-                  href={`tel:${contact.phone}`}
-                  className="decoration-accent underline-offset-4 hover:text-accent underline transition-colors"
-                >
-                  {contact.phoneDisplay}
-                </a>
-              </dd>
-            </div>
-
             {/* The account, from the front page. A reader who wants to see the
                 code before writing should not have to find the contact page
                 first, and most of the work in this archive is public. */}

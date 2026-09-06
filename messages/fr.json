@@ -95,7 +95,6 @@
       "lead": "Concevoir un produit, reprendre un système qui a grossi trop vite, ou porter la technique d’une équipe qui n’en a pas.",
       "body": "Écrivez-moi avec le problème plutôt qu’avec la solution attendue : ce qui ne fonctionne pas aujourd’hui, pour qui, et à quelle échéance. Une page suffit, et un appel de trente minutes suffit souvent à savoir si cela a du sens.\n\nJe réponds sous deux jours ouvrés, et je le dis quand ce n’est pas pour moi.",
       "email": "Courriel",
-      "phone": "Téléphone",
       "more": "Tous les moyens de me joindre",
       "code": "Code",
       "document": "Document"
@@ -167,13 +166,11 @@
   },
   "contact": {
     "metaTitle": "Contact",
-    "metaDescription": "Écrire à Zardonis Jérémie ZITTI : formulaire, courriel, téléphone et profils publics.",
+    "metaDescription": "Écrire à Zardonis Jérémie ZITTI : formulaire, courriel et profils publics.",
     "title": "Contact",
-    "intro": "Le formulaire arrive directement dans ma boîte de réception. Si vous préférez le courriel ou le téléphone, tout est plus bas.",
+    "intro": "Le formulaire arrive directement dans ma boîte de réception. Si vous préférez le courriel, l’adresse est plus bas.",
     "direct": "Direct",
     "email": "Courriel",
-    "personalEmail": "Courriel personnel",
-    "phone": "Téléphone",
     "location": "Localisation",
     "elsewhere": "Ailleurs",
     "organisations": "Organisations",
@@ -377,5 +374,12 @@
     "stamp": "Version à jour sur {url}",
     "download": "CV en PDF",
     "location": "Cotonou, Bénin (GMT+1)"
+  },
+  "notFound": {
+    "number": "404",
+    "title": "Cette cote ne correspond à rien",
+    "body": "L’adresse existe, la pièce non. Soit elle n’a jamais été versée, soit elle a changé de numéro depuis le lien que vous avez suivi. L’index dit ce que l’archive contient aujourd’hui.",
+    "archive": "Entrer dans l’archive",
+    "home": "Revenir au début"
   }
 }

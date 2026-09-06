@@ -61,16 +61,6 @@ export default async function Contact({
       href: `mailto:${contact.email}`,
     },
     {
-      label: t("personalEmail"),
-      value: contact.personalEmail,
-      href: `mailto:${contact.personalEmail}`,
-    },
-    {
-      label: t("phone"),
-      value: contact.phoneDisplay,
-      href: `tel:${contact.phone}`,
-    },
-    {
       label: t("location"),
       value: `${contact.city}, ${contact.country} (${contact.timezone})`,
       href: null,
