@@ -540,6 +540,7 @@ export const entries: Seed[] = [
   },
   {
     slug: "ubbfy-roadmap",
+    diagram: "roadmap",
     number: 22,
     parent: "ubbfy",
     rank: 1,

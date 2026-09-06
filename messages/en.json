@@ -344,6 +344,56 @@
         }
       ],
       "caption": "Five isolated stages rather than one script: a failure while collecting does not corrupt the warehouse, and every run carries an identifier that follows it through the logs end to end. That is what answers the only question anyone asks at three in the morning: which run, which stage."
+    },
+    "roadmap": {
+      "title": "The order of the work",
+      "tiers": [
+        {
+          "nodes": [
+            {
+              "label": "Catalogue",
+              "note": "delivered: products and services",
+              "lead": true
+            }
+          ],
+          "link": "unblocks"
+        },
+        {
+          "nodes": [
+            {
+              "label": "Stock",
+              "note": "34 to 43 days: levels, movements, warehouses, traceability"
+            }
+          ],
+          "link": "unblocks"
+        },
+        {
+          "nodes": [
+            {
+              "label": "Logistics",
+              "note": "27 to 34 days: picking, shipping, rounds"
+            },
+            {
+              "label": "Accounting",
+              "note": "50 to 62 days: entries from invoicing, payroll and stock movements"
+            }
+          ],
+          "link": "then, independent of each other"
+        },
+        {
+          "nodes": [
+            {
+              "label": "Documents",
+              "note": "22 to 27 days: import, versions, approval"
+            },
+            {
+              "label": "Administration and shop",
+              "note": "48 to 63 days: languages, workflows, backup, e-commerce"
+            }
+          ]
+        }
+      ],
+      "caption": "A hundred and eighty-one to two hundred and twenty-nine days, in an order that is not a preference: accounting consumes what the others produce, so it cannot come first. It is designed for France and the OHADA zone at once, an arbitration taken before the module existed rather than after it."
     }
   },
   "shots": {

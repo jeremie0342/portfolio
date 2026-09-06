@@ -344,6 +344,56 @@
         }
       ],
       "caption": "Cinq étages isolés plutôt qu’un script : une défaillance à la collecte ne corrompt pas l’entrepôt, et chaque exécution porte un identifiant qu’on retrouve dans les journaux d’un bout à l’autre. C’est ce qui permet de répondre, à trois heures du matin, à la seule question qui se pose : quelle exécution, quel étage."
+    },
+    "roadmap": {
+      "title": "L’ordre des chantiers",
+      "tiers": [
+        {
+          "nodes": [
+            {
+              "label": "Catalogue",
+              "note": "livré, produits et services",
+              "lead": true
+            }
+          ],
+          "link": "débloque"
+        },
+        {
+          "nodes": [
+            {
+              "label": "Stocks",
+              "note": "34 à 43 jours · niveaux, mouvements, entrepôts, traçabilité"
+            }
+          ],
+          "link": "débloque"
+        },
+        {
+          "nodes": [
+            {
+              "label": "Logistique",
+              "note": "27 à 34 jours · préparation, expédition, tournées"
+            },
+            {
+              "label": "Comptabilité",
+              "note": "50 à 62 jours · écritures depuis la facturation, la paie et les mouvements"
+            }
+          ],
+          "link": "puis, sans dépendance entre eux"
+        },
+        {
+          "nodes": [
+            {
+              "label": "Documents",
+              "note": "22 à 27 jours · import, versions, validation"
+            },
+            {
+              "label": "Administration et boutique",
+              "note": "48 à 63 jours · langues, workflows, sauvegarde, e-commerce"
+            }
+          ]
+        }
+      ],
+      "caption": "Cent quatre-vingt-un à deux cent vingt-neuf jours, et un ordre qui n’est pas une préférence : la comptabilité consomme ce que les autres produisent, elle ne peut donc pas passer en premier. Elle est conçue pour la France et la zone OHADA à la fois, un arbitrage pris avant que le module existe plutôt qu’après."
     }
   },
   "shots": {
