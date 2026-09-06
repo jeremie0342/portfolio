@@ -35,6 +35,14 @@ const TRAVEL_MS = 760;
    what follows rather than extending the wait. */
 const CEILING_MS = 3000;
 
+/* What the sequence costs on a return visit, as a fraction of itself.
+   The opening earns its length once: it is how the wordmark is introduced, and
+   somebody meeting the site deserves to watch it arrive. The fourth time in
+   ten minutes it is a door that sticks. Halved rather than dropped, because a
+   page that appears with no transition at all reads as a different site. */
+const RETURN_PACE = 0.5;
+const SEEN = "opening";
+
 type Phase = "resolving" | "travelling" | "done";
 
 /* Ease out cubic, so the count decelerates into its final value instead of
@@ -50,6 +58,13 @@ export function Loader({ count }: { count: number }) {
 
   const mark = useRef<HTMLParagraphElement>(null);
 
+  /* Held in a ref rather than in state: the server renders this component into
+     the document and has no way of knowing whether this tab has seen the
+     opening before, so reading the answer during render would mean one markup
+     on the server and another on the client. A layout effect runs before the
+     first paint, which is early enough. */
+  const pace = useRef(1);
+
   /*
    * The root carries the phase so CSS can hold the page back and release it,
    * without the loader having to know anything about the pages. Set before
@@ -57,21 +72,46 @@ export function Loader({ count }: { count: number }) {
    * document is simply visible, which is the behaviour a crawler gets.
    */
   useLayoutEffect(() => {
+    /* Session storage rather than local: a tab is the unit that matches what
+       a reader experiences as one visit, and tomorrow they should see the
+       opening again. Wrapped, because a browser set to refuse storage throws
+       on the read rather than returning nothing. */
+    try {
+      if (sessionStorage.getItem(SEEN)) {
+        pace.current = RETURN_PACE;
+      }
+
+      sessionStorage.setItem(SEEN, "1");
+    } catch {
+      /* No storage, no memory, full sequence every time. */
+    }
+
+    if (pace.current !== 1) {
+      /* The travel is a CSS transition, so its duration lives in the variable
+         the stylesheet reads rather than in this file. */
+      document.documentElement.style.setProperty(
+        "--opening-travel",
+        `${Math.round(TRAVEL_MS * pace.current)}ms`,
+      );
+    }
+
     document.documentElement.dataset.opening = "playing";
   }, []);
 
   useEffect(() => {
     const started = performance.now();
+    const rate = pace.current;
+    const resolve = RESOLVE_MS * rate;
 
     const ticking = setInterval(() => {
       setStep((current) => Math.min(current + 1, wearSequence.length - 1));
-    }, STEP_MS);
+    }, STEP_MS * rate);
 
     /* The counter runs on its own clock rather than on the wear steps: six
        jumps for twenty entries reads as a stutter, and the number is the part
        a reader watches. */
     let frame = requestAnimationFrame(function tick(now) {
-      const progress = Math.min(1, (now - started) / RESOLVE_MS);
+      const progress = Math.min(1, (now - started) / resolve);
       setReached(Math.round(count * eased(progress)));
 
       if (progress < 1) {
@@ -90,7 +130,7 @@ export function Loader({ count }: { count: number }) {
     void ready.then(() => {
       const remaining = Math.max(
         0,
-        RESOLVE_MS + HOLD_MS - (performance.now() - started),
+        resolve + HOLD_MS * rate - (performance.now() - started),
       );
 
       travel = setTimeout(() => {
@@ -114,7 +154,7 @@ export function Loader({ count }: { count: number }) {
         }
 
         setPhase("travelling");
-        land = setTimeout(() => setPhase("done"), TRAVEL_MS);
+        land = setTimeout(() => setPhase("done"), TRAVEL_MS * rate);
       }, remaining);
     });
 

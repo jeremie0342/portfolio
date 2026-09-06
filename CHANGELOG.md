@@ -153,6 +153,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- The opening runs in full on the first arrival in a tab and at half pace on
+  every load after it. It earns its length once; the fourth time in ten minutes
+  it is a door that sticks.
+
 - The front page leads with the work and follows with the method. A reader
   arrives asking whether the person has built anything, not how they go about
   it, and answering the second question first asks them to take the first on

@@ -189,6 +189,17 @@ that occupies half the viewport.
 Redaction outlines are heavy, since the halftone multiplies the point count,
 so subsetting is required. Budget: **under 250 KB** of type per page.
 
+### The opening
+
+The sequence runs 2.2 seconds: six wear steps at 190 ms, a hold, then the
+travel onto the masthead. It earns that length once, because it is how the
+wordmark is introduced, and a reader meeting the site should watch it arrive.
+
+On any later load in the same tab it runs at half pace, which the layout effect
+decides from session storage before the first paint. Halved rather than
+dropped: a page that appears with no transition at all reads as a different
+site than the one the reader just left.
+
 ## Forbidden
 
 - A fourth family.
